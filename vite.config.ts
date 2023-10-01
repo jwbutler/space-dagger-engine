@@ -10,7 +10,7 @@ const config: UserConfig = {
         'src/graphics/index.ts',
         'src/utils/index.ts'
       ],
-      name: '@jwbutler/space-engine',
+      name: 'space-engine',
       formats: ['es']
     }
   }
