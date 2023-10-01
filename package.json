@@ -1,6 +1,6 @@
 {
-  "name": "space-engine",
-  "version": "0.0.3",
+  "name": "@jwbutler/space-engine",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
