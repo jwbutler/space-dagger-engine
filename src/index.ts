@@ -4,7 +4,7 @@ import { init } from './core/init';
 import { GlobalScript } from './events/GlobalScript';
 import { TickEvent } from './events/TickEvent';
 import { Camera } from './geometry/Camera';
-import { Keyboard } from './input/Keyboard';
+import { Keyboard, HeldKey } from './input/Keyboard';
 
 export { Camera, Engine, Keyboard, Scene, init };
-export type { GlobalScript, TickEvent };
+export type { GlobalScript, TickEvent, HeldKey };

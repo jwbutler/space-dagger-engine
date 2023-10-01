@@ -7,7 +7,7 @@ import { Graphics } from '../graphics/Graphics.ts';
 import { update } from './update.ts';
 import { renderScene } from './renderScene.ts';
 import { renderUserInterface } from './renderUserInterface.ts';
-import { getCurrentTimeSeconds } from '../utils/getCurrentTimeMillis.ts';
+import { getCurrentTimeSeconds } from '../utils/getCurrentTimeSeconds.ts';
 
 const MIN_DT = 0.0001;
 
