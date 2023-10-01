@@ -4,7 +4,7 @@ const config: UserConfig = {
   build: {
     lib: {
       entry: 'src/index.ts',
-      name: 'space-engine',
+      name: '@jwbutler/space-engine',
       formats: ['es']
     }
   }
