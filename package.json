@@ -1,6 +1,6 @@
 {
   "name": "@jwbutler/space-engine",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
@@ -22,5 +22,22 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    },
+    "./entities": {
+      "import": "./src/entities/index.ts"
+    },
+    "./geometry": {
+      "import": "./src/geometry/index.ts"
+    },
+    "./graphics": {
+      "import": "./src/graphics/index.ts"
+    },
+    "./utils": {
+      "import": "./src/utils/index.ts"
+    }
   }
 }
