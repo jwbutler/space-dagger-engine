@@ -39,7 +39,7 @@ test('render', () => {
   };
   const scene = {
     // TODO these should probably be different references
-    getBuffer: () => graphics,
+    getGraphics: () => graphics,
     getViewport: () => graphics,
     getBackgroundColor: () => 'red',
     getBackgroundImage: () => backgroundImage,

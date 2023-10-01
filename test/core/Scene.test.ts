@@ -5,6 +5,7 @@ import { Coordinates } from '../../src/geometry/Coordinates';
 import { Dimensions } from '../../src/geometry/Dimensions';
 import { Entity } from '../../src/entities/Entity';
 import { Graphics } from '../../src/graphics/Graphics';
+import { SceneImpl } from '../../src/core/SceneImpl';
 
 test('scene', () => {
   const image = {} as unknown;
@@ -12,13 +13,13 @@ test('scene', () => {
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
   });
-  const scene = Scene.create({
+  const scene = new SceneImpl({
+    name: 'test',
+    graphics: {} as Graphics,
     backgroundColor: 'red',
     backgroundImage: image,
     camera,
-    dimensions: Dimensions.allBalls(),
-    viewport: {} as Graphics,
-    buffer: {} as Graphics
+    dimensions: Dimensions.allBalls()
   });
   expect(scene.getBackgroundColor()).toBe('red');
   expect(scene.getBackgroundImage()).toBe(image);
@@ -32,13 +33,13 @@ test('entities', () => {
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
   });
-  const scene = Scene.create({
+  const scene = new SceneImpl({
+    name: 'test',
     backgroundColor: 'red',
     backgroundImage: image,
     camera,
     dimensions: Dimensions.allBalls(),
-    viewport: {} as Graphics,
-    buffer: {} as Graphics
+    graphics: {} as Graphics
   });
 
   expect(scene.getEntities()).toEqual([]);

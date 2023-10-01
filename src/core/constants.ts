@@ -12,18 +12,23 @@ export const SHIP_MAX_SPEED_BOOSTED = 400;
 export const BULLET_SPEED = 800;
 export const STARTING_FUEL = 100;
 
-export const SCREEN_WIDTH = 1280;
-export const SCREEN_HEIGHT = 720;
+export const VIEWPORT_WIDTH = 1280;
+export const VIEWPORT_HEIGHT = 720;
 
 export const SCENE_WIDTH = 1280 * 3;
 export const SCENE_HEIGHT = 720 * 3;
 export const SCENE_DIMENSIONS = { width: SCENE_WIDTH, height: SCENE_HEIGHT };
 
-export const SCREEN_DIMENSIONS: Dimensions = {
-  width: SCREEN_WIDTH,
-  height: SCREEN_HEIGHT
+export const VIEWPORT_DIMENSIONS: Dimensions = {
+  width: VIEWPORT_WIDTH,
+  height: VIEWPORT_HEIGHT
 };
-export const SCREEN_RECT: Rect = { left: 0, top: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT };
+export const VIEWPORT_RECT: Rect = {
+  left: 0,
+  top: 0,
+  width: VIEWPORT_WIDTH,
+  height: VIEWPORT_HEIGHT
+};
 
 export const BULLET_RADIUS = 5;
 export const TARGET_RADIUS = 20;

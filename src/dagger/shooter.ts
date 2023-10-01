@@ -14,6 +14,7 @@ import { isCollidingWith } from '../entities/functions/isCollidingWith.ts';
 import { gameOver } from './gameOver.ts';
 import { createBullet } from './bullet.ts';
 import distance = Coordinates.distance;
+import { getPlayerShip } from './playerShip.ts';
 
 type Props = Readonly<{
   centerCoordinates: Coordinates;
@@ -26,7 +27,7 @@ const MAX_UPDATE_INTERVAL = 0.75;
 const MIN_SHOOT_INTERVAL = 1.5;
 const MAX_SHOOT_INTERVAL = 3.0;
 const VISION_DISTANCE = 800;
-const SHOOT_DISTANCE = 800;
+const SHOOT_DISTANCE = 200;
 const NEXT_UPDATE_KEY = 'next_update';
 const NEXT_SHOT_KEY = 'next_shot';
 
@@ -34,11 +35,12 @@ const script: EntityScript = {
   update: (shooter: Entity, scene: Scene) => {
     const currentTime = getCurrentTimeSeconds();
     if (currentTime >= getNextUpdateTime(shooter)) {
-      const playerShip = checkNotNull(scene.getEntitiesByName(ENTITY_NAME_PLAYER_SHIP)[0]);
-      if (
-        Coordinates.distance(shooter.getCenterCoordinates(), playerShip.getCenterCoordinates()) <=
-        VISION_DISTANCE
-      ) {
+      const playerShip = getPlayerShip(scene);
+      const distanceToPlayer = Coordinates.distance(
+        shooter.getCenterCoordinates(),
+        playerShip.getCenterCoordinates()
+      );
+      if (distanceToPlayer <= VISION_DISTANCE) {
         const angle = Angle.between(
           shooter.getCenterCoordinates(),
           playerShip.getCenterCoordinates()
@@ -46,7 +48,10 @@ const script: EntityScript = {
         shooter.setAngle(angle);
         shooter.setSpeed(Vector.fromAngle(angle, randInt(MIN_SPEED, MAX_SPEED)));
       }
-      setNextUpdateTime(shooter, currentTime + randFloat(MIN_UPDATE_INTERVAL, MAX_UPDATE_INTERVAL));
+      setNextUpdateTime(
+        shooter,
+        currentTime + randFloat(MIN_UPDATE_INTERVAL, MAX_UPDATE_INTERVAL)
+      );
     }
 
     const playerShip = checkNotNull(scene.getEntitiesByName(ENTITY_NAME_PLAYER_SHIP)[0]);
@@ -68,7 +73,10 @@ const script: EntityScript = {
           targetNames: [ENTITY_NAME_PLAYER_SHIP]
         });
         scene.addEntity(bullet);
-        setNextShotTime(shooter, nextShotTime + randFloat(MIN_SHOOT_INTERVAL, MAX_SHOOT_INTERVAL));
+        setNextShotTime(
+          shooter,
+          nextShotTime + randFloat(MIN_SHOOT_INTERVAL, MAX_SHOOT_INTERVAL)
+        );
       }
     }
   }
@@ -86,8 +94,14 @@ export const createShooter = ({ centerCoordinates }: Props): Entity => {
     script
   });
   const currentTime = getCurrentTimeSeconds();
-  setNextUpdateTime(shooter, currentTime + randFloat(MIN_UPDATE_INTERVAL, MAX_UPDATE_INTERVAL));
-  setNextShotTime(shooter, currentTime + randFloat(MIN_SHOOT_INTERVAL, MAX_SHOOT_INTERVAL));
+  setNextUpdateTime(
+    shooter,
+    currentTime + randFloat(MIN_UPDATE_INTERVAL, MAX_UPDATE_INTERVAL)
+  );
+  setNextShotTime(
+    shooter,
+    currentTime + randFloat(MIN_SHOOT_INTERVAL, MAX_SHOOT_INTERVAL)
+  );
   return shooter;
 };
 

@@ -40,7 +40,10 @@ class VectorSprite implements Sprite {
     const front = getNoseCoordinates(ship);
 
     const backLeft = (() => {
-      const rotatedAngle = Angle.rotateCounterClockwise(angle, Angle.ofDegrees(angleDegrees));
+      const rotatedAngle = Angle.rotateCounterClockwise(
+        angle,
+        Angle.ofDegrees(angleDegrees)
+      );
       return {
         x: center.x + SHIP_RADIUS * Math.cos(rotatedAngle.radians),
         y: center.y + SHIP_RADIUS * Math.sin(rotatedAngle.radians)
@@ -150,7 +153,8 @@ class RasterSprite implements Sprite {
   };
 
   render = (entity: Entity, graphics: Graphics): void => {
-    graphics.drawImage(this.image, Rect.getTopLeft(this.getBoundingRect(entity)), {
+    graphics.drawImage(this.image, {
+      topLeft: Rect.getTopLeft(this.getBoundingRect(entity)),
       rotation: Angle.ofRadians(entity.getAngle().radians + Math.PI / 2)
     });
   };
