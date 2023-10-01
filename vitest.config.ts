@@ -6,10 +6,10 @@ export default defineConfig({
     // Set these as high as you can
     coverage: {
       all: true,
-      statements: 43,
-      branches: 76,
-      functions: 60,
-      lines: 43
+      statements: 52,
+      branches: 83,
+      functions: 69,
+      lines: 52
     }
   }
 });

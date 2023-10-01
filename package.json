@@ -1,12 +1,10 @@
 {
-  "name": "space-dagger",
+  "name": "space-engine",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
     "prettier": "prettier --write src/**/*.ts",
     "lint": "eslint",
     "test": "vitest",
@@ -21,7 +19,6 @@
     "prettier": "^3.0.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vite-plugin-checker": "^0.6.2",
     "vitest": "^0.34.5"
   }
 }
