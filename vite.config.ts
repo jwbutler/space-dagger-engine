@@ -1,16 +1,13 @@
-import vitePlugin_checker from 'vite-plugin-checker';
 import { UserConfig } from 'vite';
 
 const config: UserConfig = {
-  assetsInclude: 'png/**/*.png',
   build: {
-    assetsInlineLimit: 0
-  },
-  plugins: [
-    vitePlugin_checker({
-      typescript: true
-    })
-  ]
+    lib: {
+      entry: 'src/index.ts',
+      name: 'space-engine',
+      formats: ['es']
+    }
+  }
 };
 
 export default config;
