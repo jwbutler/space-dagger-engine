@@ -1,7 +1,7 @@
 import { Dimensions } from '../geometry/Dimensions';
 import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
-import { Graphics } from '../graphics/Graphics.ts';
+import { Graphics } from '../graphics/Graphics';
 import { SceneImpl } from './SceneImpl.ts';
 
 export interface Scene {

@@ -13,6 +13,7 @@ export interface Engine {
   getKeyboard: () => Keyboard;
   getUserInterface: () => UserInterface;
   getGlobalScripts: () => GlobalScript[];
+  addGlobalScript: (script: GlobalScript) => void;
   getViewport: () => Graphics;
 
   startGameLoop: (frameDurationMillis: number) => void;

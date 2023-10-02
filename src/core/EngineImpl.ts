@@ -28,6 +28,10 @@ export class EngineImpl implements Engine {
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
 
+  addGlobalScript = (script: GlobalScript) => {
+    this.globalScripts.push(script);
+  };
+
   getKeyboard = (): Keyboard => this.keyboard;
 
   getScene = (): Scene => this.scene;
@@ -38,13 +42,7 @@ export class EngineImpl implements Engine {
 
   startGameLoop = (frameDurationMillis: number): void => {
     let lastTime = getCurrentTimeSeconds();
-    let busy = false;
     setInterval(() => {
-      if (busy) {
-        console.log('BUSY');
-        return;
-      }
-      busy = true;
       const time = getCurrentTimeSeconds();
       const dt = time - lastTime;
       lastTime = time;
@@ -54,7 +52,6 @@ export class EngineImpl implements Engine {
       viewport.fill('#000000');
       scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
       renderUserInterface(userInterface);
-      busy = false;
     }, frameDurationMillis);
   };
 }
