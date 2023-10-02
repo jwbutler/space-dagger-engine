@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest';
+import { test, expect, vi } from 'vitest';
 import { Keyboard } from '../../src/input/Keyboard';
 import { Angle } from '../../src/geometry/Angle';
 import { Sprite } from '../../src/graphics/Sprite';
@@ -12,32 +12,34 @@ test('update', () => {
   const sprite = {
     getBoundingRect: () => Rect.allBalls()
   } as unknown as Sprite;
-  let executedScript = false;
-  let executedBehaviors = 0;
+  const behaviors = [0, 1, 2].map(() => ({
+    update: () => {}
+  }));
+  const script = {
+    update: () => {}
+  };
   const ship = Entity.create({
     name: 'ship',
     centerCoordinates: { x: 0, y: 0 },
     angle: Angle.ofDegrees(0),
     sprite,
-    script: {
-      update: () => {
-        executedScript = true;
-      }
-    },
-    behaviors: [0, 1, 2].map(() => ({
-      update: () => {
-        executedBehaviors++;
-      }
-    }))
+    script,
+    behaviors
   });
   ship.setSpeed({ x: 3, y: 4 });
   const scene = {
     getDimensions: () => ({ width: 1000, height: 1000 }),
     getEntities: () => [ship]
   } as Scene;
+
+  const updateSpy = vi.spyOn(script, 'update');
+  const behaviorSpies = behaviors.map(behavior => vi.spyOn(behavior, 'update'));
+
   update(scene, [], keyboard, 1);
   expect(ship.getCenterCoordinates()).toEqual({ x: 3, y: 4 });
 
-  expect(executedScript).toBe(true);
-  expect(executedBehaviors).toBe(3);
+  expect(updateSpy).toHaveBeenCalled();
+  for (const behaviorSpy of behaviorSpies) {
+    expect(behaviorSpy).toHaveBeenCalled();
+  }
 });
