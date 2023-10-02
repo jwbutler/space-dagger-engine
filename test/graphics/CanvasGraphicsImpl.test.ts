@@ -21,7 +21,9 @@ describe('CanvasGraphicsImpl', () => {
     translate: () => {},
     rotate: () => {},
     restore: () => {},
-    fillStyle: undefined
+    fillText: () => {},
+    fillStyle: undefined,
+    font: undefined
   };
   const documentStub = vi.stubGlobal('document', {
     createElement: () => ({
@@ -118,6 +120,15 @@ describe('CanvasGraphicsImpl', () => {
     expect(drawImageSpy).toHaveBeenCalledWith(image, -10, -10);
     drawImageSpy.mockClear();
     translateSpy.mockClear();
+  });
+
+  test('drawText', () => {
+    const fillTextSpy = vi.spyOn(mockContext, 'fillText');
+    graphics.drawText('what', '12pt Arial', 'magenta', { x: 30, y: 40 });
+    expect(fillTextSpy).toHaveBeenCalledWith('what', 30, 40);
+    expect(mockContext.fillStyle).toBe('magenta');
+    expect(mockContext.font).toBe('12pt Arial');
+    fillTextSpy.mockClear();
   });
 
   documentStub.clearAllMocks();
