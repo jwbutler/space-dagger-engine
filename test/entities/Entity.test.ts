@@ -31,4 +31,11 @@ test('entity', () => {
   const behavior = {} as EntityBehavior;
   entity.addBehavior(behavior);
   expect(entity.getBehaviors()).toEqual([behavior]);
+
+  entity.setStringVariable('one', '1');
+  entity.setStringVariable('two', '2');
+  expect(entity.getStringVariable('one')).toBe('1');
+  expect(entity.getStringVariable('two')).toBe('2');
+  entity.setStringVariable('one', null);
+  expect(entity.getStringVariable('one')).toBe(null);
 });
