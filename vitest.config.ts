@@ -6,10 +6,10 @@ export default defineConfig({
     // Set these as high as you can
     coverage: {
       all: true,
-      statements: 94,
-      branches: 97,
-      functions: 92,
-      lines: 94,
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
       include: ['src/**/*.ts'],
       exclude: [
         // exclude some false negatives
@@ -17,6 +17,7 @@ export default defineConfig({
         'src/vite-env.d.ts',
         'src/entities/EntityProps.ts',
         'src/entities/EntityScript.ts',
+        'src/entities/behaviors/EntityBehavior.ts',
         'src/events/GlobalScript.ts',
         'src/events/TickEvent.ts',
         'src/graphics/Sprite.ts',

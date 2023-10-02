@@ -1,4 +1,4 @@
-import { describe, test, vi, expect } from 'vitest';
+import { describe, test, vi, expect, afterAll } from 'vitest';
 import { CanvasGraphicsImpl } from '../../src/graphics/CanvasGraphicsImpl';
 import { Angle } from '../../src/geometry';
 
@@ -22,13 +22,15 @@ describe('CanvasGraphicsImpl', () => {
     rotate: () => {},
     restore: () => {},
     fillText: () => {},
+    clearRect: () => {},
     fillStyle: undefined,
     font: undefined
   };
+  const mockCanvas = {
+    getContext: () => mockContext
+  };
   const documentStub = vi.stubGlobal('document', {
-    createElement: () => ({
-      getContext: () => mockContext
-    })
+    createElement: () => mockCanvas
   });
 
   const graphics = new CanvasGraphicsImpl({
@@ -131,5 +133,52 @@ describe('CanvasGraphicsImpl', () => {
     fillTextSpy.mockClear();
   });
 
-  documentStub.clearAllMocks();
+  test('clear', () => {
+    const clearRectSpy = vi.spyOn(mockContext, 'clearRect');
+    graphics.clear();
+    expect(clearRectSpy).toHaveBeenCalledWith(0, 0, 100, 100);
+    clearRectSpy.mockClear();
+  });
+
+  describe('drawOnto', () => {
+    const otherContext = {
+      drawImage: () => {}
+    };
+    const other = {
+      context: otherContext,
+      getDimensions: () => ({ width: 32, height: 48 })
+    } as Partial<CanvasGraphicsImpl> as CanvasGraphicsImpl;
+    const drawImageSpy = vi.spyOn(otherContext, 'drawImage');
+
+    const sourceRect = { left: 10, top: 11, width: 12, height: 13 };
+    const destRect = { left: 14, top: 15, width: 16, height: 17 };
+
+    test('both rects', () => {
+      graphics.drawOnto(other, {
+        sourceRect,
+        destRect
+      });
+      expect(drawImageSpy).toHaveBeenCalledWith(
+        mockCanvas,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      );
+      drawImageSpy.mockClear();
+    });
+    test('default rects', () => {
+      graphics.drawOnto(other);
+      expect(drawImageSpy).toHaveBeenCalledWith(mockCanvas, 0, 0, 100, 100, 0, 0, 32, 48);
+    });
+    drawImageSpy.mockClear();
+  });
+
+  afterAll(() => {
+    documentStub.clearAllMocks();
+  });
 });
