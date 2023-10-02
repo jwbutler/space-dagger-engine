@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { Graphics } from '../../src/graphics/Graphics';
+import { DrawImageParams, Graphics } from '../../src/graphics/Graphics';
 import { renderScene } from '../../src/core/renderScene';
 import { Sprite } from '../../src/graphics/Sprite';
 import { Coordinates } from '../../src/geometry/Coordinates';
@@ -18,8 +18,8 @@ test('render', () => {
     fillRect: (rect: Rect, color: string) => {
       fillRectArgs = [rect, color];
     },
-    drawImage: (image: unknown, coordinates: Coordinates) => {
-      drawImageArgs = [image, coordinates];
+    drawImage: (image: unknown, params: DrawImageParams) => {
+      drawImageArgs = [image, params];
     },
     fill: () => {},
     scroll: () => {},
@@ -38,9 +38,7 @@ test('render', () => {
     getAngle: () => Angle.ofDegrees(0)
   };
   const scene = {
-    // TODO these should probably be different references
     getGraphics: () => graphics,
-    getViewport: () => graphics,
     getBackgroundColor: () => 'red',
     getBackgroundImage: () => backgroundImage,
     getCamera: () =>

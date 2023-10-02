@@ -31,7 +31,7 @@ test('update', () => {
     }))
   });
   ship.setSpeed({ x: 3, y: 4 });
-  const scene: Scene = {
+  const scene = {
     getDimensions: () => ({ width: 1000, height: 1000 }),
     getEntities: () => [ship]
   } as Scene;

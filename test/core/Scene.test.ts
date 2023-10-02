@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest';
+import { test, expect, vi } from 'vitest';
 import { Scene } from '../../src/core/Scene';
 import { Camera } from '../../src/geometry/Camera';
 import { Coordinates } from '../../src/geometry/Coordinates';
@@ -13,18 +13,34 @@ test('scene', () => {
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
   });
-  const scene = new SceneImpl({
+  const props = {
     name: 'test',
-    graphics: {} as Graphics,
     backgroundColor: 'red',
     backgroundImage: image,
     camera,
     dimensions: Dimensions.allBalls()
-  });
+  };
+  const graphics = {} as Graphics;
+  const scene = new SceneImpl({ ...props, graphics });
+  expect(scene.getName()).toBe('test');
   expect(scene.getBackgroundColor()).toBe('red');
   expect(scene.getBackgroundImage()).toBe(image);
   expect(scene.getCamera()).toBe(camera);
   expect(scene.getDimensions()).toEqual(Dimensions.allBalls());
+
+  // I couldn't get module mocks to work, this sucks
+  const documentMock = vi.stubGlobal('document', {
+    createElement: () => ({
+      getContext: () => ({})
+    })
+  });
+  const sceneViaFactoryMethod = Scene.create(props);
+  expect(sceneViaFactoryMethod.getName()).toBe('test');
+  expect(sceneViaFactoryMethod.getBackgroundColor()).toBe('red');
+  expect(sceneViaFactoryMethod.getBackgroundImage()).toBe(image);
+  expect(sceneViaFactoryMethod.getCamera()).toBe(camera);
+  expect(sceneViaFactoryMethod.getDimensions()).toEqual(Dimensions.allBalls());
+  documentMock.clearAllMocks();
 });
 
 test('entities', () => {

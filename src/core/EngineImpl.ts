@@ -28,6 +28,10 @@ export class EngineImpl implements Engine {
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
 
+  addGlobalScript = (script: GlobalScript) => {
+    this.globalScripts.push(script);
+  };
+
   getKeyboard = (): Keyboard => this.keyboard;
 
   getScene = (): Scene => this.scene;
