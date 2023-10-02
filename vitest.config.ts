@@ -6,14 +6,15 @@ export default defineConfig({
     // Set these as high as you can
     coverage: {
       all: true,
-      statements: 93,
-      branches: 95,
-      functions: 90,
-      lines: 93,
+      statements: 94,
+      branches: 97,
+      functions: 92,
+      lines: 94,
       include: ['src/**/*.ts'],
       exclude: [
-        // exclude specific files that only consist of type exports
+        // exclude some false negatives
         'src/**/index.ts',
+        'src/vite-env.d.ts',
         'src/entities/EntityProps.ts',
         'src/entities/EntityScript.ts',
         'src/events/GlobalScript.ts',
