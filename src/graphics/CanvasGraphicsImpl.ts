@@ -3,6 +3,7 @@ import { Coordinates } from '../geometry/Coordinates.ts';
 import { Rect } from '../geometry/Rect.ts';
 import { Dimensions } from '../geometry/Dimensions.ts';
 import { check } from '../utils/preconditions.ts';
+import getTopLeft = Rect.getTopLeft;
 
 export class CanvasGraphicsImpl implements Graphics {
   private readonly canvas: HTMLCanvasElement;
@@ -78,11 +79,13 @@ export class CanvasGraphicsImpl implements Graphics {
     const { context } = this;
     check(!(params?.topLeft && params?.rect));
     const topLeft: Coordinates = (() => {
-      if (!params) {
+      if (params?.topLeft) {
+        return params.topLeft;
+      } else if (params?.rect) {
+        return getTopLeft(params.rect);
+      } else {
         return { x: 0, y: 0 };
       }
-
-      return params.topLeft ?? Rect.getTopLeft(params.rect!);
     })();
     if (params?.rotation) {
       // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate#examples
