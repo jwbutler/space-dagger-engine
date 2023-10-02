@@ -10,7 +10,7 @@ const config: UserConfig = {
         'src/graphics/index.ts',
         'src/utils/index.ts'
       ],
-      name: 'space-engine',
+      name: 'space-dagger-engine',
       formats: ['es']
     }
   }
