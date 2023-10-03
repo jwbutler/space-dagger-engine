@@ -1,8 +1,6 @@
-import { Scene } from '../core/Scene.ts';
-import { Keyboard } from '../input/Keyboard.ts';
+import { Engine } from '../core/Engine.ts';
 
 export type TickEvent = Readonly<{
-  scene: Scene;
-  keyboard: Keyboard;
+  engine: Engine;
   dt: number;
 }>;

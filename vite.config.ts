@@ -1,4 +1,5 @@
 import { UserConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 const config: UserConfig = {
   build: {
@@ -13,7 +14,8 @@ const config: UserConfig = {
       name: 'space-dagger-engine',
       formats: ['es']
     }
-  }
+  },
+  plugins: [dts()]
 };
 
 export default config;

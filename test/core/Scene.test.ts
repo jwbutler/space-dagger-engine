@@ -78,13 +78,16 @@ test('entities', () => {
 
   expect(scene.getEntities()).toEqual([]);
   const entity = {
+    getId: () => 'test_id',
     getName: () => 'test'
   } as Entity;
   scene.addEntity(entity);
   expect(scene.getEntities()).toEqual([entity]);
   expect(scene.getEntitiesByName('test')).toEqual([entity]);
   expect(scene.getEntitiesByName('not')).toEqual([]);
+  expect(scene.getEntityById('test_id')).toBe(entity);
   scene.removeEntity(entity);
   expect(scene.getEntities()).toEqual([]);
   expect(() => scene.removeEntity(entity)).toThrow();
+  expect(() => scene.getEntityById('test_id')).toThrow();
 });

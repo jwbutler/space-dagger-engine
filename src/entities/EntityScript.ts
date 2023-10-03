@@ -1,10 +1,8 @@
-import { Keyboard } from '../input/Keyboard.ts';
 import { Entity } from './Entity';
-import { Scene } from '../core/Scene';
+import { Engine } from '../core/Engine.ts';
 
-/**
- * TODO: This is an implicit "handleTickEvent"
- */
 export type EntityScript = Readonly<{
-  update: (entity: Entity, scene: Scene, keyboard: Keyboard, dt: number) => void;
+  onTick?: (entity: Entity, engine: Engine, dt: number) => void;
+  onCollision?: (entity: Entity, otherEntity: Entity, engine: Engine, dt: number) => void;
+  onDestroy?: (entity: Entity, engine: Engine, dt: number) => void;
 }>;

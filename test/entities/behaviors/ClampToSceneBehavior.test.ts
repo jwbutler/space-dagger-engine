@@ -2,10 +2,10 @@ import { expect, test } from 'vitest';
 import { ClampToSceneBehavior } from '../../../src/entities/behaviors/ClampToSceneBehavior';
 import { Entity } from '../../../src/entities/Entity';
 import { Scene } from '../../../src/core/Scene';
-import { Keyboard } from '../../../src/input/Keyboard';
 import { Coordinates } from '../../../src/geometry/Coordinates';
 import { Sprite } from '../../../src/graphics/Sprite';
 import { Angle } from '../../../src/geometry/Angle';
+import { Engine } from '../../../src';
 
 test('clamp to scene', () => {
   const scene = {
@@ -30,7 +30,11 @@ test('clamp to scene', () => {
     getAngle: () => Angle.ofDegrees(0)
   } as Entity;
 
+  const engine = {
+    getScene: () => scene
+  } as Engine;
+
   const behavior = ClampToSceneBehavior.create();
-  behavior.update(entity, scene, {} as Keyboard, 1);
+  behavior.onTick?.(entity, engine, 1);
   expect(centerCoordinates).toEqual({ x: 10, y: 10 });
 });

@@ -10,6 +10,7 @@ import { isCollidingWith } from './functions/isCollidingWith.ts';
 import { rotateClockwise } from './functions/rotateClockwise.ts';
 import { rotateCounterClockwise } from './functions/rotateCounterClockwise.ts';
 import { accelerate } from './functions/accelerate.ts';
+import { destroy } from './functions/destroy.ts';
 
 export { Entity, BounceOffEdgesBehavior, CameraFollowBehavior, ClampToSceneBehavior };
 export type { EntityBehavior, EntityProps, EntityScript };
@@ -20,5 +21,6 @@ export {
   getEntitiesOverlappingRect,
   isCollidingWith,
   rotateClockwise,
-  rotateCounterClockwise
+  rotateCounterClockwise,
+  destroy
 };

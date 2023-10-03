@@ -23,3 +23,7 @@ export const max = <T>(array: T[], keyFunction: KeyFunction<T>): T => {
   }
   return maxItem!;
 };
+
+export const clear = <T>(array: T[]): void => {
+  array.splice(0, array.length);
+};
