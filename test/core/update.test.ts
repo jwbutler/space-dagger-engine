@@ -1,23 +1,21 @@
 import { expect, test, vi } from 'vitest';
-import { Keyboard } from '../../src/input/Keyboard';
 import { Angle } from '../../src/geometry/Angle';
 import { Sprite } from '../../src/graphics/Sprite';
 import { Rect } from '../../src/geometry/Rect';
 import { update } from '../../src/core/update';
 import { Entity } from '../../src/entities/Entity';
 import { Scene } from '../../src/core/Scene';
-import { GlobalScript } from '../../src';
+import { Engine, GlobalScript } from '../../src';
 
 test('update', () => {
-  const keyboard = Keyboard.create();
   const sprite = {
     getBoundingRect: () => Rect.allBalls()
   } as unknown as Sprite;
   const behaviors = [0, 1, 2].map(() => ({
-    update: () => {}
+    onTick: () => {}
   }));
   const entityScript = {
-    update: () => {}
+    onTick: () => {}
   };
   const ship = Entity.create({
     name: 'ship',
@@ -33,24 +31,27 @@ test('update', () => {
     getEntities: () => [ship]
   } as Scene;
 
-  const entityScript_update_spy = vi.spyOn(entityScript, 'update');
-  const behaviorSpies = behaviors.map(behavior => vi.spyOn(behavior, 'update'));
+  const entityScript_update_spy = vi.spyOn(entityScript, 'onTick');
+  const behaviorSpies = behaviors.map(behavior => vi.spyOn(behavior, 'onTick'));
 
   const globalScript = {
     onTick: () => {}
   } as GlobalScript;
+  const engine = {
+    getScene: () => scene,
+    getGlobalScripts: () => [globalScript]
+  } as Partial<Engine> as Engine;
   const globalScript_onTick_spy = vi.spyOn(globalScript, 'onTick');
   const dt = 1;
-  update(scene, [globalScript], keyboard, dt);
+  update(engine, dt);
   expect(ship.getCenterCoordinates()).toEqual({ x: 3, y: 4 });
   expect(globalScript_onTick_spy).toHaveBeenCalledWith({
-    scene,
-    keyboard,
+    engine,
     dt
   });
 
-  expect(entityScript_update_spy).toHaveBeenCalledWith(ship, scene, keyboard, dt);
+  expect(entityScript_update_spy).toHaveBeenCalledWith(ship, engine, dt);
   for (const behaviorSpy of behaviorSpies) {
-    expect(behaviorSpy).toHaveBeenCalledWith(ship, scene, keyboard, dt);
+    expect(behaviorSpy).toHaveBeenCalledWith(ship, engine, dt);
   }
 });

@@ -46,8 +46,8 @@ export class EngineImpl implements Engine {
       const time = getCurrentTimeSeconds();
       const dt = time - lastTime;
       lastTime = time;
-      const { scene, globalScripts, keyboard, userInterface, viewport } = this;
-      update(scene, globalScripts, keyboard, Math.max(dt, MIN_DT));
+      update(this, Math.max(dt, MIN_DT));
+      const { scene, userInterface, viewport } = this;
       renderScene(scene);
       viewport.fill('#000000');
       scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });

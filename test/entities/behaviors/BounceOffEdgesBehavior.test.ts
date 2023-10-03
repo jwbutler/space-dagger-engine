@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest';
 import { Scene } from '../../../src/core/Scene';
 import { Entity } from '../../../src/entities/Entity';
-import { Keyboard } from '../../../src/input/Keyboard';
 import { Vector } from '../../../src/geometry/Vector';
 import { BounceOffEdgesBehavior } from '../../../src/entities/behaviors/BounceOffEdgesBehavior';
 import { Sprite } from '../../../src/graphics/Sprite';
 import { Angle } from '../../../src/geometry/Angle';
 import { Coordinates } from '../../../src/geometry/Coordinates';
+import { Engine } from '../../../src';
 
 test('bounce off edges behavior', () => {
   const scene = {
@@ -36,13 +36,16 @@ test('bounce off edges behavior', () => {
     getSprite: () => sprite
   } as Entity;
 
+  const engine = {
+    getScene: () => scene
+  } as Partial<Engine> as Engine;
   const behavior = BounceOffEdgesBehavior.create({ coefficient: 1 });
 
   // right
   {
     centerCoordinates = { x: 200, y: 100 };
     speed = { x: 1, y: 0 };
-    behavior.update(entity, scene, {} as Keyboard, 1);
+    behavior.onTick?.(entity, engine, 1);
     expect(speed).toEqual({ x: -1, y: 0 });
     expect(centerCoordinates).toEqual({ x: 190, y: 100 });
   }
@@ -51,7 +54,7 @@ test('bounce off edges behavior', () => {
   {
     centerCoordinates = { x: 0, y: 100 };
     speed = { x: -1, y: 0 };
-    behavior.update(entity, scene, {} as Keyboard, 1);
+    behavior.onTick?.(entity, engine, 1);
     expect(speed).toEqual({ x: 1, y: 0 });
     expect(centerCoordinates).toEqual({ x: 10, y: 100 });
   }
@@ -60,7 +63,7 @@ test('bounce off edges behavior', () => {
   {
     centerCoordinates = { x: 100, y: 0 };
     speed = { x: 0, y: -1 };
-    behavior.update(entity, scene, {} as Keyboard, 1);
+    behavior.onTick?.(entity, engine, 1);
     expect(speed).toEqual({ x: 0, y: 1 });
     expect(centerCoordinates).toEqual({ x: 100, y: 10 });
   }
@@ -69,7 +72,7 @@ test('bounce off edges behavior', () => {
   {
     centerCoordinates = { x: 100, y: 200 };
     speed = { x: 0, y: 1 };
-    behavior.update(entity, scene, {} as Keyboard, 1);
+    behavior.onTick?.(entity, engine, 1);
     expect(speed).toEqual({ x: 0, y: -1 });
     expect(centerCoordinates).toEqual({ x: 100, y: 190 });
   }

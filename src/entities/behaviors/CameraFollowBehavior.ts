@@ -1,11 +1,11 @@
 import { EntityBehavior } from './EntityBehavior';
 import { Entity } from '../Entity';
-import { Scene } from '../../core/Scene';
+import { Engine } from '../../core/Engine.ts';
 
 export namespace CameraFollowBehavior {
   export const create = (): EntityBehavior => ({
-    update: (entity: Entity, scene: Scene): void => {
-      const camera = scene.getCamera();
+    onTick: (entity: Entity, engine: Engine): void => {
+      const camera = engine.getScene().getCamera();
       camera.setCenterCoordinates(entity.getCenterCoordinates());
     }
   });

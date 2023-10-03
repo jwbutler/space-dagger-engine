@@ -1,9 +1,9 @@
 import { test, expect } from 'vitest';
 import { CameraFollowBehavior } from '../../../src/entities/behaviors/CameraFollowBehavior';
 import { Camera } from '../../../src/geometry/Camera';
-import { Keyboard } from '../../../src/input/Keyboard';
 import { Entity } from '../../../src/entities/Entity';
 import { Scene } from '../../../src/core/Scene';
+import { Engine } from '../../../src';
 
 test('camera follow behavior', () => {
   const camera = Camera.create({
@@ -14,11 +14,15 @@ test('camera follow behavior', () => {
     getCamera: () => camera
   } as unknown as Scene;
 
+  const engine = {
+    getScene: () => scene
+  } as Engine;
+
   const entity = {
     getCenterCoordinates: () => ({ x: 20, y: 20 })
   } as Entity;
 
   const behavior = CameraFollowBehavior.create();
-  behavior.update(entity, scene, {} as Keyboard, 1);
+  behavior.onTick?.(entity, engine, 1);
   expect(camera.getCenterCoordinates()).toEqual({ x: 20, y: 20 });
 });
