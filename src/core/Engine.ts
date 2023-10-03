@@ -15,6 +15,8 @@ export interface Engine {
   getGlobalScripts: () => GlobalScript[];
   addGlobalScript: (script: GlobalScript) => void;
   getViewport: () => Graphics;
+  getStringVariable: (key: string) => string | null;
+  setStringVariable: (key: string, value: string | null) => void;
 
   startGameLoop: (frameDurationMillis: number) => void;
 }

@@ -18,6 +18,7 @@ export class EngineImpl implements Engine {
   private readonly scene: Scene;
   private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
+  private readonly stringVariables: Record<string, string | null>;
   private readonly collisionHandler: CollisionHandler;
 
   constructor({ keyboard, scene, userInterface, viewport }: EngineProps) {
@@ -26,6 +27,7 @@ export class EngineImpl implements Engine {
     this.userInterface = userInterface;
     this.viewport = viewport;
     this.globalScripts = [];
+    this.stringVariables = {};
     this.collisionHandler = CollisionHandler.create();
   }
 
@@ -56,6 +58,11 @@ export class EngineImpl implements Engine {
       scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
       renderUserInterface(userInterface);
     }, frameDurationMillis);
+  };
+
+  getStringVariable = (key: string): string | null => this.stringVariables[key] ?? null;
+  setStringVariable = (key: string, value: string | null): void => {
+    this.stringVariables[key] = value;
   };
 
   /**
