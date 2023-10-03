@@ -8,6 +8,7 @@ import { update } from './update.ts';
 import { renderScene } from './renderScene.ts';
 import { renderUserInterface } from './renderUserInterface.ts';
 import { getCurrentTimeSeconds } from '../utils/getCurrentTimeSeconds.ts';
+import { CollisionHandler } from './CollisionHandler.ts';
 
 const MIN_DT = 0.0001;
 
@@ -17,6 +18,7 @@ export class EngineImpl implements Engine {
   private readonly scene: Scene;
   private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
+  private readonly collisionHandler: CollisionHandler;
 
   constructor({ keyboard, scene, userInterface, viewport }: EngineProps) {
     this.keyboard = keyboard;
@@ -24,6 +26,7 @@ export class EngineImpl implements Engine {
     this.userInterface = userInterface;
     this.viewport = viewport;
     this.globalScripts = [];
+    this.collisionHandler = CollisionHandler.create();
   }
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
@@ -54,4 +57,9 @@ export class EngineImpl implements Engine {
       renderUserInterface(userInterface);
     }, frameDurationMillis);
   };
+
+  /**
+   * Non-override
+   */
+  getCollisionHandler = (): CollisionHandler => this.collisionHandler;
 }

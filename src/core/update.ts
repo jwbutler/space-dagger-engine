@@ -1,17 +1,31 @@
 import { updatePosition } from '../entities/functions/updatePosition';
 import { Engine } from './Engine.ts';
+import { EngineImpl } from './EngineImpl.ts';
 
 export const update = (engine: Engine, dt: number): void => {
-  // Phase 1 - execute global scripts
+  const scene = engine.getScene();
+
+  // Phase 1 - detect and fire collision events
+  const collisions = (engine as EngineImpl)
+    .getCollisionHandler()
+    .detectCollisions(scene.getEntities());
+
+  for (const { firstId, secondId } of collisions) {
+    const first = scene.getEntityById(firstId);
+    const second = scene.getEntityById(secondId);
+    first.getScript()?.onCollision?.(first, second, engine, dt);
+    second.getScript()?.onCollision?.(second, first, engine, dt);
+  }
+
+  // Phase 2 - execute global scripts
   // TODO - consider order of phases 1 and 2
   for (const script of engine.getGlobalScripts()) {
     script.onTick({ engine, dt });
   }
 
-  // Phase 2 - execute everything's "update" event
+  // Phase 3 - execute everything's "update" event
 
   // TODO - need to worry about concurrent modification
-  const scene = engine.getScene();
   for (const entity of scene.getEntities()) {
     // TODO - think about script/behavior precedence
     const script = entity.getScript();
@@ -24,7 +38,7 @@ export const update = (engine: Engine, dt: number): void => {
     }
   }
 
-  // Phase 3 - perform physics-based updates
+  // Phase 4 - perform physics-based updates
 
   for (const entity of scene.getEntities()) {
     updatePosition(entity, dt);

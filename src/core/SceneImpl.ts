@@ -2,9 +2,9 @@ import { Graphics } from '../graphics/Graphics.ts';
 import { Dimensions } from '../geometry/Dimensions.ts';
 import { Camera } from '../geometry/Camera.ts';
 import { Entity } from '../entities/Entity.ts';
-import { check } from '../utils/preconditions.ts';
-import * as Arrays from '../utils/Arrays.ts';
+import { check, checkNotNull } from '../utils/preconditions.ts';
 import { Scene } from './Scene.ts';
+import { Arrays } from '../utils';
 
 type Props = Readonly<{
   name: string;
@@ -67,5 +67,10 @@ export class SceneImpl implements Scene {
 
   getEntitiesByName = (name: string): Entity[] => {
     return this.entities.filter(entity => entity.getName() === name);
+  };
+
+  getEntityById = (id: string): Entity => {
+    const entity = this.entities.find(entity => entity.getId() === id);
+    return checkNotNull(entity);
   };
 }
