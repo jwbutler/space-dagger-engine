@@ -7,7 +7,10 @@ import { EntityScript } from './EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityBehavior } from './behaviors/EntityBehavior';
 
+let nextId: number = 1;
+
 export class EntityImpl implements Entity {
+  private readonly id: number;
   private readonly name: string;
   private centerCoordinates: Coordinates;
   private angle: Angle;
@@ -19,6 +22,7 @@ export class EntityImpl implements Entity {
   private readonly stringVariables: Record<string, string | null>;
 
   constructor(props: EntityProps) {
+    this.id = nextId++;
     this.name = props.name;
     this.centerCoordinates = props.centerCoordinates;
     this.angle = props.angle;
@@ -29,6 +33,11 @@ export class EntityImpl implements Entity {
     this.behaviors = props.behaviors ?? [];
     this.stringVariables = {};
   }
+
+  /**
+   * I couldn't decide between numerical and string ids, so... split the difference...
+   */
+  getId = (): string => `${this.id}`;
 
   getName = (): string => this.name;
 

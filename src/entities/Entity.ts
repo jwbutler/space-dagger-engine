@@ -8,6 +8,13 @@ import { EntityImpl } from './EntityImpl';
 import { EntityBehavior } from './behaviors/EntityBehavior';
 
 export interface Entity {
+  /**
+   * This should be unique for every entity
+   */
+  getId: () => string;
+  /**
+   * Typically this is the name of an entity "class", so it's not expected to be unique
+   */
   getName: () => string;
   getCenterCoordinates: () => Coordinates;
   setCenterCoordinates: (coordinates: Coordinates) => void;

@@ -14,6 +14,7 @@ test('entity', () => {
     sprite
   });
 
+  expect(entity.getId()).toBe('1');
   expect(entity.getName()).toBe('test');
   expect(entity.getSprite()).toBe(sprite);
   expect(entity.getCenterCoordinates()).toEqual(Coordinates.zero());
