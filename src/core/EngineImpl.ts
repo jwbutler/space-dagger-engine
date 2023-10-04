@@ -7,9 +7,9 @@ import { Graphics } from '../graphics/Graphics.ts';
 import { update } from './update.ts';
 import { renderScene } from './renderScene.ts';
 import { renderUserInterface } from './renderUserInterface.ts';
-import { getCurrentTimeSeconds } from '../utils/getCurrentTimeSeconds.ts';
 import { CollisionHandler } from './CollisionHandler.ts';
 import { Metric, MetricType } from '../utils/Metric.ts';
+import { getCurrentTimeMillis, getCurrentTimeSeconds } from '../utils/time.ts';
 
 const MIN_DT = 0.0001;
 
@@ -56,13 +56,13 @@ export class EngineImpl implements Engine {
       lastTime = time;
       update(this, Math.max(dt, MIN_DT));
 
-      const startTime = new Date().getTime();
+      const startTime = getCurrentTimeMillis();
       const { scene, userInterface, viewport } = this;
       renderScene(scene);
       viewport.fill('#000000');
       scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
       renderUserInterface(userInterface);
-      const endTime = new Date().getTime();
+      const endTime = getCurrentTimeMillis();
       this.getMetric(MetricType.RENDER_TIME).recordValue(endTime - startTime);
     }, frameDurationMillis);
   };

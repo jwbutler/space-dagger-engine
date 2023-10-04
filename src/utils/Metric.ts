@@ -20,6 +20,7 @@ class RenderTimeMetric implements Metric {
     this.totalRenderTime += value;
     this.numPoints++;
   };
+
   getAverage = (): number => {
     check(this.numPoints > 0);
     return this.totalRenderTime / this.numPoints;
