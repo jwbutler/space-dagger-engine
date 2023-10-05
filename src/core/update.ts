@@ -1,6 +1,6 @@
 import { updatePosition } from '../entities/functions/updatePosition';
-import { Engine } from './Engine.ts';
-import { EngineImpl } from './EngineImpl.ts';
+import { Engine } from './Engine';
+import { EngineImpl } from './EngineImpl';
 
 export const update = (engine: Engine, dt: number): void => {
   const scene = engine.getScene();

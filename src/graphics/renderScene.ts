@@ -1,5 +1,5 @@
-import { Scene } from '../core/Scene.ts';
-import { Rect } from '../geometry/Rect.ts';
+import { Scene } from '../core/Scene';
+import { Rect } from '../geometry/Rect';
 
 export const renderScene = (scene: Scene) => {
   const graphics = scene.getGraphics();

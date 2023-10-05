@@ -1,9 +1,9 @@
-import { Scene } from './Scene.ts';
-import { Keyboard } from '../input/Keyboard.ts';
-import { UserInterface } from '../graphics/ui/UserInterface.ts';
-import { GlobalScript } from '../events/GlobalScript.ts';
-import { EngineImpl } from './EngineImpl.ts';
-import { Graphics } from '../graphics/Graphics.ts';
+import { Scene } from './Scene';
+import { Keyboard } from '../input/Keyboard';
+import { UserInterface } from '../graphics/ui/UserInterface';
+import { GlobalScript } from '../events/GlobalScript';
+import { EngineImpl } from './EngineImpl';
+import { Graphics } from '../graphics/Graphics';
 
 export interface Engine {
   /**

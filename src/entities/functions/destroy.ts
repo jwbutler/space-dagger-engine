@@ -1,5 +1,5 @@
-import { Entity } from '../Entity.ts';
-import { Engine } from '../../core/Engine.ts';
+import { Entity } from '../Entity';
+import { Engine } from '../../core/Engine';
 
 export const destroy = (entity: Entity, engine: Engine, dt: number) => {
   engine.getScene().removeEntity(entity);

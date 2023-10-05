@@ -1,8 +1,8 @@
-import { EntityBehavior } from './EntityBehavior.ts';
-import { Entity } from '../Entity.ts';
-import { Rect } from '../../geometry/Rect.ts';
-import { clampToRect } from '../functions/clampToRect.ts';
-import { Engine } from '../../core/Engine.ts';
+import { EntityBehavior } from './EntityBehavior';
+import { Entity } from '../Entity';
+import { Rect } from '../../geometry/Rect';
+import { clampToRect } from '../functions/clampToRect';
+import { Engine } from '../../core/Engine';
 
 export namespace ClampToSceneBehavior {
   export const create = (): EntityBehavior => ({

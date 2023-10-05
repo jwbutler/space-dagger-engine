@@ -1,9 +1,9 @@
-import { Engine } from './Engine.ts';
-import { Keyboard } from '../input/Keyboard.ts';
-import { Graphics } from '../graphics/Graphics.ts';
-import { Scene } from './Scene.ts';
-import { Camera } from '../geometry/Camera.ts';
-import { UserInterface } from '../graphics/ui/UserInterface.ts';
+import { Engine } from './Engine';
+import { Keyboard } from '../input/Keyboard';
+import { Graphics } from '../graphics/Graphics';
+import { Scene } from './Scene';
+import { Camera } from '../geometry/Camera';
+import { UserInterface } from '../graphics/ui/UserInterface';
 import { Dimensions } from '../geometry';
 
 type Props = Readonly<{

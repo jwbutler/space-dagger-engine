@@ -1,4 +1,4 @@
-import { Coordinates } from './Coordinates.ts';
+import { Coordinates } from './Coordinates';
 
 export type Angle = Readonly<{
   degrees: number;

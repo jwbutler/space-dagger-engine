@@ -1,8 +1,8 @@
 import { Dimensions } from '../geometry/Dimensions';
-import { Coordinates } from '../geometry/Coordinates.ts';
-import { Rect } from '../geometry/Rect.ts';
-import { CanvasGraphicsImpl } from './CanvasGraphicsImpl.ts';
-import { Angle } from '../geometry/Angle.ts';
+import { Coordinates } from '../geometry/Coordinates';
+import { Rect } from '../geometry/Rect';
+import { CanvasGraphicsImpl } from './CanvasGraphicsImpl';
+import { Angle } from '../geometry/Angle';
 
 export type DrawImageParams = Readonly<{
   rect?: Rect;

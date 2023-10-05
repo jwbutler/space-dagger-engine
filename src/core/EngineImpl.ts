@@ -1,16 +1,16 @@
-import { Engine, EngineProps } from './Engine.ts';
-import { GlobalScript } from '../events/GlobalScript.ts';
-import { Keyboard } from '../input/Keyboard.ts';
-import { Scene } from './Scene.ts';
-import { UserInterface } from '../graphics/ui/UserInterface.ts';
-import { Graphics } from '../graphics/Graphics.ts';
-import { update } from './update.ts';
-import { renderScene } from '../graphics/renderScene.ts';
-import { renderUserInterface } from '../graphics/renderUserInterface.ts';
-import { CollisionHandler } from './CollisionHandler.ts';
-import { getCurrentTimeSeconds } from '../utils/time.ts';
+import { Engine, EngineProps } from './Engine';
+import { GlobalScript } from '../events/GlobalScript';
+import { Keyboard } from '../input/Keyboard';
+import { Scene } from './Scene';
+import { UserInterface } from '../graphics/ui/UserInterface';
+import { Graphics } from '../graphics/Graphics';
+import { update } from './update';
+import { renderScene } from '../graphics/renderScene';
+import { renderUserInterface } from '../graphics/renderUserInterface';
+import { CollisionHandler } from './CollisionHandler';
+import { getCurrentTimeSeconds } from '../utils';
 
-const MIN_DT = 0.0001;
+const MIN_DT = 0.01;
 
 export class EngineImpl implements Engine {
   private readonly globalScripts: GlobalScript[];

@@ -24,21 +24,28 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "files": ["dist"],
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./entities": {
-      "import": "./src/entities/index.ts"
+      "import": "./dist/entities/index.js",
+      "types": "./dist/entities/index.d.ts"
     },
     "./geometry": {
-      "import": "./src/geometry/index.ts"
+      "import": "./dist/geometry/index.js",
+      "types": "./dist/geometry/index.d.ts"
     },
     "./graphics": {
-      "import": "./src/graphics/index.ts"
+      "import": "./dist/graphics/index.js",
+      "types": "./dist/graphics/index.d.ts"
     },
     "./utils": {
-      "import": "./src/utils/index.ts"
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
     }
   }
 }

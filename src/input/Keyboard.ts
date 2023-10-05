@@ -1,4 +1,4 @@
-import * as Arrays from '../utils/Arrays.ts';
+import * as Arrays from '../utils/Arrays';
 
 enum KeyEventType {
   KEY_UP,

@@ -1,6 +1,6 @@
-import { Scene } from '../../core/Scene.ts';
-import { Entity } from '../Entity.ts';
-import { Rect } from '../../geometry/Rect.ts';
+import { Scene } from '../../core/Scene';
+import { Entity } from '../Entity';
+import { Rect } from '../../geometry/Rect';
 
 /**
  * TODO - do some research on efficient collision detection

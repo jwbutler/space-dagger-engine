@@ -1,6 +1,6 @@
 import { EntityBehavior } from './EntityBehavior';
 import { Entity } from '../Entity';
-import { Engine } from '../../core/Engine.ts';
+import { Engine } from '../../core/Engine';
 
 export namespace CameraFollowBehavior {
   export const create = (): EntityBehavior => ({
