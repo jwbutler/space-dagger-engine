@@ -10,8 +10,6 @@ import { renderUserInterface } from '../graphics/renderUserInterface';
 import { CollisionHandler } from './CollisionHandler';
 import { getCurrentTimeSeconds } from '../utils';
 
-const MIN_DT = 0.01;
-
 export class EngineImpl implements Engine {
   private readonly globalScripts: GlobalScript[];
   private readonly keyboard: Keyboard;
@@ -54,8 +52,9 @@ export class EngineImpl implements Engine {
   update = () => {
     const time = getCurrentTimeSeconds();
     const dt = time - this.lastUpdateTime;
+    if (dt === 0) return;
     this.lastUpdateTime = time;
-    update(this, Math.max(dt, MIN_DT));
+    update(this, dt);
 
     const { scene, userInterface, viewport } = this;
     renderScene(scene);
