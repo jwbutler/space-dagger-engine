@@ -13,8 +13,10 @@ export const update = (engine: Engine, dt: number): void => {
   for (const { firstId, secondId } of collisions) {
     const first = scene.getEntityById(firstId);
     const second = scene.getEntityById(secondId);
-    first.getScript()?.onCollision?.(first, second, engine, dt);
-    second.getScript()?.onCollision?.(second, first, engine, dt);
+    if (first && second) {
+      first.getScript()?.onCollision?.(first, second, engine, dt);
+      second.getScript()?.onCollision?.(second, first, engine, dt);
+    }
   }
 
   // Phase 2 - execute global scripts
