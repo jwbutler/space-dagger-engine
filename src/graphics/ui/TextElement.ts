@@ -1,6 +1,6 @@
-import { UIElement } from './UIElement.ts';
-import { Graphics } from '../Graphics.ts';
-import { Coordinates } from '../../geometry/Coordinates.ts';
+import { UIElement } from './UIElement';
+import { Graphics } from '../Graphics';
+import { Coordinates } from '../../geometry/Coordinates';
 
 type Props = Readonly<{
   text: string;

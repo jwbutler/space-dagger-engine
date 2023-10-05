@@ -2,7 +2,7 @@ import { Dimensions } from '../geometry/Dimensions';
 import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
 import { Graphics } from '../graphics/Graphics';
-import { SceneImpl } from './SceneImpl.ts';
+import { SceneImpl } from './SceneImpl';
 
 export interface Scene {
   getName: () => string;

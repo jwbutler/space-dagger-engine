@@ -1,4 +1,4 @@
-import { Dimensions } from '../../geometry/Dimensions.ts';
+import { Dimensions } from '../../geometry/Dimensions';
 
 export const createTiledImage = (
   image: ImageBitmap,

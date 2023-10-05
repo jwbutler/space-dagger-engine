@@ -4,18 +4,23 @@ import dts from 'vite-plugin-dts';
 const config: UserConfig = {
   build: {
     lib: {
-      entry: [
-        'src/index.ts',
-        'src/entities/index.ts',
-        'src/geometry/index.ts',
-        'src/graphics/index.ts',
-        'src/utils/index.ts'
-      ],
+      entry: {
+        index: 'src/index.ts',
+        'entities/index': 'src/entities/index.ts',
+        'geometry/index': 'src/geometry/index.ts',
+        'graphics/index': 'src/graphics/index.ts',
+        'utils/index': 'src/utils/index.ts'
+      },
       name: 'space-dagger-engine',
       formats: ['es']
+    },
+    rollupOptions: {
+      output: {
+        preserveModules: true
+      }
     }
   },
-  plugins: [dts()]
+  plugins: [dts({ rollupTypes: false })]
 };
 
 export default config;

@@ -1,8 +1,8 @@
-import { DrawImageParams, DrawOntoParams, Graphics, GraphicsProps } from './Graphics.ts';
-import { Coordinates } from '../geometry/Coordinates.ts';
-import { Rect } from '../geometry/Rect.ts';
-import { Dimensions } from '../geometry/Dimensions.ts';
-import { check } from '../utils/preconditions.ts';
+import { DrawImageParams, DrawOntoParams, Graphics, GraphicsProps } from './Graphics';
+import { Coordinates } from '../geometry/Coordinates';
+import { Rect } from '../geometry/Rect';
+import { Dimensions } from '../geometry/Dimensions';
+import { check } from '../utils/preconditions';
 import getTopLeft = Rect.getTopLeft;
 
 export class CanvasGraphicsImpl implements Graphics {

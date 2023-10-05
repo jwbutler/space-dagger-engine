@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { renderUserInterface } from '../../src/core/renderUserInterface';
+import { renderUserInterface } from '../../src/graphics/renderUserInterface';
 import { Graphics, UIElement, UserInterface } from '../../src/graphics';
 
 test('render user interface', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
 import { Graphics } from '../../src/graphics/Graphics';
-import { renderScene } from '../../src/core/renderScene';
+import { renderScene } from '../../src/graphics/renderScene';
 import { Sprite } from '../../src/graphics/Sprite';
 import { Coordinates } from '../../src/geometry/Coordinates';
 import { Angle } from '../../src/geometry/Angle';

@@ -1,5 +1,5 @@
-import { Entity } from '../Entity.ts';
-import { Rect } from '../../geometry/Rect.ts';
+import { Entity } from '../Entity';
+import { Rect } from '../../geometry/Rect';
 
 /** TODO naive collision detection */
 export const isCollidingWith = (first: Entity, second: Entity): boolean => {

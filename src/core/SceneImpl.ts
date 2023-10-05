@@ -1,9 +1,9 @@
-import { Graphics } from '../graphics/Graphics.ts';
-import { Dimensions } from '../geometry/Dimensions.ts';
-import { Camera } from '../geometry/Camera.ts';
-import { Entity } from '../entities/Entity.ts';
-import { check, checkNotNull } from '../utils/preconditions.ts';
-import { Scene } from './Scene.ts';
+import { Graphics } from '../graphics/Graphics';
+import { Dimensions } from '../geometry/Dimensions';
+import { Camera } from '../geometry/Camera';
+import { Entity } from '../entities/Entity';
+import { check, checkNotNull } from '../utils/preconditions';
+import { Scene } from './Scene';
 import { Arrays } from '../utils';
 
 type Props = Readonly<{
