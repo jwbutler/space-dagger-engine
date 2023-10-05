@@ -12,6 +12,12 @@ describe('Coordinates', () => {
   test('distance', () => {
     const first = { x: 2, y: 3 };
     const second = { x: 6, y: 0 };
-    expect(Coordinates.distance(first, second)).toEqual(5);
+    expect(Coordinates.distance(first, second)).toBe(5);
+  });
+
+  test('minus', () => {
+    const first = { x: 4, y: 4 };
+    const second = { x: 2, y: 1 };
+    expect(Coordinates.minus(first, second)).toEqual({ x: 2, y: 3 });
   });
 });

@@ -89,5 +89,5 @@ test('entities', () => {
   scene.removeEntity(entity);
   expect(scene.getEntities()).toEqual([]);
   expect(() => scene.removeEntity(entity)).toThrow();
-  expect(() => scene.getEntityById('test_id')).toThrow();
+  expect(scene.getEntityById('test_id')).toBe(null);
 });

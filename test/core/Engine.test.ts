@@ -71,4 +71,23 @@ describe('Engine', () => {
 
     intervalMock.clearAllMocks();
   });
+
+  /**
+   * TODO: This is a fairly crappy indirect test for the case where dt=0
+   */
+  test('no-op update', () => {
+    vi.useFakeTimers({
+      toFake: ['performance']
+    });
+
+    const engine = new EngineImpl({
+      keyboard: {} as Keyboard,
+      scene: {} as Scene,
+      userInterface: {} as UserInterface,
+      viewport: {} as Graphics
+    });
+    engine.update();
+
+    vi.useRealTimers();
+  });
 });

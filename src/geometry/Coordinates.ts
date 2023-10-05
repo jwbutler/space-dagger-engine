@@ -20,4 +20,10 @@ export namespace Coordinates {
     const dy = second.y - first.y;
     return Math.hypot(dx, dy);
   };
+
+  export const minus = (first: Coordinates, second: Coordinates): Vector => {
+    const dx = first.x - second.x;
+    const dy = first.y - second.y;
+    return { x: dx, y: dy };
+  };
 }
