@@ -1,4 +1,4 @@
-import { UserInterface } from '../graphics/ui/UserInterface.ts';
+import { UserInterface } from './ui/UserInterface.ts';
 
 export const renderUserInterface = (userInterface: UserInterface): void => {
   const graphics = userInterface.getGraphics();

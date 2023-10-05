@@ -1,4 +1,4 @@
-import { Scene } from './Scene';
+import { Scene } from '../core/Scene.ts';
 import { Rect } from '../geometry/Rect.ts';
 
 export const renderScene = (scene: Scene) => {

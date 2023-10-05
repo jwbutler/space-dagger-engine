@@ -5,11 +5,10 @@ import { Scene } from './Scene.ts';
 import { UserInterface } from '../graphics/ui/UserInterface.ts';
 import { Graphics } from '../graphics/Graphics.ts';
 import { update } from './update.ts';
-import { renderScene } from './renderScene.ts';
-import { renderUserInterface } from './renderUserInterface.ts';
+import { renderScene } from '../graphics/renderScene.ts';
+import { renderUserInterface } from '../graphics/renderUserInterface.ts';
 import { CollisionHandler } from './CollisionHandler.ts';
-import { Metric, MetricType } from '../utils/Metric.ts';
-import { getCurrentTimeMillis, getCurrentTimeSeconds } from '../utils/time.ts';
+import { getCurrentTimeSeconds } from '../utils/time.ts';
 
 const MIN_DT = 0.0001;
 
@@ -20,8 +19,8 @@ export class EngineImpl implements Engine {
   private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
   private readonly stringVariables: Record<string, string | null>;
-  private readonly metrics: Partial<Record<MetricType, Metric>>;
   private readonly collisionHandler: CollisionHandler;
+  private lastUpdateTime: number;
 
   constructor({ keyboard, scene, userInterface, viewport }: EngineProps) {
     this.keyboard = keyboard;
@@ -30,8 +29,8 @@ export class EngineImpl implements Engine {
     this.viewport = viewport;
     this.globalScripts = [];
     this.stringVariables = {};
-    this.metrics = {};
     this.collisionHandler = CollisionHandler.create();
+    this.lastUpdateTime = getCurrentTimeSeconds();
   }
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
@@ -49,36 +48,25 @@ export class EngineImpl implements Engine {
   getViewport = () => this.viewport;
 
   startGameLoop = (frameDurationMillis: number): void => {
-    let lastTime = getCurrentTimeSeconds();
-    setInterval(() => {
-      const time = getCurrentTimeSeconds();
-      const dt = time - lastTime;
-      lastTime = time;
-      update(this, Math.max(dt, MIN_DT));
+    setInterval(this.update, frameDurationMillis);
+  };
 
-      const startTime = getCurrentTimeMillis();
-      const { scene, userInterface, viewport } = this;
-      renderScene(scene);
-      viewport.fill('#000000');
-      scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
-      renderUserInterface(userInterface);
-      const endTime = getCurrentTimeMillis();
-      this.getMetric(MetricType.RENDER_TIME).recordValue(endTime - startTime);
-    }, frameDurationMillis);
+  update = () => {
+    const time = getCurrentTimeSeconds();
+    const dt = time - this.lastUpdateTime;
+    this.lastUpdateTime = time;
+    update(this, Math.max(dt, MIN_DT));
+
+    const { scene, userInterface, viewport } = this;
+    renderScene(scene);
+    viewport.fill('#000000');
+    scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
+    renderUserInterface(userInterface);
   };
 
   getStringVariable = (key: string): string | null => this.stringVariables[key] ?? null;
   setStringVariable = (key: string, value: string | null): void => {
     this.stringVariables[key] = value;
-  };
-
-  getMetric = (metricType: MetricType): Metric => {
-    let metric = this.metrics[metricType];
-    if (!metric) {
-      metric = Metric.create(metricType);
-      this.metrics[metricType] = metric;
-    }
-    return metric;
   };
 
   /**

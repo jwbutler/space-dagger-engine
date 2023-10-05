@@ -4,7 +4,6 @@ import { UserInterface } from '../graphics/ui/UserInterface.ts';
 import { GlobalScript } from '../events/GlobalScript.ts';
 import { EngineImpl } from './EngineImpl.ts';
 import { Graphics } from '../graphics/Graphics.ts';
-import { Metric, MetricType } from '../utils/Metric.ts';
 
 export interface Engine {
   /**
@@ -18,7 +17,6 @@ export interface Engine {
   getViewport: () => Graphics;
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
-  getMetric: (metric: MetricType) => Metric;
 
   startGameLoop: (frameDurationMillis: number) => void;
 }
