@@ -17,7 +17,7 @@ export interface Scene {
   addEntity: (entity: Entity) => void;
   removeEntity: (entity: Entity) => void;
   getEntitiesByName: (name: string) => Entity[];
-  getEntityById: (id: string) => Entity;
+  getEntityById: (id: string) => Entity | null;
 }
 
 type Props = Readonly<{

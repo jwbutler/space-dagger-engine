@@ -2,7 +2,7 @@ import { Graphics } from '../graphics/Graphics';
 import { Dimensions } from '../geometry/Dimensions';
 import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
-import { check, checkNotNull } from '../utils/preconditions';
+import { check } from '../utils/preconditions';
 import { Scene } from './Scene';
 import { Arrays } from '../utils';
 
@@ -69,8 +69,7 @@ export class SceneImpl implements Scene {
     return this.entities.filter(entity => entity.getName() === name);
   };
 
-  getEntityById = (id: string): Entity => {
-    const entity = this.entities.find(entity => entity.getId() === id);
-    return checkNotNull(entity);
+  getEntityById = (id: string): Entity | null => {
+    return this.entities.find(entity => entity.getId() === id) ?? null;
   };
 }
