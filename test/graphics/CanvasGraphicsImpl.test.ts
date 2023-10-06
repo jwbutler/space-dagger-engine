@@ -23,6 +23,7 @@ describe('CanvasGraphicsImpl', () => {
     restore: () => {},
     fillText: () => {},
     clearRect: () => {},
+    putImageData: () => {},
     fillStyle: undefined,
     font: undefined
   };
@@ -82,7 +83,7 @@ describe('CanvasGraphicsImpl', () => {
 
   test('drawImage (top-left)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as unknown;
+    const image = {} as ImageBitmap;
     graphics.drawImage(image, {
       topLeft: { x: 10, y: 12 }
     });
@@ -92,7 +93,7 @@ describe('CanvasGraphicsImpl', () => {
 
   test('drawImage (rect)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as unknown;
+    const image = {} as ImageBitmap;
     graphics.drawImage(image, {
       rect: { left: 5, top: 6, width: 7, height: 8 }
     });
@@ -102,7 +103,7 @@ describe('CanvasGraphicsImpl', () => {
 
   test('drawImage (default position)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as unknown;
+    const image = {} as ImageBitmap;
     graphics.drawImage(image);
     expect(drawImageSpy).toHaveBeenCalledWith(image, 0, 0);
     drawImageSpy.mockClear();
@@ -114,7 +115,7 @@ describe('CanvasGraphicsImpl', () => {
     const image = {
       width: 20,
       height: 20
-    } as unknown;
+    } as ImageBitmap;
     graphics.drawImage(image, {
       rotation: Angle.ofDegrees(90)
     });
@@ -147,7 +148,7 @@ describe('CanvasGraphicsImpl', () => {
     const other = {
       context: otherContext,
       getDimensions: () => ({ width: 32, height: 48 })
-    } as Partial<CanvasGraphicsImpl> as CanvasGraphicsImpl;
+    } as unknown as CanvasGraphicsImpl;
     const drawImageSpy = vi.spyOn(otherContext, 'drawImage');
 
     const sourceRect = { left: 10, top: 11, width: 12, height: 13 };
@@ -176,6 +177,14 @@ describe('CanvasGraphicsImpl', () => {
       expect(drawImageSpy).toHaveBeenCalledWith(mockCanvas, 0, 0, 100, 100, 0, 0, 32, 48);
     });
     drawImageSpy.mockClear();
+  });
+
+  test('putImageData', () => {
+    const putImageData_spy = vi.spyOn(mockContext, 'putImageData');
+    const imageData = {} as ImageData;
+    graphics.putImageData(imageData);
+    expect(putImageData_spy).toHaveBeenCalledWith(imageData, 0, 0);
+    putImageData_spy.mockClear();
   });
 
   afterAll(() => {

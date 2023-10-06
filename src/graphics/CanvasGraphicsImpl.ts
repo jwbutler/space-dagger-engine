@@ -99,6 +99,10 @@ export class CanvasGraphicsImpl implements Graphics {
     }
   };
 
+  putImageData = (imageData: ImageData) => {
+    this.context.putImageData(imageData, 0, 0);
+  };
+
   drawText = (text: string, font: string, color: string, topLeft: Coordinates): void => {
     const { context } = this;
     context.fillStyle = color;

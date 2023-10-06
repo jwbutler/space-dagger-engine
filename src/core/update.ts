@@ -22,7 +22,7 @@ export const update = (engine: Engine, dt: number): void => {
   // Phase 2 - execute global scripts
   // TODO - consider order of phases 1 and 2
   for (const script of engine.getGlobalScripts()) {
-    script.onTick({ engine, dt });
+    script.onTick?.({ engine, dt });
   }
 
   // Phase 3 - execute everything's "update" event

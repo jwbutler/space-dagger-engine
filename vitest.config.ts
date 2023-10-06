@@ -19,6 +19,7 @@ export default defineConfig({
         'src/entities/EntityScript.ts',
         'src/entities/behaviors/EntityBehavior.ts',
         'src/events/GlobalScript.ts',
+        'src/events/RenderEvent.ts',
         'src/events/TickEvent.ts',
         'src/graphics/Sprite.ts',
         'src/graphics/ui/TextElement.ts',

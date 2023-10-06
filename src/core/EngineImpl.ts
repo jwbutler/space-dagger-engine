@@ -46,21 +46,36 @@ export class EngineImpl implements Engine {
   getViewport = () => this.viewport;
 
   startGameLoop = (frameDurationMillis: number): void => {
-    setInterval(this.update, frameDurationMillis);
+    setInterval(() => {
+      this.update();
+      this.render();
+    }, frameDurationMillis);
   };
 
+  /** non-override */
   update = () => {
     const time = getCurrentTimeSeconds();
     const dt = time - this.lastUpdateTime;
     if (dt === 0) return;
     this.lastUpdateTime = time;
     update(this, dt);
+  };
 
+  /** non-override */
+  render = () => {
+    const startTime = getCurrentTimeSeconds();
     const { scene, userInterface, viewport } = this;
     renderScene(scene);
     viewport.fill('#000000');
     scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
     renderUserInterface(userInterface);
+    const endTime = getCurrentTimeSeconds();
+
+    for (const globalScript of this.globalScripts) {
+      globalScript.onRender?.({
+        renderTime: endTime - startTime
+      });
+    }
   };
 
   getStringVariable = (key: string): string | null => this.stringVariables[key] ?? null;
