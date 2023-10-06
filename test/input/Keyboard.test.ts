@@ -4,10 +4,10 @@ import { Keyboard } from '../../src/input/Keyboard';
 test('input state', () => {
   const keyboard = Keyboard.create();
   expect(keyboard.getHeldKeys()).toEqual([]);
-  keyboard.keyDown({ code: 'ArrowUp', timeStamp: 1000 });
-  keyboard.keyDown({ code: 'ArrowDown', timeStamp: 1000 });
-  keyboard.keyDown({ code: 'ArrowLeft', timeStamp: 1000 });
-  keyboard.keyDown({ code: 'ArrowRight', timeStamp: 1000 });
+  keyboard.keyDown({ code: 'ArrowUp', timeStamp: 1000 } as KeyboardEvent);
+  keyboard.keyDown({ code: 'ArrowDown', timeStamp: 1000 } as KeyboardEvent);
+  keyboard.keyDown({ code: 'ArrowLeft', timeStamp: 1000 } as KeyboardEvent);
+  keyboard.keyDown({ code: 'ArrowRight', timeStamp: 1000 } as KeyboardEvent);
   {
     const expected = [
       { code: 'ArrowUp', isDoubleTap: false },
@@ -17,8 +17,8 @@ test('input state', () => {
     ];
     expect(keyboard.getHeldKeys()).toEqual(expected);
   }
-  keyboard.keyUp({ code: 'ArrowLeft', timeStamp: 1100 });
-  keyboard.keyUp({ code: 'ArrowRight', timeStamp: 1100 });
+  keyboard.keyUp({ code: 'ArrowLeft', timeStamp: 1100 } as KeyboardEvent);
+  keyboard.keyUp({ code: 'ArrowRight', timeStamp: 1100 } as KeyboardEvent);
   {
     const expected = [
       { code: 'ArrowUp', isDoubleTap: false },
@@ -34,7 +34,7 @@ test('register', () => {
     addEventListener: (event: string, listener: unknown) => {
       listeners[event] = listener;
     }
-  };
+  } as Window;
   const keyboard = Keyboard.create();
   keyboard.registerEventHandlers(mockWindow);
   expect(listeners['keydown']).toBe(keyboard.keyDown);
@@ -45,18 +45,18 @@ test('double tap', () => {
   const keyboard = Keyboard.create();
   expect(keyboard.getHeldKeys()).toEqual([]);
 
-  keyboard.keyDown({ code: 'ArrowUp', timeStamp: 1000 });
+  keyboard.keyDown({ code: 'ArrowUp', timeStamp: 1000 } as KeyboardEvent);
   {
     const expected = [{ code: 'ArrowUp', isDoubleTap: false }];
     expect(keyboard.getHeldKeys()).toEqual(expected);
   }
 
-  keyboard.keyUp({ code: 'ArrowUp', timeStamp: 1100 });
+  keyboard.keyUp({ code: 'ArrowUp', timeStamp: 1100 } as KeyboardEvent);
   {
     expect(keyboard.getHeldKeys()).toEqual([]);
   }
 
-  keyboard.keyDown({ code: 'ArrowUp', timeStamp: 1200 });
+  keyboard.keyDown({ code: 'ArrowUp', timeStamp: 1200 } as KeyboardEvent);
   {
     const expected = [{ code: 'ArrowUp', isDoubleTap: true }];
     expect(keyboard.getHeldKeys()).toEqual(expected);
@@ -65,7 +65,7 @@ test('double tap', () => {
 
 test('ignores repeating event', () => {
   const keyboard = Keyboard.create();
-  const event = { repeat: true };
+  const event = { repeat: true } as KeyboardEvent;
   keyboard.keyDown(event);
   expect(keyboard.getHeldKeys().length).toBe(0);
 });
