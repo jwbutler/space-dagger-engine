@@ -11,23 +11,23 @@ const radiansToDegrees = (radians: number): number => (radians * 180) / Math.PI;
 
 export namespace Angle {
   export const ofRadians = (radians: number): Angle => ({
-    radians,
-    degrees: radiansToDegrees(radians)
+    radians: clampRadians(radians),
+    degrees: clampDegrees(radiansToDegrees(radians))
   });
 
   export const ofDegrees = (degrees: number): Angle => ({
-    degrees,
-    radians: degreesToRadians(degrees)
+    degrees: clampDegrees(degrees),
+    radians: clampRadians(degreesToRadians(degrees))
   });
 
   export const rotateClockwise = (first: Angle, second: Angle): Angle => ({
-    degrees: (first.degrees + second.degrees + 360) % 360,
-    radians: (first.radians + second.radians + Math.PI * 2) % (Math.PI * 2)
+    degrees: clampDegrees(first.degrees + second.degrees),
+    radians: clampRadians(first.radians + second.radians)
   });
 
   export const rotateCounterClockwise = (first: Angle, second: Angle): Angle => ({
-    degrees: (first.degrees - second.degrees + 360) % 360,
-    radians: (first.radians - second.radians + Math.PI * 2) % (Math.PI * 2)
+    degrees: clampDegrees(first.degrees - second.degrees),
+    radians: clampRadians(first.radians - second.radians)
   });
 
   export const between = (source: Coordinates, target: Coordinates): Angle => {
@@ -37,3 +37,6 @@ export namespace Angle {
     return Angle.ofRadians(radians);
   };
 }
+
+const clampDegrees = (degrees: number) => (degrees + 360) % 360;
+const clampRadians = (radians: number) => (radians + Math.PI * 2) % (Math.PI * 2);
