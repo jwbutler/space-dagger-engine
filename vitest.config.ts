@@ -21,6 +21,7 @@ export default defineConfig({
         'src/events/GlobalScript.ts',
         'src/events/RenderEvent.ts',
         'src/events/TickEvent.ts',
+        'src/events/UpdateEvent.ts',
         'src/graphics/Sprite.ts',
         'src/graphics/ui/TextElement.ts',
         'src/graphics/ui/UIElement.ts'
