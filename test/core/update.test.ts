@@ -76,7 +76,7 @@ test('update', () => {
     dt
   });
   for (const behaviorSpy of behaviorSpies) {
-    expect(behaviorSpy).toHaveBeenCalledWith(ship, engine, dt);
+    expect(behaviorSpy).toHaveBeenCalledWith(ship, { engine, dt });
   }
 
   vi.clearAllMocks();

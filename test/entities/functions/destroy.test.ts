@@ -23,7 +23,7 @@ test('destroy', () => {
 
   destroy(entity, engine, 1);
 
-  expect(onDestroy_spy).toHaveBeenCalledWith(entity, engine, 1);
+  expect(onDestroy_spy).toHaveBeenCalledWith(entity, { engine, dt: 1 });
   expect(removeEntity_spy).toHaveBeenCalledWith(entity);
   expect(scene.removeEntity);
 
