@@ -59,6 +59,14 @@ export class EngineImpl implements Engine {
     if (dt === 0) return;
     this.lastUpdateTime = time;
     update(this, dt);
+    const updateTime = getCurrentTimeSeconds() - time;
+
+    // TODO: utility function to broadcast global scripts
+    for (const globalScript of this.globalScripts) {
+      globalScript.onUpdate?.({
+        updateTime
+      });
+    }
   };
 
   /** non-override */
@@ -71,6 +79,7 @@ export class EngineImpl implements Engine {
     renderUserInterface(userInterface);
     const endTime = getCurrentTimeSeconds();
 
+    // TODO: utility function to broadcast global scripts
     for (const globalScript of this.globalScripts) {
       globalScript.onRender?.({
         renderTime: endTime - startTime

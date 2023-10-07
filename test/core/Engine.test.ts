@@ -3,6 +3,7 @@ import { EngineImpl } from '../../src/core/EngineImpl';
 import { Camera, Engine, GlobalScript, Keyboard, Scene } from '../../src';
 import { Graphics, UserInterface } from '../../src/graphics';
 import { Rect } from '../../src/geometry';
+import { SceneImpl } from '../../src/core/SceneImpl';
 
 describe('Engine', () => {
   test('engine', () => {
@@ -123,9 +124,39 @@ describe('Engine', () => {
     vi.useRealTimers();
   });
 
-  /**
-   * TODO: This is a fairly crappy indirect test for the case where dt=0
-   */
+  test('update', () => {
+    vi.useFakeTimers({
+      toFake: ['performance']
+    });
+
+    const engine = new EngineImpl({
+      keyboard: {} as Keyboard,
+      scene: new SceneImpl({
+        graphics: {} as Graphics,
+        name: 'test',
+        camera: {} as Camera,
+        dimensions: { width: 640, height: 480 }
+      }),
+      userInterface: {} as UserInterface,
+      viewport: {} as Graphics
+    });
+    const delayScript = {
+      onTick: () => {
+        vi.advanceTimersByTime(10);
+      }
+    };
+    const spyScript: GlobalScript = {
+      onUpdate: vi.fn(() => {})
+    };
+    engine.addGlobalScript(delayScript);
+    engine.addGlobalScript(spyScript);
+    vi.advanceTimersByTime(10);
+    engine.update();
+    expect(spyScript.onUpdate).toHaveBeenCalledWith({ updateTime: 0.01 });
+
+    vi.useRealTimers();
+  });
+
   test('no-op update', () => {
     vi.useFakeTimers({
       toFake: ['performance']
@@ -137,7 +168,12 @@ describe('Engine', () => {
       userInterface: {} as UserInterface,
       viewport: {} as Graphics
     });
+    const spyScript = {
+      onUpdate: vi.fn(() => {})
+    };
+    engine.addGlobalScript(spyScript);
     engine.update();
+    expect(spyScript.onUpdate).not.toHaveBeenCalled();
 
     vi.useRealTimers();
   });
