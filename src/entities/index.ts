@@ -2,7 +2,7 @@ import { Entity } from './Entity';
 import type { EntityBehavior } from './behaviors/EntityBehavior';
 import { BounceOffEdgesBehavior } from './behaviors/BounceOffEdgesBehavior';
 import type { EntityProps } from './EntityProps';
-import type { EntityScript } from './EntityScript';
+import type { EntityScript } from '../events/EntityScript';
 import { ClampToSceneBehavior } from './behaviors/ClampToSceneBehavior';
 import { CameraFollowBehavior } from './behaviors/CameraFollowBehavior';
 import { getEntitiesOverlappingRect } from './functions/getEntitiesOverlappingRect';

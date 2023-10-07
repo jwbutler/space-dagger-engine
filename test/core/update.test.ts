@@ -69,10 +69,14 @@ test('update', () => {
     dt
   });
 
-  expect(entityScript_update_spy).toHaveBeenCalledWith(ship, engine, dt);
-  expect(entityScript_collision_spy).toHaveBeenCalledWith(ship, ship, engine, dt);
+  expect(entityScript_update_spy).toHaveBeenCalledWith(ship, { engine, dt });
+  expect(entityScript_collision_spy).toHaveBeenCalledWith(ship, {
+    other: ship,
+    engine,
+    dt
+  });
   for (const behaviorSpy of behaviorSpies) {
-    expect(behaviorSpy).toHaveBeenCalledWith(ship, engine, dt);
+    expect(behaviorSpy).toHaveBeenCalledWith(ship, { engine, dt });
   }
 
   vi.clearAllMocks();
