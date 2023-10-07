@@ -14,8 +14,8 @@ export const update = (engine: Engine, dt: number): void => {
     const first = scene.getEntityById(firstId);
     const second = scene.getEntityById(secondId);
     if (first && second) {
-      first.getScript()?.onCollision?.(first, second, engine, dt);
-      second.getScript()?.onCollision?.(second, first, engine, dt);
+      first.getScript()?.onCollision?.(first, { other: second, engine, dt });
+      second.getScript()?.onCollision?.(second, { other: first, engine, dt });
     }
   }
 
@@ -32,11 +32,11 @@ export const update = (engine: Engine, dt: number): void => {
     // TODO - think about script/behavior precedence
     const script = entity.getScript();
     if (script) {
-      script.onTick?.(entity, engine, dt);
+      script.onTick?.(entity, { engine, dt });
     }
     const behaviors = entity.getBehaviors();
     for (const behavior of behaviors) {
-      behavior.onTick?.(entity, engine, dt);
+      behavior.onTick?.(entity, { engine, dt });
     }
   }
 

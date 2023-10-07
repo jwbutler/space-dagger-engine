@@ -35,6 +35,6 @@ test('clamp to scene', () => {
   } as Engine;
 
   const behavior = ClampToSceneBehavior.create();
-  behavior.onTick?.(entity, engine, 1);
+  behavior.onTick?.(entity, { engine, dt: 1 });
   expect(centerCoordinates).toEqual({ x: 10, y: 10 });
 });

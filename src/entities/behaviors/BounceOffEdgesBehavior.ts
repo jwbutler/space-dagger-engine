@@ -2,7 +2,7 @@ import { EntityBehavior } from './EntityBehavior';
 import { Entity } from '../Entity';
 import { Rect } from '../../geometry/Rect';
 import { clampToRect } from '../functions/clampToRect';
-import { Engine } from '../../core/Engine';
+import { TickEvent } from '../../events/TickEvent';
 
 type Props = Readonly<{
   coefficient: number;
@@ -10,7 +10,7 @@ type Props = Readonly<{
 
 export namespace BounceOffEdgesBehavior {
   export const create = ({ coefficient }: Props): EntityBehavior => ({
-    onTick: (entity: Entity, engine: Engine): void => {
+    onTick: (entity: Entity, { engine }: TickEvent): void => {
       const entityRect = entity.getSprite().getBoundingRect(entity);
       const sceneRect = Rect.fromDimensions(engine.getScene().getDimensions());
       let speed = entity.getSpeed();
