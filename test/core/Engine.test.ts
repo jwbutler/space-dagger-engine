@@ -1,9 +1,10 @@
 import { test, expect, vi, describe } from 'vitest';
 import { EngineImpl } from '../../src/core/EngineImpl';
-import { Camera, Engine, GlobalScript, Keyboard, Scene } from '../../src';
+import { Camera, Engine, Keyboard, Scene } from '../../src';
 import { Graphics, UserInterface } from '../../src/graphics';
 import { Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
+import { GlobalScript } from '../../src/events';
 
 describe('Engine', () => {
   test('engine', () => {

@@ -5,10 +5,10 @@ import { Rect } from '../../src/geometry/Rect';
 import { update } from '../../src/core/update';
 import { Entity } from '../../src/entities/Entity';
 import { Scene } from '../../src/core/Scene';
-import { Engine, GlobalScript } from '../../src';
+import { Engine } from '../../src';
 import { CollisionHandler } from '../../src/core/CollisionHandler';
-import { EntityScript } from '../../src/entities';
 import { check } from '../../src/utils';
+import { EntityScript, GlobalScript } from '../../src/events';
 
 test('update', () => {
   const sprite = {

@@ -1,6 +1,7 @@
 import { test, expect, vi } from 'vitest';
-import { destroy, Entity, EntityScript } from '../../../src/entities';
+import { destroy, Entity } from '../../../src/entities';
 import { Engine, Scene } from '../../../src';
+import { EntityScript } from '../../../src/events';
 
 test('destroy', () => {
   const entityScript = {
