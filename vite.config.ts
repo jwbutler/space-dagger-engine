@@ -1,5 +1,6 @@
 import { UserConfig } from 'vite';
-import dts from 'vite-plugin-dts';
+import vitePlugin_dts from 'vite-plugin-dts';
+import vitePlugin_checker from 'vite-plugin-checker';
 
 const config: UserConfig = {
   build: {
@@ -21,9 +22,12 @@ const config: UserConfig = {
     }
   },
   plugins: [
-    dts({
+    vitePlugin_dts({
       rollupTypes: false,
       include: 'src/**/*.ts'
+    }),
+    vitePlugin_checker({
+      typescript: true
     })
   ]
 };

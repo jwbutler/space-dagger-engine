@@ -3,7 +3,7 @@ import { Angle } from '../geometry/Angle';
 import { Vector } from '../geometry/Vector';
 import { Entity } from './Entity';
 import { Sprite } from '../graphics/Sprite';
-import { EntityScript } from './EntityScript';
+import { EntityScript } from '../events/EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityBehavior } from './behaviors/EntityBehavior';
 
