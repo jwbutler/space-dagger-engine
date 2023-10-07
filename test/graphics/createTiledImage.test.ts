@@ -6,7 +6,7 @@ test('createTiledImage', async () => {
   const image = {
     width: 20,
     height: 20
-  } as unknown;
+  } as ImageBitmap;
   const context = {
     drawImage: () => {}
   };

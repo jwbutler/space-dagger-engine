@@ -6,9 +6,6 @@ import { EngineImpl } from './EngineImpl';
 import { Graphics } from '../graphics/Graphics';
 
 export interface Engine {
-  /**
-   * TODO: multiple scenes
-   */
   getScene: () => Scene;
   getKeyboard: () => Keyboard;
   getUserInterface: () => UserInterface;

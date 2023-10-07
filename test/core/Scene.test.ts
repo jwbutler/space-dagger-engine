@@ -8,7 +8,7 @@ import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
 
 test('scene', () => {
-  const image = {} as unknown;
+  const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
@@ -40,7 +40,7 @@ test('factory method', () => {
       getContext: () => ({})
     })
   });
-  const image = {} as unknown;
+  const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
@@ -62,7 +62,7 @@ test('factory method', () => {
 });
 
 test('entities', () => {
-  const image = {} as unknown;
+  const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()

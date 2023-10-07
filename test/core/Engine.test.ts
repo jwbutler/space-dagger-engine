@@ -32,6 +32,9 @@ describe('Engine', () => {
     expect(engine.getStringVariable('key')).toBe(null);
   });
 
+  /**
+   * TODO this sucks and is not testing anything
+   */
   test('startGameLoop', () => {
     const keyboard = {} as Keyboard;
     const graphics = {
@@ -70,6 +73,54 @@ describe('Engine', () => {
     engine.startGameLoop(1000);
 
     intervalMock.clearAllMocks();
+  });
+
+  test('render', () => {
+    vi.useFakeTimers({
+      toFake: ['performance']
+    });
+    const renderTime = 0.0123;
+    const sceneGraphics = {
+      drawOnto: () => {
+        vi.advanceTimersByTime(renderTime * 1000);
+      }
+    } as unknown as Graphics;
+    const viewport = {
+      fill: () => {}
+    } as unknown as Graphics;
+    const camera = {
+      getRect: () => Rect.allBalls()
+    } as Camera;
+    const uiGraphics = {
+      clear: () => {}
+    } as Graphics;
+    const userInterface = {
+      getGraphics: () => uiGraphics,
+      getUIElements: () => []
+    } as unknown as UserInterface;
+    const scene = {
+      getGraphics: () => sceneGraphics,
+      getCamera: () => camera,
+      getBackgroundColor: () => null,
+      getBackgroundImage: () => null,
+      getEntities: () => []
+    } as unknown as Scene;
+    const engine = new EngineImpl({
+      keyboard: {} as Keyboard,
+      scene,
+      userInterface,
+      viewport
+    });
+    const script = {
+      onRender: () => {}
+    };
+    const script_spy = vi.spyOn(script, 'onRender');
+    engine.addGlobalScript(script);
+
+    engine.render();
+    expect(script_spy).toHaveBeenCalledWith({ renderTime: 0.0123 });
+
+    vi.useRealTimers();
   });
 
   /**

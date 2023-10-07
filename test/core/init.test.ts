@@ -4,7 +4,7 @@ import { Engine, init } from '../../src';
 test('init', async () => {
   const container = {
     appendChild: () => {}
-  } as unknown;
+  } as unknown as HTMLElement;
   const viewportDimensions = { width: 100, height: 100 };
   const sceneDimensions = { width: 200, height: 200 };
   const mockWindow = vi.stubGlobal('window', {

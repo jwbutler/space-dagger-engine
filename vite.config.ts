@@ -20,7 +20,12 @@ const config: UserConfig = {
       }
     }
   },
-  plugins: [dts({ rollupTypes: false })]
+  plugins: [
+    dts({
+      rollupTypes: false,
+      include: 'src/**/*.ts'
+    })
+  ]
 };
 
 export default config;
