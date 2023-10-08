@@ -1,4 +1,5 @@
 import { Coordinates } from './Coordinates';
+import { Vector } from './Vector';
 
 export type Angle = Readonly<{
   degrees: number;
@@ -36,6 +37,9 @@ export namespace Angle {
     const radians = Math.atan2(dy, dx);
     return Angle.ofRadians(radians);
   };
+
+  export const fromVector = (vector: Vector): Angle =>
+    Angle.ofRadians(Math.atan2(vector.y, vector.x));
 }
 
 const clampDegrees = (degrees: number) => (degrees + 360) % 360;
