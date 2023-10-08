@@ -1,10 +1,9 @@
 import { Vector } from '../../geometry/Vector';
 import { Entity } from '../Entity';
 
-type PartialEntity = Pick<Entity, 'getSpeed' | 'setSpeed' | 'getMaxSpeed'>;
-
-export const accelerate = (entity: PartialEntity, acceleration: Vector, dt: number): void => {
+export const applyAcceleration = (entity: Entity, dt: number): void => {
   const currentSpeed = entity.getSpeed();
+  const acceleration = entity.getAcceleration();
   const multipliedAcceleration = Vector.multiply(acceleration, dt);
   let newSpeed = Vector.plus(currentSpeed, multipliedAcceleration);
   const maxSpeed = entity.getMaxSpeed();
