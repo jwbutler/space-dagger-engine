@@ -16,6 +16,7 @@ export class EntityImpl implements Entity {
   private angle: Angle;
   private speed: Vector;
   private maxSpeed: number | null;
+  private acceleration: Vector;
   private readonly sprite: Sprite;
   private readonly script: EntityScript | null;
   private readonly behaviors: EntityBehavior[];
@@ -28,6 +29,7 @@ export class EntityImpl implements Entity {
     this.angle = props.angle;
     this.speed = props.speed ?? Vector.zero();
     this.maxSpeed = props.maxSpeed ?? null;
+    this.acceleration = Vector.zero();
     this.sprite = props.sprite;
     this.script = props.script ?? null;
     this.behaviors = props.behaviors ?? [];
@@ -60,6 +62,11 @@ export class EntityImpl implements Entity {
   getMaxSpeed = (): number | null => this.maxSpeed;
   setMaxSpeed = (maxSpeed: number | null) => {
     this.maxSpeed = maxSpeed;
+  };
+
+  getAcceleration = (): Vector => this.acceleration;
+  setAcceleration = (acceleration: Vector): void => {
+    this.acceleration = acceleration;
   };
 
   getSprite = (): Sprite => this.sprite;

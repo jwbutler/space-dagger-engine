@@ -45,6 +45,11 @@ describe('Angle', () => {
       Angle.ofRadians(Math.PI / 4)
     );
   });
+
+  test('fromVector', () => {
+    const vector = { x: 3, y: -3 };
+    expect(Angle.fromVector(vector)).toEqual(Angle.ofRadians(-Math.PI / 4));
+  });
 });
 
 const _isWithinEpsilon = (value: number, expected: number, epsilon: number): boolean => {

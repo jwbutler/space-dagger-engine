@@ -8,7 +8,7 @@ import { getEntitiesOverlappingRect } from './functions/getEntitiesOverlappingRe
 import { isCollidingWith } from './functions/isCollidingWith';
 import { rotateClockwise } from './functions/rotateClockwise';
 import { rotateCounterClockwise } from './functions/rotateCounterClockwise';
-import { accelerate } from './functions/accelerate';
+import { applyAcceleration } from './functions/applyAcceleration';
 import { destroy } from './functions/destroy';
 
 export { Entity, BounceOffEdgesBehavior, CameraFollowBehavior, ClampToSceneBehavior };
@@ -16,7 +16,7 @@ export type { EntityBehavior, EntityProps };
 
 // TODO: put some thought into how to export these
 export {
-  accelerate,
+  applyAcceleration,
   getEntitiesOverlappingRect,
   isCollidingWith,
   rotateClockwise,

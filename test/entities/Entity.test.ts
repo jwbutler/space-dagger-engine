@@ -1,13 +1,14 @@
-import { test, expect } from 'vitest';
-import { Entity } from '../../src/entities/Entity';
+import { expect, test } from 'vitest';
 import { Angle } from '../../src/geometry/Angle';
 import { Coordinates } from '../../src/geometry/Coordinates';
 import { Sprite } from '../../src/graphics/Sprite';
 import { EntityBehavior } from '../../src/entities/behaviors/EntityBehavior';
+import { EntityImpl } from '../../src/entities/EntityImpl';
+import { Vector } from '../../src/geometry';
 
 test('entity', () => {
   const sprite = {} as Sprite;
-  const entity = Entity.create({
+  const entity = new EntityImpl({
     angle: Angle.ofDegrees(0),
     centerCoordinates: Coordinates.zero(),
     name: 'test',
@@ -20,6 +21,7 @@ test('entity', () => {
   expect(entity.getCenterCoordinates()).toEqual(Coordinates.zero());
   expect(entity.getAngle()).toEqual(Angle.ofDegrees(0));
   expect(entity.getMaxSpeed()).toBe(null);
+  expect(entity.getAcceleration()).toEqual(Vector.zero());
   expect(entity.getScript()).toBe(null);
   expect(entity.getBehaviors()).toEqual([]);
 
@@ -28,6 +30,10 @@ test('entity', () => {
 
   entity.setMaxSpeed(5);
   expect(entity.getMaxSpeed()).toBe(5);
+
+  const acceleration = { x: 2, y: 2 };
+  entity.setAcceleration(acceleration);
+  expect(entity.getAcceleration()).toEqual(acceleration);
 
   const behavior = {} as EntityBehavior;
   entity.addBehavior(behavior);

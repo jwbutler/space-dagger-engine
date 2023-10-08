@@ -25,6 +25,8 @@ export interface Entity {
   getSpeed: () => Vector;
   getMaxSpeed: () => number | null;
   setMaxSpeed: (maxSpeed: number | null) => void;
+  getAcceleration: () => Vector;
+  setAcceleration: (acceleration: Vector) => void;
   getScript: () => EntityScript | null;
   getBehaviors: () => EntityBehavior[];
   addBehavior: (behavior: EntityBehavior) => void;

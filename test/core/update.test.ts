@@ -79,5 +79,7 @@ test('update', () => {
     expect(behaviorSpy).toHaveBeenCalledWith(ship, { engine, dt });
   }
 
+  // TODO: verify that applyAcceleration / updatePosition were called here
+
   vi.clearAllMocks();
 });
