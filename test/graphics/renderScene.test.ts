@@ -11,7 +11,8 @@ import { Layer } from '../../src/core/Layer';
 
 describe('renderScene', () => {
   const graphics = {
-    fill: () => {}
+    fill: () => {},
+    clear: () => {}
   } as unknown as Graphics;
   const backgroundImage = {} as ImageBitmap;
   const camera = {
@@ -21,12 +22,14 @@ describe('renderScene', () => {
     fillRect: () => {},
     drawImage: () => {},
     fill: () => {},
+    clear: () => {},
     drawOnto: () => {}
   } as unknown as Graphics;
   const layer = {
     getGraphics: () => layerGraphics,
     getBackgroundColor: () => 'red',
-    getBackgroundImage: () => backgroundImage
+    getBackgroundImage: () => backgroundImage,
+    getParallax: () => ({ horizontal: 1, vertical: 1 })
   } as Layer;
   const sprite = {
     render: () => {}

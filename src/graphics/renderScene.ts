@@ -6,14 +6,24 @@ export const renderScene = (scene: Scene) => {
   const graphics = scene.getGraphics();
   graphics.fill('#000000');
 
+  const cameraRect = scene.getCamera().getRect();
   for (const layer of scene.getLayers()) {
     renderLayer(layer, scene);
-    layer.getGraphics().drawOnto(graphics); // TODO params
+    const sourceRect = {
+      left: cameraRect.left * layer.getParallax().horizontal,
+      top: cameraRect.top * layer.getParallax().vertical,
+      width: cameraRect.width * layer.getParallax().horizontal,
+      height: cameraRect.height * layer.getParallax().vertical
+    };
+    layer.getGraphics().drawOnto(graphics, {
+      sourceRect
+    });
   }
 };
 
 const renderLayer = (layer: Layer, scene: Scene): void => {
   const graphics = layer.getGraphics();
+  graphics.clear();
   const backgroundColor = layer.getBackgroundColor();
   if (backgroundColor) {
     // TODO should layers have their own dimensions?
