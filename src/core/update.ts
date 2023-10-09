@@ -1,7 +1,8 @@
 import { updatePosition } from '../entities/functions/updatePosition';
 import { Engine } from './Engine';
 import { EngineImpl } from './EngineImpl';
-import { applyAcceleration } from '../entities';
+import { applyAcceleration } from '../entities/functions/applyAcceleration';
+import { applyFriction } from '../entities/functions/applyFriction';
 
 export const update = (engine: Engine, dt: number): void => {
   const scene = engine.getScene();
@@ -44,7 +45,9 @@ export const update = (engine: Engine, dt: number): void => {
   // Phase 4 - perform physics-based updates
 
   for (const entity of scene.getEntities()) {
+    // TODO: perhaps a combined `applyPhysics` function
     applyAcceleration(entity, dt);
+    applyFriction(entity, dt);
     updatePosition(entity, dt);
   }
 };

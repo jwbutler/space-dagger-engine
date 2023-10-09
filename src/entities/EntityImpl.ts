@@ -6,6 +6,7 @@ import { Sprite } from '../graphics/Sprite';
 import { EntityScript } from '../events/EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityBehavior } from './behaviors/EntityBehavior';
+import { check } from '../utils';
 
 let nextId: number = 1;
 
@@ -17,6 +18,7 @@ export class EntityImpl implements Entity {
   private speed: Vector;
   private maxSpeed: number | null;
   private acceleration: Vector;
+  private friction: number;
   private readonly sprite: Sprite;
   private readonly script: EntityScript | null;
   private readonly behaviors: EntityBehavior[];
@@ -29,6 +31,10 @@ export class EntityImpl implements Entity {
     this.angle = props.angle;
     this.speed = props.speed ?? Vector.zero();
     this.maxSpeed = props.maxSpeed ?? null;
+    if (props.friction !== undefined) {
+      check(props.friction >= 0 && props.friction <= 1);
+    }
+    this.friction = props.friction ?? 0;
     this.acceleration = Vector.zero();
     this.sprite = props.sprite;
     this.script = props.script ?? null;
@@ -67,6 +73,11 @@ export class EntityImpl implements Entity {
   getAcceleration = (): Vector => this.acceleration;
   setAcceleration = (acceleration: Vector): void => {
     this.acceleration = acceleration;
+  };
+
+  getFriction = (): number => this.friction;
+  setFriction = (friction: number): void => {
+    this.friction = friction;
   };
 
   getSprite = (): Sprite => this.sprite;
