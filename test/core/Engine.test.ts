@@ -78,7 +78,7 @@ describe('Engine', () => {
     const intervalMock = vi.stubGlobal('setInterval', (callback: () => void) => {
       callback();
     });
-    engine.startGameLoop(1000);
+    engine.startGameLoop();
 
     intervalMock.clearAllMocks();
   });
