@@ -12,24 +12,26 @@ const radiansToDegrees = (radians: number): number => (radians * 180) / Math.PI;
 
 export namespace Angle {
   export const ofRadians = (radians: number): Angle => ({
-    radians: clampRadians(radians),
-    degrees: clampDegrees(radiansToDegrees(radians))
+    radians: radians,
+    degrees: radiansToDegrees(radians)
   });
 
   export const ofDegrees = (degrees: number): Angle => ({
-    degrees: clampDegrees(degrees),
-    radians: clampRadians(degreesToRadians(degrees))
+    degrees: degrees,
+    radians: degreesToRadians(degrees)
   });
 
-  export const rotateClockwise = (first: Angle, second: Angle): Angle => ({
-    degrees: clampDegrees(first.degrees + second.degrees),
-    radians: clampRadians(first.radians + second.radians)
-  });
+  export const rotateClockwise = (first: Angle, second: Angle): Angle =>
+    Angle.clamp({
+      degrees: first.degrees + second.degrees,
+      radians: first.radians + second.radians
+    });
 
-  export const rotateCounterClockwise = (first: Angle, second: Angle): Angle => ({
-    degrees: clampDegrees(first.degrees - second.degrees),
-    radians: clampRadians(first.radians - second.radians)
-  });
+  export const rotateCounterClockwise = (first: Angle, second: Angle): Angle =>
+    Angle.clamp({
+      degrees: first.degrees - second.degrees,
+      radians: first.radians - second.radians
+    });
 
   export const between = (source: Coordinates, target: Coordinates): Angle => {
     const dx = target.x - source.x;
@@ -40,6 +42,11 @@ export namespace Angle {
 
   export const fromVector = (vector: Vector): Angle =>
     Angle.ofRadians(Math.atan2(vector.y, vector.x));
+
+  export const clamp = (angle: Angle): Angle => ({
+    degrees: clampDegrees(angle.degrees),
+    radians: clampRadians(angle.radians)
+  });
 }
 
 const clampDegrees = (degrees: number) => (degrees + 360) % 360;
