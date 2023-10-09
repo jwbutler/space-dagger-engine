@@ -47,7 +47,7 @@ export class EngineImpl implements Engine {
 
   startGameLoop = (timestampMillis: number): void => {
     const timestampSeconds = timestampMillis / 1000;
-    const dt = this.lastUpdateTime - timestampSeconds;
+    const dt = timestampSeconds - this.lastUpdateTime;
     this.lastUpdateTime = timestampSeconds;
     this.update(dt);
     this.render();
