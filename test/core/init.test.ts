@@ -1,12 +1,11 @@
 import { test, expect, vi } from 'vitest';
-import { Engine, init } from '../../src';
+import { Engine, init, Scene } from '../../src';
 
 test('init', async () => {
   const container = {
     appendChild: () => {}
   } as unknown as HTMLElement;
   const viewportDimensions = { width: 100, height: 100 };
-  const sceneDimensions = { width: 200, height: 200 };
   const mockWindow = vi.stubGlobal('window', {
     addEventListener: () => {}
   });
@@ -15,13 +14,13 @@ test('init', async () => {
       getContext: () => ({})
     })
   });
+  const scene = {} as Scene;
   const engine: Engine = await init({
     container,
     viewportDimensions,
-    sceneDimensions
+    scene
   });
-  const scene = engine.getScene();
-  expect(scene.getDimensions()).toEqual(sceneDimensions);
+  expect(engine.getScene()).toBe(scene);
   const viewport = engine.getViewport();
   expect(viewport.getDimensions()).toEqual(viewportDimensions);
   const userInterface = engine.getUserInterface();

@@ -5,7 +5,7 @@ import { Rect } from '../../src/geometry/Rect';
 import { update } from '../../src/core/update';
 import { Entity } from '../../src/entities/Entity';
 import { Scene } from '../../src/core/Scene';
-import { Engine } from '../../src';
+import { Engine, Layer } from '../../src';
 import { CollisionHandler } from '../../src/core/CollisionHandler';
 import { check } from '../../src/utils';
 import { EntityScript, GlobalScript } from '../../src/events';
@@ -21,10 +21,12 @@ test('update', () => {
     onTick: () => {},
     onCollision: () => {}
   } as EntityScript;
+  const layer = {} as Layer;
   const ship = Entity.create({
     name: 'ship',
     centerCoordinates: { x: 0, y: 0 },
     angle: Angle.ofDegrees(0),
+    layer,
     sprite,
     script: entityScript,
     behaviors
