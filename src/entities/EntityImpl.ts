@@ -77,6 +77,7 @@ export class EntityImpl implements Entity {
 
   getFriction = (): number => this.friction;
   setFriction = (friction: number): void => {
+    check(friction >= 0 && friction <= 1);
     this.friction = friction;
   };
 

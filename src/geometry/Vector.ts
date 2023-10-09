@@ -40,8 +40,4 @@ export namespace Vector {
       y: vector.y * ratio
     };
   };
-
-  export const equals = (first: Vector, second: Vector): boolean => {
-    return first.x === second.x && first.y === second.y;
-  };
 }
