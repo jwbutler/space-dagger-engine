@@ -27,6 +27,12 @@ export interface Entity {
   setMaxSpeed: (maxSpeed: number | null) => void;
   getAcceleration: () => Vector;
   setAcceleration: (acceleration: Vector) => void;
+  /**
+   * @return a number between 0 and 1
+   * If friction is 0.05, this means the entity's speed is reduced by 0.05 each second
+   */
+  getFriction: () => number;
+  setFriction: (friction: number) => void;
   getScript: () => EntityScript | null;
   getBehaviors: () => EntityBehavior[];
   addBehavior: (behavior: EntityBehavior) => void;

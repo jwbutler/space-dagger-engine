@@ -31,14 +31,13 @@ export namespace Vector {
 
   export const withMagnitude = (vector: Vector, magnitude: number): Vector => {
     const currentMagnitude = Vector.magnitude(vector);
+    if (currentMagnitude === 0) {
+      return vector;
+    }
     const ratio = magnitude / currentMagnitude;
     return {
       x: vector.x * ratio,
       y: vector.y * ratio
     };
-  };
-
-  export const equals = (first: Vector, second: Vector): boolean => {
-    return first.x === second.x && first.y === second.y;
   };
 }

@@ -12,7 +12,8 @@ test('entity', () => {
     angle: Angle.ofDegrees(0),
     centerCoordinates: Coordinates.zero(),
     name: 'test',
-    sprite
+    sprite,
+    friction: 0.5
   });
 
   expect(entity.getId()).toBe('1');
@@ -22,6 +23,7 @@ test('entity', () => {
   expect(entity.getAngle()).toEqual(Angle.ofDegrees(0));
   expect(entity.getMaxSpeed()).toBe(null);
   expect(entity.getAcceleration()).toEqual(Vector.zero());
+  expect(entity.getFriction()).toBe(0.5);
   expect(entity.getScript()).toBe(null);
   expect(entity.getBehaviors()).toEqual([]);
 
@@ -34,6 +36,9 @@ test('entity', () => {
   const acceleration = { x: 2, y: 2 };
   entity.setAcceleration(acceleration);
   expect(entity.getAcceleration()).toEqual(acceleration);
+
+  entity.setFriction(0.2);
+  expect(entity.getFriction()).toBe(0.2);
 
   const behavior = {} as EntityBehavior;
   entity.addBehavior(behavior);

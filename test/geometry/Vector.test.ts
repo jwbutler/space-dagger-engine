@@ -20,16 +20,12 @@ test('fromAngle', () => {
 test('plus', () => {
   const first = { x: 2, y: 3 };
   const second = { x: 4, y: 5 };
-  const sum = Vector.plus(first, second);
-  const expected = { x: 6, y: 8 };
-  expect(Vector.equals(sum, expected)).toBe(true);
+  expect(Vector.plus(first, second)).toEqual({ x: 6, y: 8 });
 });
 
 test('multiply', () => {
   const vector = { x: 2, y: 3 };
-  const multiplied = Vector.multiply(vector, 2);
-  const expected = { x: 4, y: 6 };
-  expect(Vector.equals(multiplied, expected)).toBe(true);
+  expect(Vector.multiply(vector, 2)).toEqual({ x: 4, y: 6 });
 });
 
 test('zero', () => {
@@ -40,9 +36,12 @@ test('zero', () => {
 
 test('withMagnitude', () => {
   const vector = { x: 6, y: 8 };
-  const limited = Vector.withMagnitude(vector, 5);
-  const expected = { x: 3, y: 4 };
-  expect(Vector.equals(limited, expected)).toBe(true);
+  expect(Vector.withMagnitude(vector, 5)).toEqual({ x: 3, y: 4 });
+});
+
+test('withMagnitude, zero vector', () => {
+  const vector = { x: 0, y: 0 };
+  expect(Vector.withMagnitude(vector, 5)).toEqual(vector);
 });
 
 const _isWithinEpsilon = (value: number, expected: number, epsilon: number): boolean => {
