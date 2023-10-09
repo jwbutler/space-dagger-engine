@@ -3,15 +3,13 @@ import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
 import { Graphics } from '../graphics/Graphics';
 import { SceneImpl } from './SceneImpl';
+import { Layer } from './Layer';
 
 export interface Scene {
   getName: () => string;
   getGraphics: () => Graphics;
+  getLayers: () => Layer[];
   getDimensions: () => Dimensions;
-  getBackgroundColor: () => string | null;
-  setBackgroundColor: (color: string | null) => void;
-  getBackgroundImage: () => ImageBitmap | null;
-  setBackgroundImage: (image: ImageBitmap | null) => void;
   getCamera: () => Camera;
   getEntities: () => Entity[];
   addEntity: (entity: Entity) => void;
@@ -23,9 +21,8 @@ export interface Scene {
 type Props = Readonly<{
   name: string;
   dimensions: Dimensions;
-  backgroundColor?: string;
-  backgroundImage?: ImageBitmap;
   camera: Camera;
+  layers: Layer[];
 }>;
 
 export namespace Scene {

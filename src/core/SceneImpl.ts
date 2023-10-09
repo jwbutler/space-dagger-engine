@@ -5,13 +5,13 @@ import { Entity } from '../entities/Entity';
 import { check } from '../utils/preconditions';
 import { Scene } from './Scene';
 import { Arrays } from '../utils';
+import { Layer } from './Layer';
 
 type Props = Readonly<{
   name: string;
   graphics: Graphics;
   dimensions: Dimensions;
-  backgroundColor?: string;
-  backgroundImage?: ImageBitmap;
+  layers: Layer[];
   camera: Camera;
 }>;
 
@@ -19,8 +19,7 @@ export class SceneImpl implements Scene {
   private readonly name: string;
   private readonly graphics: Graphics;
   private readonly dimensions: Dimensions;
-  private backgroundColor: string | null;
-  private backgroundImage: ImageBitmap | null;
+  private readonly layers: Layer[];
   private readonly camera: Camera;
   private readonly entities: Entity[];
 
@@ -28,8 +27,7 @@ export class SceneImpl implements Scene {
     this.name = props.name;
     this.graphics = props.graphics;
     this.dimensions = props.dimensions;
-    this.backgroundColor = props.backgroundColor ?? null;
-    this.backgroundImage = props.backgroundImage ?? null;
+    this.layers = props.layers;
     this.camera = props.camera;
     this.entities = [];
   }
@@ -38,17 +36,7 @@ export class SceneImpl implements Scene {
 
   getGraphics = (): Graphics => this.graphics;
 
-  getBackgroundColor = (): string | null => this.backgroundColor;
-
-  setBackgroundColor = (color: string | null) => {
-    this.backgroundColor = color;
-  };
-
-  getBackgroundImage = (): ImageBitmap | null => this.backgroundImage;
-
-  setBackgroundImage = (image: ImageBitmap | null) => {
-    this.backgroundImage = image;
-  };
+  getLayers = (): Layer[] => this.layers;
 
   getDimensions = (): Dimensions => this.dimensions;
 

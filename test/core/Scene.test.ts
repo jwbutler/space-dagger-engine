@@ -6,31 +6,27 @@ import { Dimensions } from '../../src/geometry/Dimensions';
 import { Entity } from '../../src/entities/Entity';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
+import { Layer } from '../../src/core/Layer';
 
 test('scene', () => {
-  const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
   });
   const graphics = {} as Graphics;
+  const layer = {} as Layer;
   const scene = new SceneImpl({
     name: 'test',
+    layers: [layer],
     camera,
     dimensions: Dimensions.allBalls(),
     graphics
   });
   expect(scene.getName()).toBe('test');
-  expect(scene.getBackgroundColor()).toBe(null);
-  expect(scene.getBackgroundImage()).toBe(null);
+  expect(scene.getLayers()).toEqual([layer]);
   expect(scene.getCamera()).toBe(camera);
   expect(scene.getDimensions()).toEqual(Dimensions.allBalls());
   expect(scene.getGraphics()).toBe(graphics);
-
-  scene.setBackgroundColor('red');
-  expect(scene.getBackgroundColor()).toBe('red');
-  scene.setBackgroundImage(image);
-  expect(scene.getBackgroundImage()).toBe(image);
 });
 
 test('factory method', () => {
@@ -40,37 +36,34 @@ test('factory method', () => {
       getContext: () => ({})
     })
   });
-  const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
   });
-  const sceneViaFactoryMethod = Scene.create({
+  const layer = {} as Layer;
+  const scene = Scene.create({
     name: 'test',
     camera,
     dimensions: Dimensions.allBalls(),
-    backgroundColor: 'red',
-    backgroundImage: image
+    layers: [layer]
   });
-  expect(sceneViaFactoryMethod.getName()).toBe('test');
-  expect(sceneViaFactoryMethod.getBackgroundColor()).toBe('red');
-  expect(sceneViaFactoryMethod.getBackgroundImage()).toBe(image);
-  expect(sceneViaFactoryMethod.getCamera()).toBe(camera);
-  expect(sceneViaFactoryMethod.getDimensions()).toEqual(Dimensions.allBalls());
+  expect(scene.getName()).toBe('test');
+  expect(scene.getLayers()).toEqual([layer]);
+  expect(scene.getCamera()).toBe(camera);
+  expect(scene.getDimensions()).toEqual(Dimensions.allBalls());
 
   documentMock.clearAllMocks();
 });
 
 test('entities', () => {
-  const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
   });
+  const layer = {} as Layer;
   const scene = new SceneImpl({
     name: 'test',
-    backgroundColor: 'red',
-    backgroundImage: image,
+    layers: [layer],
     camera,
     dimensions: Dimensions.allBalls(),
     graphics: {} as Graphics

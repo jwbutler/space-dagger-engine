@@ -5,6 +5,7 @@ import { Graphics, UserInterface } from '../../src/graphics';
 import { Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
+import { LayerImpl } from '../../src/core/LayerImpl';
 
 describe('Engine', () => {
   beforeAll(() => {
@@ -46,12 +47,14 @@ describe('Engine', () => {
   test('startGameLoop', () => {
     const keyboard = {} as Keyboard;
     const graphics = {
+      fill: () => {},
       drawOnto: () => {}
     } as Partial<Graphics> as Graphics;
     const camera = {
       getRect: () => Rect.allBalls()
     } as Camera;
     const scene = {
+      getLayers: () => [],
       getEntities: () => [],
       getGraphics: () => graphics,
       getCamera: () => camera,
@@ -89,6 +92,7 @@ describe('Engine', () => {
     });
     const renderTime = 0.0123;
     const sceneGraphics = {
+      fill: () => {},
       drawOnto: () => {
         vi.advanceTimersByTime(renderTime * 1000);
       }
@@ -108,6 +112,7 @@ describe('Engine', () => {
     } as unknown as UserInterface;
     const scene = {
       getGraphics: () => sceneGraphics,
+      getLayers: () => [],
       getCamera: () => camera,
       getBackgroundColor: () => null,
       getBackgroundImage: () => null,
@@ -136,10 +141,19 @@ describe('Engine', () => {
       toFake: ['performance']
     });
 
+    const layer = new LayerImpl({
+      depth: 0,
+      graphics: {} as Graphics,
+      name: 'layer_test'
+    });
+
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       scene: new SceneImpl({
-        graphics: {} as Graphics,
+        graphics: {
+          fill: () => {}
+        } as unknown as Graphics,
+        layers: [layer],
         name: 'test',
         camera: {} as Camera,
         dimensions: { width: 640, height: 480 }

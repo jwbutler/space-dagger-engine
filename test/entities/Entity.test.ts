@@ -5,19 +5,23 @@ import { Sprite } from '../../src/graphics/Sprite';
 import { EntityBehavior } from '../../src/entities/behaviors/EntityBehavior';
 import { EntityImpl } from '../../src/entities/EntityImpl';
 import { Vector } from '../../src/geometry';
+import { Layer } from '../../src/core/Layer';
 
 test('entity', () => {
   const sprite = {} as Sprite;
+  const layer = {} as Layer;
   const entity = new EntityImpl({
     angle: Angle.ofDegrees(0),
     centerCoordinates: Coordinates.zero(),
     name: 'test',
+    layer,
     sprite,
     friction: 0.5
   });
 
   expect(entity.getId()).toBe('1');
   expect(entity.getName()).toBe('test');
+  expect(entity.getLayer()).toBe(layer);
   expect(entity.getSprite()).toBe(sprite);
   expect(entity.getCenterCoordinates()).toEqual(Coordinates.zero());
   expect(entity.getAngle()).toEqual(Angle.ofDegrees(0));

@@ -7,12 +7,14 @@ import { EntityScript } from '../events/EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityBehavior } from './behaviors/EntityBehavior';
 import { check } from '../utils';
+import { Layer } from '../core/Layer';
 
 let nextId: number = 1;
 
 export class EntityImpl implements Entity {
   private readonly id: number;
   private readonly name: string;
+  private readonly layer: Layer;
   private centerCoordinates: Coordinates;
   private angle: Angle;
   private speed: Vector;
@@ -27,6 +29,7 @@ export class EntityImpl implements Entity {
   constructor(props: EntityProps) {
     this.id = nextId++;
     this.name = props.name;
+    this.layer = props.layer;
     this.centerCoordinates = props.centerCoordinates;
     this.angle = props.angle;
     this.speed = props.speed ?? Vector.zero();
@@ -54,6 +57,8 @@ export class EntityImpl implements Entity {
   setAngle = (angle: Angle): void => {
     this.angle = angle;
   };
+
+  getLayer = (): Layer => this.layer;
 
   getCenterCoordinates = (): Coordinates => this.centerCoordinates;
   setCenterCoordinates = (coordinates: Coordinates): void => {

@@ -6,6 +6,7 @@ import { EntityScript } from '../events/EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityImpl } from './EntityImpl';
 import { EntityBehavior } from './behaviors/EntityBehavior';
+import { Layer } from '../core/Layer';
 
 export interface Entity {
   /**
@@ -16,6 +17,7 @@ export interface Entity {
    * Typically this is the name of an entity "class", so it's not expected to be unique
    */
   getName: () => string;
+  getLayer: () => Layer;
   getCenterCoordinates: () => Coordinates;
   setCenterCoordinates: (coordinates: Coordinates) => void;
   getAngle: () => Angle;

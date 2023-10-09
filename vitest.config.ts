@@ -15,6 +15,7 @@ export default defineConfig({
         // exclude some false negatives
         'src/**/index.ts',
         'src/vite-env.d.ts',
+        'src/core/Layer.ts',
         'src/entities/EntityProps.ts',
         'src/entities/behaviors/EntityBehavior.ts',
         'src/events/CollisionEvent.ts',
