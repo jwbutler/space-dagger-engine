@@ -1,4 +1,4 @@
-import { test, expect, vi, describe } from 'vitest';
+import { test, expect, vi, describe, beforeAll, afterAll } from 'vitest';
 import { EngineImpl } from '../../src/core/EngineImpl';
 import { Camera, Engine, Keyboard, Scene } from '../../src';
 import { Graphics, UserInterface } from '../../src/graphics';
@@ -7,6 +7,12 @@ import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
 
 describe('Engine', () => {
+  beforeAll(() => {
+    vi.stubGlobal('window', {
+      requestAnimationFrame: () => {}
+    });
+  });
+
   test('engine', () => {
     const keyboard = {} as Keyboard;
     const scene = {} as Scene;
@@ -72,7 +78,7 @@ describe('Engine', () => {
     const intervalMock = vi.stubGlobal('setInterval', (callback: () => void) => {
       callback();
     });
-    engine.startGameLoop(1000);
+    engine.startGameLoop();
 
     intervalMock.clearAllMocks();
   });
@@ -151,18 +157,13 @@ describe('Engine', () => {
     };
     engine.addGlobalScript(delayScript);
     engine.addGlobalScript(spyScript);
-    vi.advanceTimersByTime(10);
-    engine.update();
+    engine.update(0.05);
     expect(spyScript.onUpdate).toHaveBeenCalledWith({ updateTime: 0.01 });
 
     vi.useRealTimers();
   });
 
   test('no-op update', () => {
-    vi.useFakeTimers({
-      toFake: ['performance']
-    });
-
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       scene: {} as Scene,
@@ -173,9 +174,11 @@ describe('Engine', () => {
       onUpdate: vi.fn(() => {})
     };
     engine.addGlobalScript(spyScript);
-    engine.update();
+    engine.update(0);
     expect(spyScript.onUpdate).not.toHaveBeenCalled();
+  });
 
-    vi.useRealTimers();
+  afterAll(() => {
+    vi.unstubAllGlobals();
   });
 });

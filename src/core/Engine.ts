@@ -15,7 +15,7 @@ export interface Engine {
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
 
-  startGameLoop: (frameDurationMillis: number) => void;
+  startGameLoop: () => void;
 }
 
 export type EngineProps = Readonly<{

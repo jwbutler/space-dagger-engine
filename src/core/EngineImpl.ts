@@ -45,21 +45,30 @@ export class EngineImpl implements Engine {
 
   getViewport = () => this.viewport;
 
-  startGameLoop = (frameDurationMillis: number): void => {
-    setInterval(() => {
-      this.update();
-      this.render();
-    }, frameDurationMillis);
+  startGameLoop = (): void => {
+    const timestampMillis = getCurrentTimeSeconds() * 1000;
+    this.doGameLoop(timestampMillis);
+  };
+
+  /**
+   * non-override
+   */
+  doGameLoop = (timestampMillis: number) => {
+    const timestampSeconds = timestampMillis / 1000;
+    const dt = timestampSeconds - this.lastUpdateTime;
+    this.lastUpdateTime = timestampSeconds;
+    this.update(dt);
+    this.render();
+    window.requestAnimationFrame(this.startGameLoop);
   };
 
   /** non-override */
-  update = () => {
-    const time = getCurrentTimeSeconds();
-    const dt = time - this.lastUpdateTime;
+  update = (dt: number) => {
     if (dt === 0) return;
-    this.lastUpdateTime = time;
+
+    const startTime = getCurrentTimeSeconds();
     update(this, dt);
-    const updateTime = getCurrentTimeSeconds() - time;
+    const updateTime = getCurrentTimeSeconds() - startTime;
 
     // TODO: utility function to broadcast global scripts
     for (const globalScript of this.globalScripts) {
