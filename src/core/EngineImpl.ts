@@ -45,7 +45,15 @@ export class EngineImpl implements Engine {
 
   getViewport = () => this.viewport;
 
-  startGameLoop = (timestampMillis: number): void => {
+  startGameLoop = (): void => {
+    const timestampMillis = getCurrentTimeSeconds() * 1000;
+    this.doGameLoop(timestampMillis);
+  };
+
+  /**
+   * non-override
+   */
+  doGameLoop = (timestampMillis: number) => {
     const timestampSeconds = timestampMillis / 1000;
     const dt = timestampSeconds - this.lastUpdateTime;
     this.lastUpdateTime = timestampSeconds;
