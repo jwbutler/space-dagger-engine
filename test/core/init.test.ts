@@ -15,6 +15,13 @@ test('init', async () => {
       getContext: () => ({})
     })
   });
+  class MockAudioContext {
+    createGain = () => ({
+      gain: {},
+      connect: () => {}
+    });
+  }
+  const mockAudioContext = vi.stubGlobal('AudioContext', MockAudioContext);
   const engine: Engine = await init({
     container,
     viewportDimensions,
@@ -29,4 +36,5 @@ test('init', async () => {
 
   mockWindow.clearAllMocks();
   mockDocument.clearAllMocks();
+  mockAudioContext.clearAllMocks();
 });

@@ -5,6 +5,7 @@ import { Graphics, UserInterface } from '../../src/graphics';
 import { Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
+import { SoundPlayer } from '../../src/audio';
 
 describe('Engine', () => {
   beforeAll(() => {
@@ -15,11 +16,13 @@ describe('Engine', () => {
 
   test('engine', () => {
     const keyboard = {} as Keyboard;
+    const soundPlayer = {} as SoundPlayer;
     const scene = {} as Scene;
     const userInterface = {} as UserInterface;
     const viewport = {} as Graphics;
     const engine: Engine = new EngineImpl({
       keyboard,
+      soundPlayer,
       scene,
       userInterface,
       viewport
@@ -29,6 +32,7 @@ describe('Engine', () => {
     engine.addGlobalScript(script);
     expect(engine.getGlobalScripts()).toEqual([script]);
     expect(engine.getKeyboard()).toBe(keyboard);
+    expect(engine.getSoundPlayer()).toBe(soundPlayer);
     expect(engine.getScene()).toBe(scene);
     expect(engine.getViewport()).toBe(viewport);
     expect(engine.getUserInterface()).toBe(userInterface);
@@ -45,6 +49,7 @@ describe('Engine', () => {
    */
   test('startGameLoop', () => {
     const keyboard = {} as Keyboard;
+    const soundPlayer = {} as SoundPlayer;
     const graphics = {
       drawOnto: () => {}
     } as Partial<Graphics> as Graphics;
@@ -70,6 +75,7 @@ describe('Engine', () => {
     } as Partial<Graphics> as Graphics;
     const engine: Engine = new EngineImpl({
       keyboard,
+      soundPlayer,
       scene,
       userInterface,
       viewport
@@ -115,6 +121,7 @@ describe('Engine', () => {
     } as unknown as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      soundPlayer: {} as SoundPlayer,
       scene,
       userInterface,
       viewport
@@ -138,6 +145,7 @@ describe('Engine', () => {
 
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      soundPlayer: {} as SoundPlayer,
       scene: new SceneImpl({
         graphics: {} as Graphics,
         name: 'test',
@@ -166,6 +174,7 @@ describe('Engine', () => {
   test('no-op update', () => {
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      soundPlayer: {} as SoundPlayer,
       scene: {} as Scene,
       userInterface: {} as UserInterface,
       viewport: {} as Graphics

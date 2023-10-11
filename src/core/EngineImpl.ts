@@ -9,10 +9,12 @@ import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
 import { CollisionHandler } from './CollisionHandler';
 import { getCurrentTimeSeconds } from '../utils';
+import { SoundPlayer } from '../audio';
 
 export class EngineImpl implements Engine {
   private readonly globalScripts: GlobalScript[];
   private readonly keyboard: Keyboard;
+  private readonly soundPlayer: SoundPlayer;
   private readonly scene: Scene;
   private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
@@ -20,8 +22,9 @@ export class EngineImpl implements Engine {
   private readonly collisionHandler: CollisionHandler;
   private lastUpdateTime: number;
 
-  constructor({ keyboard, scene, userInterface, viewport }: EngineProps) {
+  constructor({ keyboard, soundPlayer, scene, userInterface, viewport }: EngineProps) {
     this.keyboard = keyboard;
+    this.soundPlayer = soundPlayer;
     this.scene = scene;
     this.userInterface = userInterface;
     this.viewport = viewport;
@@ -38,6 +41,8 @@ export class EngineImpl implements Engine {
   };
 
   getKeyboard = (): Keyboard => this.keyboard;
+
+  getSoundPlayer = (): SoundPlayer => this.soundPlayer;
 
   getScene = (): Scene => this.scene;
 

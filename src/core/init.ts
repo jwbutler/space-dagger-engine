@@ -5,6 +5,7 @@ import { Scene } from './Scene';
 import { Camera } from '../geometry/Camera';
 import { UserInterface } from '../graphics/ui/UserInterface';
 import { Dimensions } from '../geometry';
+import { SoundPlayer } from '../audio';
 
 type Props = Readonly<{
   container: HTMLElement;
@@ -45,11 +46,13 @@ export const init = async ({
   });
   uiGraphics.attach(container);
   const userInterface = UserInterface.create({ graphics: uiGraphics });
+  const soundPlayer = SoundPlayer.create();
 
   return Engine.create({
     scene,
     userInterface,
     keyboard,
+    soundPlayer,
     viewport
   });
 };
