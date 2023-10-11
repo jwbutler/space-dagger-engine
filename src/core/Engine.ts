@@ -4,10 +4,12 @@ import { UserInterface } from '../graphics/ui/UserInterface';
 import { GlobalScript } from '../events/GlobalScript';
 import { EngineImpl } from './EngineImpl';
 import { Graphics } from '../graphics/Graphics';
+import { SoundPlayer } from '../audio';
 
 export interface Engine {
   getScene: () => Scene;
   getKeyboard: () => Keyboard;
+  getSoundPlayer: () => SoundPlayer;
   getUserInterface: () => UserInterface;
   getGlobalScripts: () => GlobalScript[];
   addGlobalScript: (script: GlobalScript) => void;
@@ -20,6 +22,7 @@ export interface Engine {
 
 export type EngineProps = Readonly<{
   keyboard: Keyboard;
+  soundPlayer: SoundPlayer;
   scene: Scene;
   userInterface: UserInterface;
   viewport: Graphics;
