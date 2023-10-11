@@ -1,6 +1,6 @@
 import * as Arrays from '../utils/Arrays';
 
-enum KeyEventType {
+const enum KeyEventType {
   KEY_UP,
   KEY_DOWN
 }
@@ -24,6 +24,7 @@ export interface Keyboard {
 }
 
 type Props = Readonly<{
+  /** seconds */
   doubleTapThreshold: number;
 }>;
 

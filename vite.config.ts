@@ -7,6 +7,7 @@ const config: UserConfig = {
     lib: {
       entry: {
         index: 'src/index.ts',
+        'audio/index': 'src/audio/index.ts',
         'entities/index': 'src/entities/index.ts',
         'geometry/index': 'src/geometry/index.ts',
         'graphics/index': 'src/graphics/index.ts',
