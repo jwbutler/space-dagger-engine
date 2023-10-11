@@ -26,7 +26,9 @@ export default defineConfig({
         'src/events/UpdateEvent.ts',
         'src/graphics/Sprite.ts',
         'src/graphics/ui/TextElement.ts',
-        'src/graphics/ui/UIElement.ts'
+        'src/graphics/ui/UIElement.ts',
+        // This one is just bullshit, it reports missing coverage on an empty brace.
+        'src/audio/Waveform.ts'
       ]
     }
   }

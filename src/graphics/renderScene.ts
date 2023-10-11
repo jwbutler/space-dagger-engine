@@ -1,5 +1,6 @@
 import { Scene } from '../core/Scene';
 import { Rect } from '../geometry/Rect';
+import { Coordinates } from '../geometry';
 
 export const renderScene = (scene: Scene) => {
   const graphics = scene.getGraphics();
@@ -10,7 +11,7 @@ export const renderScene = (scene: Scene) => {
   const backgroundImage = scene.getBackgroundImage();
   if (backgroundImage) {
     graphics.drawImage(backgroundImage, {
-      topLeft: { x: 0, y: 0 }
+      topLeft: Coordinates.zero()
     });
   }
 

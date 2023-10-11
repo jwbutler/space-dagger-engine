@@ -32,6 +32,10 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./audio": {
+      "import": "./dist/audio/index.js",
+      "types": "./dist/audio/index.d.ts"
+    },
     "./entities": {
       "import": "./dist/entities/index.js",
       "types": "./dist/entities/index.d.ts"
