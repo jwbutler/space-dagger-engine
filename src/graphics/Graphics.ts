@@ -23,8 +23,9 @@ export type GraphicsProps = Readonly<{
 export interface Graphics {
   attach: (root: HTMLElement) => void;
   getDimensions: () => Dimensions;
-  drawCircle: (centerCoordinates: Coordinates, radius: number, color: string) => void;
-  drawPolygon: (points: Coordinates[], color: string) => void;
+  fillCircle: (centerCoordinates: Coordinates, radius: number, color: string) => void;
+  fillOval: (rect: Rect, color: string) => void;
+  fillPolygon: (points: Coordinates[], color: string) => void;
   drawImage: (image: ImageBitmap, params?: DrawImageParams) => void;
   drawRect: (rect: Rect, color: string) => void;
   drawText: (text: string, font: string, color: string, topLeft: Coordinates) => void;

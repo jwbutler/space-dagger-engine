@@ -27,7 +27,7 @@ export class CanvasGraphicsImpl implements Graphics {
     height: this.canvas.height
   });
 
-  drawCircle = (centerCoordinates: Coordinates, radius: number, color: string): void => {
+  fillCircle = (centerCoordinates: Coordinates, radius: number, color: string): void => {
     const { context } = this;
     context.strokeStyle = color;
     context.fillStyle = color;
@@ -47,6 +47,26 @@ export class CanvasGraphicsImpl implements Graphics {
     context.closePath();
   };
 
+  fillOval = (rect: Rect, color: string) => {
+    const { context } = this;
+    context.strokeStyle = color;
+    context.fillStyle = color;
+    context.lineWidth = 1;
+    context.beginPath();
+    context.ellipse(
+      rect.left + rect.width / 2,
+      rect.top + rect.height / 2,
+      rect.width / 2,
+      rect.height / 2,
+      0,
+      0,
+      Math.PI * 2
+    );
+    context.stroke();
+    context.fill();
+    context.closePath();
+  };
+
   drawRect = (rect: Rect, color: string): void => {
     const { context } = this;
     context.strokeStyle = color;
@@ -54,7 +74,7 @@ export class CanvasGraphicsImpl implements Graphics {
     context.strokeRect(rect.left, rect.top, rect.width, rect.height);
   };
 
-  drawPolygon = (points: Coordinates[], color: string): void => {
+  fillPolygon = (points: Coordinates[], color: string): void => {
     const { context } = this;
     context.strokeStyle = color;
     context.fillStyle = color;
