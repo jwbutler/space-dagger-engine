@@ -38,14 +38,21 @@ describe('CanvasGraphicsImpl', () => {
     dimensions: { width: 100, height: 100 }
   });
 
-  test('circle', () => {
+  test('fillCircle', () => {
     const ellipseSpy = vi.spyOn(mockContext, 'ellipse');
-    graphics.drawCircle({ x: 20, y: 20 }, 10, 'red');
+    graphics.fillCircle({ x: 20, y: 20 }, 10, 'red');
     expect(ellipseSpy).toHaveBeenCalledWith(20, 20, 10, 10, 0, 0, Math.PI * 2);
     ellipseSpy.mockClear();
   });
 
-  test('polygon', () => {
+  test('fillOval', () => {
+    const ellipseSpy = vi.spyOn(mockContext, 'ellipse');
+    graphics.fillOval({ left: 10, top: 20, width: 30, height: 40 }, 'red');
+    expect(ellipseSpy).toHaveBeenCalledWith(25, 40, 15, 20, 0, 0, Math.PI * 2);
+    ellipseSpy.mockClear();
+  });
+
+  test('fillPolygon', () => {
     const lineToSpy = vi.spyOn(mockContext, 'lineTo');
     const points = [
       { x: 10, y: 10 },
@@ -53,7 +60,7 @@ describe('CanvasGraphicsImpl', () => {
       { x: 20, y: 20 },
       { x: 10, y: 20 }
     ];
-    graphics.drawPolygon(points, 'red');
+    graphics.fillPolygon(points, 'red');
     for (let i = 0; i < points.length; i++) {
       // toHaveBeenNthCalledWith is 1-indexed (ugh)
       expect(lineToSpy).toHaveBeenNthCalledWith(i + 1, points[i].x, points[i].y);
