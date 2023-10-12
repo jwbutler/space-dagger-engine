@@ -24,9 +24,8 @@ describe('CanvasGraphicsImpl', () => {
     fillText: () => {},
     clearRect: () => {},
     putImageData: () => {},
-    fillStyle: undefined,
-    font: undefined
-  };
+    strokeRect: () => {}
+  } as unknown as CanvasRenderingContext2D;
   const mockCanvas = {
     getContext: () => mockContext
   };
@@ -132,6 +131,14 @@ describe('CanvasGraphicsImpl', () => {
     expect(mockContext.fillStyle).toBe('magenta');
     expect(mockContext.font).toBe('12pt Arial');
     fillTextSpy.mockClear();
+  });
+
+  test('drawRect', () => {
+    const strokeRectSpy = vi.spyOn(mockContext, 'strokeRect');
+    graphics.drawRect({ left: 1, top: 2, width: 3, height: 4 }, '#00ffff');
+    expect(mockContext.strokeStyle).toBe('#00ffff');
+    expect(mockContext.lineWidth).toBe(1);
+    expect(strokeRectSpy).toHaveBeenCalledWith(1, 2, 3, 4);
   });
 
   test('clear', () => {

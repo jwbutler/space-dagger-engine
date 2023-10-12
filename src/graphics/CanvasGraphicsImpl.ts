@@ -47,6 +47,13 @@ export class CanvasGraphicsImpl implements Graphics {
     context.closePath();
   };
 
+  drawRect = (rect: Rect, color: string): void => {
+    const { context } = this;
+    context.strokeStyle = color;
+    context.lineWidth = 1;
+    context.strokeRect(rect.left, rect.top, rect.width, rect.height);
+  };
+
   drawPolygon = (points: Coordinates[], color: string): void => {
     const { context } = this;
     context.strokeStyle = color;

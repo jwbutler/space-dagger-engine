@@ -26,6 +26,7 @@ export interface Graphics {
   drawCircle: (centerCoordinates: Coordinates, radius: number, color: string) => void;
   drawPolygon: (points: Coordinates[], color: string) => void;
   drawImage: (image: ImageBitmap, params?: DrawImageParams) => void;
+  drawRect: (rect: Rect, color: string) => void;
   drawText: (text: string, font: string, color: string, topLeft: Coordinates) => void;
   fill: (color: string) => void;
   fillRect: (rect: Rect, color: string) => void;
@@ -34,6 +35,5 @@ export interface Graphics {
 }
 
 export namespace Graphics {
-  export const create = ({ id, dimensions }: GraphicsProps): Graphics =>
-    new CanvasGraphicsImpl({ id, dimensions });
+  export const create = (props: GraphicsProps): Graphics => new CanvasGraphicsImpl(props);
 }
