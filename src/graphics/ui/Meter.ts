@@ -1,6 +1,7 @@
-import { Graphics, UIElement } from '@jwbutler/space-dagger-engine/graphics';
-import { Rect } from '@jwbutler/space-dagger-engine/geometry';
-import { check } from '@jwbutler/space-dagger-engine/utils';
+import { UIElement } from './UIElement';
+import { Rect } from '../../geometry';
+import { check } from '../../utils';
+import { Graphics } from '../Graphics';
 
 interface Meter extends UIElement {
   getValue: () => number;

@@ -57,6 +57,21 @@ describe('Random', () => {
     });
   });
 
+  describe('randChance', () => {
+    test('min value', () => {
+      randValue = 0;
+      expect(Random.randChance(0.6)).toBe(true);
+    });
+    test('max value', () => {
+      randValue = MAX_RAND_VALUE;
+      expect(Random.randChance(0.6)).toBe(false);
+    });
+    test('medium value', () => {
+      randValue = 0.5;
+      expect(Random.randChance(0.6)).toBe(true);
+    });
+  });
+
   afterAll(() => {
     vi.unstubAllGlobals();
   });
