@@ -15,11 +15,6 @@ export type DrawOntoParams = Readonly<{
   destRect?: Rect;
 }>;
 
-export type GraphicsProps = Readonly<{
-  id: string;
-  dimensions: Dimensions;
-}>;
-
 export interface Graphics {
   attach: (root: HTMLElement) => void;
   getDimensions: () => Dimensions;
@@ -35,6 +30,15 @@ export interface Graphics {
   drawOnto: (target: Graphics, params?: DrawOntoParams) => void;
 }
 
+type Props = Readonly<{
+  id: string;
+  dimensions: Dimensions;
+}>;
+
 export namespace Graphics {
-  export const create = (props: GraphicsProps): Graphics => new CanvasGraphicsImpl(props);
+  export const create = (props: Props): Graphics =>
+    new CanvasGraphicsImpl({
+      ...props,
+      pixelGraphics: true
+    });
 }

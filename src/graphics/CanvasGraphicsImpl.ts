@@ -1,21 +1,29 @@
-import { DrawImageParams, DrawOntoParams, Graphics, GraphicsProps } from './Graphics';
+import { DrawImageParams, DrawOntoParams, Graphics } from './Graphics';
 import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { Dimensions } from '../geometry/Dimensions';
 import { check } from '../utils/preconditions';
 import getTopLeft = Rect.getTopLeft;
 
+type GraphicsProps = Readonly<{
+  id: string;
+  dimensions: Dimensions;
+  pixelGraphics?: boolean;
+}>;
+
 export class CanvasGraphicsImpl implements Graphics {
   private readonly canvas: HTMLCanvasElement;
   private readonly context: CanvasRenderingContext2D;
+  private readonly pixelGraphics: boolean;
 
-  constructor({ id, dimensions }: GraphicsProps) {
+  constructor({ id, dimensions, pixelGraphics }: GraphicsProps) {
     this.canvas = document.createElement('canvas')!;
     this.canvas.width = dimensions.width;
     this.canvas.height = dimensions.height;
     this.canvas.id = id;
     this.context = this.canvas.getContext('2d', { willReadFrequently: true })!;
     this.context.imageSmoothingEnabled = false;
+    this.pixelGraphics = pixelGraphics ?? false;
   }
 
   attach = (root: HTMLElement): void => {
@@ -32,6 +40,21 @@ export class CanvasGraphicsImpl implements Graphics {
     context.strokeStyle = color;
     context.fillStyle = color;
     context.lineWidth = 1;
+
+    if (this.pixelGraphics) {
+      for (
+        let y = Math.floor(centerCoordinates.y - radius);
+        y <= Math.ceil(centerCoordinates.y + radius);
+        y++
+      ) {
+        const width = Math.floor(
+          Math.sqrt(radius ** 2 - (y - centerCoordinates.y) ** 2) * 2
+        );
+        const left = Math.round(centerCoordinates.x - width / 2);
+        context.fillRect(left, y, width, 1);
+      }
+      return;
+    }
     context.beginPath();
     context.ellipse(
       centerCoordinates.x,
@@ -69,9 +92,16 @@ export class CanvasGraphicsImpl implements Graphics {
 
   drawRect = (rect: Rect, color: string): void => {
     const { context } = this;
-    context.strokeStyle = color;
+    // ugh
+    context.fillStyle = color;
     context.lineWidth = 1;
-    context.strokeRect(rect.left, rect.top, rect.width, rect.height);
+    const { left, top, width, height } = rect;
+    const right = left + width;
+    const bottom = top + height;
+    context.fillRect(left, top, width, 1); // top
+    context.fillRect(right - 1, top, 1, height); // right
+    context.fillRect(left, bottom - 1, width, 1); // bottom
+    context.fillRect(left, top, 1, height); // left
   };
 
   fillPolygon = (points: Coordinates[], color: string): void => {
@@ -79,6 +109,36 @@ export class CanvasGraphicsImpl implements Graphics {
     context.strokeStyle = color;
     context.fillStyle = color;
     context.lineWidth = 1;
+    if (this.pixelGraphics) {
+      // TODO rename and refactor
+      const minY = Math.floor(Math.min(...points.map(v => v.y)));
+      const maxY = Math.ceil(Math.max(...points.map(v => v.y)));
+
+      for (let y = minY; y <= maxY; y++) {
+        const intersections = [];
+
+        for (let i = 0; i < points.length; i++) {
+          const v1 = points[i];
+          const v2 = points[(i + 1) % points.length];
+
+          if ((v1.y <= y && v2.y > y) || (v2.y <= y && v1.y > y)) {
+            const x = Math.round(v1.x + ((y - v1.y) / (v2.y - v1.y)) * (v2.x - v1.x));
+            intersections.push(x);
+          }
+        }
+
+        intersections.sort((a, b) => a - b);
+
+        for (let i = 0; i < intersections.length; i += 2) {
+          const startX = intersections[i];
+          const endX = intersections[i + 1];
+          for (let x = startX; x < endX; x++) {
+            context.fillRect(x, y, 1, 1);
+          }
+        }
+      }
+      return;
+    }
     context.beginPath();
     for (const point of points) {
       context.lineTo(point.x, point.y);
