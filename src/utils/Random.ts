@@ -15,6 +15,6 @@ export const randChoice = <T>(items: T[]): T => {
 export const randBoolean = (): boolean => randChoice([true, false]);
 
 export const randChance = (chance: number): boolean => {
-  check(chance > 0 && chance < 1);
+  check(chance >= 0 && chance <= 1);
   return randFloat(0, 1) < chance;
 };
