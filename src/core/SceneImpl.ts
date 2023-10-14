@@ -5,6 +5,7 @@ import { Entity } from '../entities/Entity';
 import { check } from '../utils/preconditions';
 import { Scene } from './Scene';
 import { Arrays } from '../utils';
+import { EntityImpl } from '../entities/EntityImpl';
 
 type Props = Readonly<{
   name: string;
@@ -57,6 +58,7 @@ export class SceneImpl implements Scene {
   getEntities = (): Entity[] => this.entities;
 
   addEntity = (entity: Entity) => {
+    check((entity as EntityImpl).isInitialized());
     this.entities.push(entity);
   };
 

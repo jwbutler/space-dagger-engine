@@ -1,4 +1,4 @@
-import { expect, describe, test } from 'vitest';
+import { expect, describe, test, vi } from 'vitest';
 import { Angle } from '../../src/geometry/Angle';
 import { Coordinates } from '../../src/geometry/Coordinates';
 import { Sprite } from '../../src/graphics/Sprite';
@@ -6,6 +6,7 @@ import { EntityBehavior } from '../../src/entities/behaviors/EntityBehavior';
 import { EntityImpl } from '../../src/entities/EntityImpl';
 import { Vector } from '../../src/geometry';
 import { EntityScript } from '../../src/events';
+import { Engine } from '../../src';
 
 describe('Entity', () => {
   const sprite = {} as Sprite;
@@ -52,14 +53,18 @@ describe('Entity', () => {
   });
 
   test('addScript', () => {
-    const script = {} as EntityScript;
+    const script = {
+      init: () => {}
+    } as EntityScript;
     entity.addScript(script);
     expect(entity.getScripts().length).toBe(1);
     expect(entity.getScripts()[0]).toBe(script);
   });
 
   test('addBehavior', () => {
-    const behavior = {} as EntityBehavior;
+    const behavior = {
+      init: () => {}
+    } as EntityBehavior;
     entity.addBehavior(behavior);
     expect(entity.getBehaviors().length).toBe(1);
     expect(entity.getBehaviors()).toEqual([behavior]);
@@ -72,5 +77,16 @@ describe('Entity', () => {
     expect(entity.getStringVariable('two')).toBe('2');
     entity.setStringVariable('one', null);
     expect(entity.getStringVariable('one')).toBe(null);
+  });
+
+  test('init', () => {
+    const engine = {} as Engine;
+    const script_init_spy = vi.spyOn(entity.getScripts()[0], 'init');
+    const behavior_init_spy = vi.spyOn(entity.getBehaviors()[0], 'init');
+    expect(entity.isInitialized()).toBe(false);
+    entity.init(engine);
+    expect(entity.isInitialized()).toBe(true);
+    expect(script_init_spy).toHaveBeenCalledWith(entity, { engine });
+    expect(behavior_init_spy).toHaveBeenCalledWith(entity, { engine });
   });
 });

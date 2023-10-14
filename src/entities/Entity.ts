@@ -6,6 +6,7 @@ import { EntityScript } from '../events/EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityImpl } from './EntityImpl';
 import { EntityBehavior } from './behaviors/EntityBehavior';
+import { Engine } from '../core/Engine';
 
 export interface Entity {
   /**
@@ -34,12 +35,12 @@ export interface Entity {
   getFriction: () => number;
   setFriction: (friction: number) => void;
   getScripts: () => EntityScript[];
-  addScript: (script: EntityScript) => void;
   getBehaviors: () => EntityBehavior[];
-  addBehavior: (behavior: EntityBehavior) => void;
 
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
+
+  init: (engine: Engine) => void;
 }
 
 export namespace Entity {

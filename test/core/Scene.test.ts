@@ -1,11 +1,11 @@
-import { test, expect, vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { Scene } from '../../src/core/Scene';
 import { Camera } from '../../src/geometry/Camera';
 import { Coordinates } from '../../src/geometry/Coordinates';
 import { Dimensions } from '../../src/geometry/Dimensions';
-import { Entity } from '../../src/entities/Entity';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
+import { EntityImpl } from '../../src/entities/EntityImpl';
 
 test('scene', () => {
   const image = {} as ImageBitmap;
@@ -77,10 +77,12 @@ test('entities', () => {
   });
 
   expect(scene.getEntities()).toEqual([]);
+  const isInitialized = true;
   const entity = {
     getId: () => 'test_id',
-    getName: () => 'test'
-  } as Entity;
+    getName: () => 'test',
+    isInitialized: (): boolean => isInitialized
+  } as EntityImpl;
   scene.addEntity(entity);
   expect(scene.getEntities()).toEqual([entity]);
   expect(scene.getEntitiesByName('test')).toEqual([entity]);
