@@ -7,6 +7,7 @@ import { EntityScript } from '../events/EntityScript';
 import { EntityProps } from './EntityProps';
 import { EntityBehavior } from './behaviors/EntityBehavior';
 import { check } from '../utils';
+import { Engine } from '../core/Engine';
 
 let nextId: number = 1;
 
@@ -98,7 +99,17 @@ export class EntityImpl implements Entity {
   getStringVariable = (key: string): string | null => {
     return this.stringVariables[key] ?? null;
   };
+
   setStringVariable = (key: string, value: string | null): void => {
     this.stringVariables[key] = value;
+  };
+
+  init = (engine: Engine): void => {
+    for (const script of this.getScripts()) {
+      script.init?.(this, { engine });
+    }
+    for (const behavior of this.getBehaviors()) {
+      behavior.init?.(this, { engine });
+    }
   };
 }
