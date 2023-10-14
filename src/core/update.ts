@@ -16,8 +16,12 @@ export const update = (engine: Engine, dt: number): void => {
     const first = scene.getEntityById(firstId);
     const second = scene.getEntityById(secondId);
     if (first && second) {
-      first.getScript()?.onCollision?.(first, { other: second, engine, dt });
-      second.getScript()?.onCollision?.(second, { other: first, engine, dt });
+      for (const script of first.getScripts()) {
+        script.onCollision?.(first, { other: second, engine, dt });
+      }
+      for (const script of second.getScripts()) {
+        script.onCollision?.(second, { other: first, engine, dt });
+      }
     }
   }
 
@@ -32,8 +36,7 @@ export const update = (engine: Engine, dt: number): void => {
   // TODO - need to worry about concurrent modification
   for (const entity of scene.getEntities()) {
     // TODO - think about script/behavior precedence
-    const script = entity.getScript();
-    if (script) {
+    for (const script of entity.getScripts()) {
       script.onTick?.(entity, { engine, dt });
     }
     const behaviors = entity.getBehaviors();
