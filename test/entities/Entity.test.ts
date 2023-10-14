@@ -83,7 +83,9 @@ describe('Entity', () => {
     const engine = {} as Engine;
     const script_init_spy = vi.spyOn(entity.getScripts()[0], 'init');
     const behavior_init_spy = vi.spyOn(entity.getBehaviors()[0], 'init');
+    expect(entity.isInitialized()).toBe(false);
     entity.init(engine);
+    expect(entity.isInitialized()).toBe(true);
     expect(script_init_spy).toHaveBeenCalledWith(entity, { engine });
     expect(behavior_init_spy).toHaveBeenCalledWith(entity, { engine });
   });

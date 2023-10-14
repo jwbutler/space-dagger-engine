@@ -24,6 +24,7 @@ export class EntityImpl implements Entity {
   private readonly scripts: EntityScript[];
   private readonly behaviors: EntityBehavior[];
   private readonly stringVariables: Record<string, string | null>;
+  private _isInitialized: boolean;
 
   constructor(props: EntityProps) {
     this.id = nextId++;
@@ -41,6 +42,7 @@ export class EntityImpl implements Entity {
     this.scripts = props.scripts ?? [];
     this.behaviors = props.behaviors ?? [];
     this.stringVariables = {};
+    this._isInitialized = false;
   }
 
   /**
@@ -105,11 +107,16 @@ export class EntityImpl implements Entity {
   };
 
   init = (engine: Engine): void => {
+    check(!this._isInitialized);
     for (const script of this.getScripts()) {
       script.init?.(this, { engine });
     }
     for (const behavior of this.getBehaviors()) {
       behavior.init?.(this, { engine });
     }
+    this._isInitialized = true;
   };
+
+  /** non-override */
+  isInitialized = (): boolean => this._isInitialized;
 }
