@@ -26,7 +26,7 @@ test('update', () => {
     centerCoordinates: { x: 0, y: 0 },
     angle: Angle.ofDegrees(0),
     sprite,
-    script: entityScript,
+    scripts: [entityScript],
     behaviors
   });
   ship.setSpeed({ x: 3, y: 4 });

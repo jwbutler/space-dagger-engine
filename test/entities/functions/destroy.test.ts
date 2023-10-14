@@ -9,7 +9,7 @@ test('destroy', () => {
   } as EntityScript;
 
   const entity = {
-    getScript: () => entityScript
+    getScripts: () => [entityScript]
   } as Entity;
   const scene = {
     removeEntity: () => {}
