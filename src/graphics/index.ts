@@ -7,7 +7,8 @@ import { UserInterface } from './ui/UserInterface';
 import { UIElement } from './ui/UIElement';
 import { createTiledImage } from './images/createTiledImage';
 import { Meter } from './ui/Meter';
+import { ImageType } from './ImageType';
 
 export { Graphics, Meter, TextElement, UserInterface };
 export { createTiledImage, loadImage, loadImageBitmap };
-export type { Sprite, UIElement };
+export type { ImageType, Sprite, UIElement };
