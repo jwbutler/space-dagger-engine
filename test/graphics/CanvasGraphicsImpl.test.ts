@@ -1,6 +1,7 @@
 import { describe, test, vi, expect, afterAll } from 'vitest';
 import { CanvasGraphicsImpl } from '../../src/graphics/CanvasGraphicsImpl';
 import { Angle } from '../../src/geometry';
+import { ImageType } from '../../src/graphics/ImageType';
 
 /**
  * This file consists of some extreme "white-box testing" - just stepping through
@@ -89,44 +90,57 @@ describe('CanvasGraphicsImpl', () => {
 
   test('drawImage (top-left)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as ImageBitmap;
+    const imageBitmap = {} as ImageBitmap;
+    const image = {
+      delegate: imageBitmap
+    } as ImageType;
     graphics.drawImage(image, {
       topLeft: { x: 10, y: 12 }
     });
-    expect(drawImageSpy).toHaveBeenCalledWith(image, 10, 12);
+    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 10, 12);
     drawImageSpy.mockClear();
   });
 
   test('drawImage (rect)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as ImageBitmap;
+    const imageBitmap = {} as ImageBitmap;
+    const image = {
+      delegate: imageBitmap
+    } as ImageType;
     graphics.drawImage(image, {
       rect: { left: 5, top: 6, width: 7, height: 8 }
     });
-    expect(drawImageSpy).toHaveBeenCalledWith(image, 5, 6);
+    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 5, 6);
     drawImageSpy.mockClear();
   });
 
   test('drawImage (default position)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as ImageBitmap;
+    const imageBitmap = {} as ImageBitmap;
+    const image = {
+      delegate: imageBitmap
+    } as ImageType;
     graphics.drawImage(image);
-    expect(drawImageSpy).toHaveBeenCalledWith(image, 0, 0);
+    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 0, 0);
     drawImageSpy.mockClear();
   });
 
   test('drawImage (rotation)', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
     const translateSpy = vi.spyOn(mockContext, 'translate');
-    const image = {
+    const imageBitmap = {
       width: 20,
       height: 20
     } as ImageBitmap;
+    const image = {
+      delegate: imageBitmap,
+      origin: { x: 10, y: 10 }
+    } as ImageType;
     graphics.drawImage(image, {
       rotation: Angle.ofDegrees(90)
     });
     expect(translateSpy).toHaveBeenCalledWith(10, 10);
-    expect(drawImageSpy).toHaveBeenCalledWith(image, -10, -10);
+    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, -10, -10);
     drawImageSpy.mockClear();
     translateSpy.mockClear();
   });

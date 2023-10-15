@@ -6,9 +6,13 @@ import { Dimensions } from '../../src/geometry/Dimensions';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { EntityImpl } from '../../src/entities/EntityImpl';
+import { ImageType } from '../../src/graphics/ImageType';
 
 test('scene', () => {
-  const image = {} as ImageBitmap;
+  const imageBitmap = {} as ImageBitmap;
+  const image = {
+    delegate: imageBitmap
+  } as ImageType;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
@@ -40,7 +44,10 @@ test('factory method', () => {
       getContext: () => ({})
     })
   });
-  const image = {} as ImageBitmap;
+  const imageBitmap = {} as ImageBitmap;
+  const image = {
+    delegate: imageBitmap
+  } as ImageType;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()
@@ -62,7 +69,10 @@ test('factory method', () => {
 });
 
 test('entities', () => {
-  const image = {} as ImageBitmap;
+  const imageBitmap = {} as ImageBitmap;
+  const image = {
+    delegate: imageBitmap
+  } as ImageType;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
     dimensions: Dimensions.allBalls()

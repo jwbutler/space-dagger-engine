@@ -3,7 +3,7 @@ import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { Dimensions } from '../geometry/Dimensions';
 import { check } from '../utils/preconditions';
-import getTopLeft = Rect.getTopLeft;
+import { ImageType } from './ImageType';
 
 export class CanvasGraphicsImpl implements Graphics {
   private readonly canvas: HTMLCanvasElement;
@@ -102,14 +102,14 @@ export class CanvasGraphicsImpl implements Graphics {
     this.fillRect(rect, color);
   };
 
-  drawImage = (image: ImageBitmap | HTMLCanvasElement, params?: DrawImageParams) => {
+  drawImage = (image: ImageType, params?: DrawImageParams) => {
     const { context } = this;
     check(!(params?.topLeft && params?.rect));
     const topLeft: Coordinates = (() => {
       if (params?.topLeft) {
         return params.topLeft;
       } else if (params?.rect) {
-        return getTopLeft(params.rect);
+        return Rect.getTopLeft(params.rect);
       } else {
         return { x: 0, y: 0 };
       }
@@ -117,12 +117,13 @@ export class CanvasGraphicsImpl implements Graphics {
     if (params?.rotation) {
       // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate#examples
       context.save();
-      context.translate(topLeft.x + image.width / 2, topLeft.y + image.height / 2);
+      const { origin } = image;
+      context.translate(topLeft.x + origin.x, topLeft.y + origin.y);
       context.rotate(params.rotation.radians);
-      context.drawImage(image, -image.width / 2, -image.height / 2);
+      context.drawImage(image.delegate, -origin.x, -origin.y);
       context.restore();
     } else {
-      context.drawImage(image, topLeft.x, topLeft.y);
+      context.drawImage(image.delegate, topLeft.x, topLeft.y);
     }
   };
 

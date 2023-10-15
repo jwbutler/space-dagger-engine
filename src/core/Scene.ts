@@ -3,6 +3,7 @@ import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
 import { Graphics } from '../graphics/Graphics';
 import { SceneImpl } from './SceneImpl';
+import { ImageType } from '../graphics/ImageType';
 
 export interface Scene {
   getName: () => string;
@@ -10,8 +11,8 @@ export interface Scene {
   getDimensions: () => Dimensions;
   getBackgroundColor: () => string | null;
   setBackgroundColor: (color: string | null) => void;
-  getBackgroundImage: () => ImageBitmap | null;
-  setBackgroundImage: (image: ImageBitmap | null) => void;
+  getBackgroundImage: () => ImageType | null;
+  setBackgroundImage: (image: ImageType | null) => void;
   getCamera: () => Camera;
   getEntities: () => Entity[];
   addEntity: (entity: Entity) => void;
@@ -24,7 +25,7 @@ type Props = Readonly<{
   name: string;
   dimensions: Dimensions;
   backgroundColor?: string;
-  backgroundImage?: ImageBitmap;
+  backgroundImage?: ImageType;
   camera: Camera;
 }>;
 

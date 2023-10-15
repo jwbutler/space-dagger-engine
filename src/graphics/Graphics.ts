@@ -3,6 +3,7 @@ import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { CanvasGraphicsImpl } from './CanvasGraphicsImpl';
 import { Angle } from '../geometry/Angle';
+import { ImageType } from './ImageType';
 
 export type DrawImageParams = Readonly<{
   rect?: Rect;
@@ -26,7 +27,7 @@ export interface Graphics {
   fillCircle: (centerCoordinates: Coordinates, radius: number, color: string) => void;
   fillOval: (rect: Rect, color: string) => void;
   fillPolygon: (points: Coordinates[], color: string) => void;
-  drawImage: (image: ImageBitmap, params?: DrawImageParams) => void;
+  drawImage: (image: ImageType, params?: DrawImageParams) => void;
   drawRect: (rect: Rect, color: string) => void;
   drawText: (text: string, font: string, color: string, topLeft: Coordinates) => void;
   fill: (color: string) => void;

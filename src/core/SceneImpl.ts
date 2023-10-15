@@ -6,13 +6,14 @@ import { check } from '../utils/preconditions';
 import { Scene } from './Scene';
 import { Arrays } from '../utils';
 import { EntityImpl } from '../entities/EntityImpl';
+import { ImageType } from '../graphics/ImageType';
 
 type Props = Readonly<{
   name: string;
   graphics: Graphics;
   dimensions: Dimensions;
   backgroundColor?: string;
-  backgroundImage?: ImageBitmap;
+  backgroundImage?: ImageType;
   camera: Camera;
 }>;
 
@@ -21,7 +22,7 @@ export class SceneImpl implements Scene {
   private readonly graphics: Graphics;
   private readonly dimensions: Dimensions;
   private backgroundColor: string | null;
-  private backgroundImage: ImageBitmap | null;
+  private backgroundImage: ImageType | null;
   private readonly camera: Camera;
   private readonly entities: Entity[];
 
@@ -45,9 +46,9 @@ export class SceneImpl implements Scene {
     this.backgroundColor = color;
   };
 
-  getBackgroundImage = (): ImageBitmap | null => this.backgroundImage;
+  getBackgroundImage = (): ImageType | null => this.backgroundImage;
 
-  setBackgroundImage = (image: ImageBitmap | null) => {
+  setBackgroundImage = (image: ImageType | null) => {
     this.backgroundImage = image;
   };
 
