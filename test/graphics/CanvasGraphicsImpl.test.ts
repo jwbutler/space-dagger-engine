@@ -1,4 +1,4 @@
-import { describe, test, vi, expect, afterAll } from 'vitest';
+import { afterAll, describe, expect, test, vi } from 'vitest';
 import { CanvasGraphicsImpl } from '../../src/graphics/CanvasGraphicsImpl';
 import { Angle } from '../../src/geometry';
 
@@ -87,45 +87,34 @@ describe('CanvasGraphicsImpl', () => {
     fillRectSpy.mockClear();
   });
 
-  test('drawImage (top-left)', () => {
+  test('drawImage', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
     const image = {} as ImageBitmap;
-    graphics.drawImage(image, {
-      topLeft: { x: 10, y: 12 }
-    });
+    graphics.drawImage(image, { x: 10, y: 12 });
     expect(drawImageSpy).toHaveBeenCalledWith(image, 10, 12);
     drawImageSpy.mockClear();
   });
 
-  test('drawImage (rect)', () => {
+  test('drawScaledImage', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
     const image = {} as ImageBitmap;
-    graphics.drawImage(image, {
-      rect: { left: 5, top: 6, width: 7, height: 8 }
-    });
-    expect(drawImageSpy).toHaveBeenCalledWith(image, 5, 6);
+    graphics.drawScaledImage(image, { left: 5, top: 6, width: 7, height: 8 });
+    expect(drawImageSpy).toHaveBeenCalledWith(image, 5, 6, 7, 8);
     drawImageSpy.mockClear();
   });
 
-  test('drawImage (default position)', () => {
-    const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const image = {} as ImageBitmap;
-    graphics.drawImage(image);
-    expect(drawImageSpy).toHaveBeenCalledWith(image, 0, 0);
-    drawImageSpy.mockClear();
-  });
-
-  test('drawImage (rotation)', () => {
+  test('drawRotatedImage', () => {
     const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
     const translateSpy = vi.spyOn(mockContext, 'translate');
     const image = {
       width: 20,
       height: 20
     } as ImageBitmap;
-    graphics.drawImage(image, {
-      rotation: Angle.ofDegrees(90)
+    graphics.drawRotatedImage(image, { x: 2, y: 3 }, Angle.ofDegrees(90), {
+      x: 10,
+      y: 10
     });
-    expect(translateSpy).toHaveBeenCalledWith(10, 10);
+    expect(translateSpy).toHaveBeenCalledWith(2, 3);
     expect(drawImageSpy).toHaveBeenCalledWith(image, -10, -10);
     drawImageSpy.mockClear();
     translateSpy.mockClear();

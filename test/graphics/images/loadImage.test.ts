@@ -1,7 +1,7 @@
 import { test, expect, vi } from 'vitest';
-import { loadImageBitmap } from '../../src/graphics';
+import { loadImage } from '../../../src/graphics';
 
-test('loadImageBitmap', async () => {
+test('loadImage', async () => {
   const mockImage = {
     addEventListener: (_: string, callback: () => void) => {
       callback();
@@ -11,11 +11,6 @@ test('loadImageBitmap', async () => {
     createElement: () => mockImage
   };
   vi.stubGlobal('document', mockDocument);
-  let imgElementArg: unknown = null;
-  vi.stubGlobal('createImageBitmap', (arg: unknown) => {
-    imgElementArg = arg;
-  });
-  await loadImageBitmap('test');
-  expect(imgElementArg).toBe(mockImage);
+  expect(await loadImage('test')).toBe(mockImage);
   vi.unstubAllGlobals();
 });

@@ -63,3 +63,8 @@ test('contains', () => {
   };
   expect(Rect.contains(first, second)).toBe(true);
 });
+
+test('getTopLeft', () => {
+  const rect = { left: 2, top: 4, width: 6, height: 8 };
+  expect(Rect.getTopLeft(rect)).toEqual({ x: 2, y: 4 });
+});
