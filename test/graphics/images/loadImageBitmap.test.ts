@@ -1,5 +1,5 @@
 import { test, expect, vi } from 'vitest';
-import { loadImageBitmap } from '../../src/graphics';
+import { loadImageBitmap } from '../../../src/graphics';
 
 test('loadImageBitmap', async () => {
   const mockImage = {
@@ -11,11 +11,9 @@ test('loadImageBitmap', async () => {
     createElement: () => mockImage
   };
   vi.stubGlobal('document', mockDocument);
-  let imgElementArg: unknown = null;
-  vi.stubGlobal('createImageBitmap', (arg: unknown) => {
-    imgElementArg = arg;
-  });
+  const createImageBitmap_mock = vi.fn();
+  vi.stubGlobal('createImageBitmap', createImageBitmap_mock);
   await loadImageBitmap('test');
-  expect(imgElementArg).toBe(mockImage);
+  expect(createImageBitmap_mock).toHaveBeenCalledWith(mockImage);
   vi.unstubAllGlobals();
 });

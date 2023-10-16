@@ -50,8 +50,6 @@ describe('renderScene', () => {
       { left: 0, top: 0, width: 200, height: 300 },
       'red'
     );
-    expect(drawImageSpy).toHaveBeenCalledWith(scene.getBackgroundImage(), {
-      topLeft: { x: 0, y: 0 }
-    });
+    expect(drawImageSpy).toHaveBeenCalledWith(scene.getBackgroundImage(), { x: 0, y: 0 });
   });
 });

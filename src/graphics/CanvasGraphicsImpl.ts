@@ -1,9 +1,9 @@
-import { DrawImageParams, DrawOntoParams, Graphics, GraphicsProps } from './Graphics';
+import { DrawOntoParams, Graphics, GraphicsProps } from './Graphics';
 import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { Dimensions } from '../geometry/Dimensions';
-import { check } from '../utils/preconditions';
-import getTopLeft = Rect.getTopLeft;
+import { ImageType } from './images/ImageType';
+import { Angle } from '../geometry';
 
 export class CanvasGraphicsImpl implements Graphics {
   private readonly canvas: HTMLCanvasElement;
@@ -90,40 +90,40 @@ export class CanvasGraphicsImpl implements Graphics {
     context.closePath();
   };
 
-  fillRect = (rect: Rect, color: string) => {
+  fillRect = (rect: Rect, color: string): void => {
     const { context } = this;
     context.fillStyle = color;
     context.fillRect(rect.left, rect.top, rect.width, rect.height);
   };
 
-  fill = (color: string) => {
+  fill = (color: string): void => {
     const { width, height } = this.canvas;
     const rect = Rect.fromDimensions({ width, height });
     this.fillRect(rect, color);
   };
 
-  drawImage = (image: ImageBitmap | HTMLCanvasElement, params?: DrawImageParams) => {
+  drawImage = (image: ImageType, topLeft: Coordinates): void => {
     const { context } = this;
-    check(!(params?.topLeft && params?.rect));
-    const topLeft: Coordinates = (() => {
-      if (params?.topLeft) {
-        return params.topLeft;
-      } else if (params?.rect) {
-        return getTopLeft(params.rect);
-      } else {
-        return { x: 0, y: 0 };
-      }
-    })();
-    if (params?.rotation) {
-      // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate#examples
-      context.save();
-      context.translate(topLeft.x + image.width / 2, topLeft.y + image.height / 2);
-      context.rotate(params.rotation.radians);
-      context.drawImage(image, -image.width / 2, -image.height / 2);
-      context.restore();
-    } else {
-      context.drawImage(image, topLeft.x, topLeft.y);
-    }
+    context.drawImage(image, topLeft.x, topLeft.y);
+  };
+
+  drawScaledImage = (image: ImageType, rect: Rect): void => {
+    const { context } = this;
+    context.drawImage(image, rect.left, rect.top, rect.width, rect.height);
+  };
+
+  drawRotatedImage = (
+    image: ImageType,
+    centerCoordinates: Coordinates,
+    angle: Angle,
+    origin: Coordinates
+  ): void => {
+    const { context } = this;
+    context.save();
+    context.translate(centerCoordinates.x, centerCoordinates.y);
+    context.rotate(angle.radians);
+    context.drawImage(image, -origin.x, -origin.y, image.width, image.height);
+    context.restore();
   };
 
   putImageData = (imageData: ImageData) => {

@@ -6,6 +6,9 @@ import { UserInterface } from './ui/UserInterface';
 import { UIElement } from './ui/UIElement';
 import { createTiledImage } from './images/createTiledImage';
 import { Meter } from './ui/Meter';
+import { loadSvgImage } from './images/loadSvgImage';
+import { ImageType } from './images/ImageType';
 
-export { Graphics, Meter, TextElement, UserInterface, createTiledImage, loadImageBitmap };
-export type { Sprite, UIElement };
+export { Graphics, Meter, TextElement, UserInterface };
+export { createTiledImage, loadImageBitmap, loadSvgImage };
+export type { ImageType, Sprite, UIElement };

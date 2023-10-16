@@ -12,9 +12,11 @@ export default defineConfig({
       lines: 100,
       include: ['src/**/*.ts'],
       exclude: [
+        // exclude type definitions since they are logicless
+        'src/**/*.d.ts',
+        'src/vite-env.d.ts',
         // exclude some false negatives
         'src/**/index.ts',
-        'src/vite-env.d.ts',
         'src/entities/EntityProps.ts',
         'src/entities/behaviors/EntityBehavior.ts',
         'src/events/CollisionEvent.ts',

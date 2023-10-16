@@ -10,9 +10,7 @@ export const renderScene = (scene: Scene) => {
   }
   const backgroundImage = scene.getBackgroundImage();
   if (backgroundImage) {
-    graphics.drawImage(backgroundImage, {
-      topLeft: Coordinates.zero()
-    });
+    graphics.drawImage(backgroundImage, Coordinates.zero());
   }
 
   for (const entity of scene.getEntities()) {
