@@ -40,4 +40,13 @@ export namespace Vector {
       y: vector.y * ratio
     };
   };
+
+  export const rotate = (vector: Vector, angle: Angle): Vector => {
+    const currentAngle = Angle.fromVector(vector);
+    const magnitude = Vector.magnitude(vector);
+    return Vector.fromAngle(
+      Angle.ofRadians(currentAngle.radians + angle.radians),
+      magnitude
+    );
+  };
 }
