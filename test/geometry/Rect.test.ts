@@ -83,4 +83,14 @@ describe('Rect', () => {
       expect(actual).toContainEqual(vertex);
     }
   });
+
+  test('createCentered', () => {
+    const rect = Rect.createCentered({ x: 2, y: 4 }, { width: 4, height: 6 });
+    expect(rect).toEqual({
+      left: 0,
+      top: 1,
+      width: 4,
+      height: 6
+    });
+  });
 });

@@ -70,4 +70,16 @@ export namespace Rect {
       { x: left, y: bottom }
     ];
   };
+
+  export const createCentered = (
+    centerCoordinates: Coordinates,
+    dimensions: Dimensions
+  ): Rect => {
+    return {
+      left: centerCoordinates.x - dimensions.width / 2,
+      top: centerCoordinates.y - dimensions.height / 2,
+      width: dimensions.width,
+      height: dimensions.height
+    };
+  };
 }
