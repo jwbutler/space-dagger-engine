@@ -58,4 +58,16 @@ export namespace Rect {
     x: rect.left,
     y: rect.top
   });
+
+  export const getVertices = (rect: Rect): Coordinates[] => {
+    const { left, top, width, height } = rect;
+    const right = left + width;
+    const bottom = top + height;
+    return [
+      { x: left, y: top },
+      { x: right, y: top },
+      { x: right, y: bottom },
+      { x: left, y: bottom }
+    ];
+  };
 }
