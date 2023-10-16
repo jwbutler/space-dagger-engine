@@ -115,7 +115,7 @@ describe('CanvasGraphicsImpl', () => {
       y: 10
     });
     expect(translateSpy).toHaveBeenCalledWith(2, 3);
-    expect(drawImageSpy).toHaveBeenCalledWith(image, -10, -10);
+    expect(drawImageSpy).toHaveBeenCalledWith(image, -10, -10, 20, 20);
     drawImageSpy.mockClear();
     translateSpy.mockClear();
   });

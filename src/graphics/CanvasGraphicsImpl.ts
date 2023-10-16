@@ -122,7 +122,7 @@ export class CanvasGraphicsImpl implements Graphics {
     context.save();
     context.translate(centerCoordinates.x, centerCoordinates.y);
     context.rotate(angle.radians);
-    context.drawImage(image, -origin.x, -origin.y);
+    context.drawImage(image, -origin.x, -origin.y, image.width, image.height);
     context.restore();
   };
 
