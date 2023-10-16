@@ -2,13 +2,11 @@ import { Dimensions } from '../geometry/Dimensions';
 import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { CanvasGraphicsImpl } from './CanvasGraphicsImpl';
-import { Angle } from '../geometry/Angle';
-import { ImageType } from './ImageType';
+import { ImageType } from './images/ImageType';
 
 export type DrawImageParams = Readonly<{
   rect?: Rect;
   topLeft?: Coordinates;
-  rotation?: Angle;
 }>;
 
 export type DrawOntoParams = Readonly<{

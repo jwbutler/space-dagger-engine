@@ -1,6 +1,7 @@
 import { test, expect, describe } from 'vitest';
 
 import { Angle } from '../../src/geometry/Angle';
+import { isWithinEpsilon } from '../testUtils';
 
 const EPSILON = 0.00001;
 
@@ -8,13 +9,13 @@ describe('Angle', () => {
   test('ofDegrees', () => {
     const angle = Angle.ofDegrees(45);
     expect(angle.degrees).toBe(45);
-    expect(_isWithinEpsilon(angle.radians, Math.PI / 4, EPSILON)).toBe(true);
+    expect(isWithinEpsilon(angle.radians, Math.PI / 4, EPSILON)).toBe(true);
   });
 
   test('ofRadians', () => {
     const angle = Angle.ofRadians(Math.PI / 4);
     expect(angle.degrees).toBe(45);
-    expect(_isWithinEpsilon(angle.radians, Math.PI / 4, EPSILON)).toBe(true);
+    expect(isWithinEpsilon(angle.radians, Math.PI / 4, EPSILON)).toBe(true);
   });
 
   test('rotateRight', () => {
@@ -51,10 +52,6 @@ describe('Angle', () => {
     expect(Angle.fromVector(vector)).toEqual(Angle.ofRadians(-Math.PI / 4));
   });
 });
-
-const _isWithinEpsilon = (value: number, expected: number, epsilon: number): boolean => {
-  return Math.abs(value - expected) < epsilon;
-};
 
 const _expectIsWithinEpsilon = (value: Angle, expected: Angle): boolean => {
   return Math.abs(value.radians - expected.radians) < EPSILON;

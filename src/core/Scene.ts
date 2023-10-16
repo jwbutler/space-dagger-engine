@@ -3,7 +3,7 @@ import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
 import { Graphics } from '../graphics/Graphics';
 import { SceneImpl } from './SceneImpl';
-import { ImageType } from '../graphics/ImageType';
+import { ImageType } from '../graphics/images/ImageType';
 
 export interface Scene {
   getName: () => string;

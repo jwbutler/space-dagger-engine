@@ -1,7 +1,8 @@
-import { ImageType } from '../ImageType';
-import { Coordinates } from '../../geometry';
+import { ImageType } from './ImageType';
+import { Coordinates, Dimensions } from '../../geometry';
 
 export type LoadImageParams = Readonly<{
+  dimensions?: Dimensions;
   origin?: Coordinates;
 }>;
 
@@ -13,9 +14,13 @@ export const loadImage = async (
 
   return new Promise(resolve => {
     image.addEventListener('load', () => {
+      const dimensions = params?.dimensions ?? {
+        width: image.width,
+        height: image.height
+      };
       resolve({
         delegate: image,
-        dimensions: { width: image.width, height: image.height },
+        dimensions,
         origin: params?.origin ?? { x: image.width / 2, y: image.height / 2 }
       });
     });

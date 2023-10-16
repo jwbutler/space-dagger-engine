@@ -1,7 +1,6 @@
-import { describe, test, vi, expect, afterAll } from 'vitest';
+import { afterAll, describe, expect, test, vi } from 'vitest';
 import { CanvasGraphicsImpl } from '../../src/graphics/CanvasGraphicsImpl';
-import { Angle } from '../../src/geometry';
-import { ImageType } from '../../src/graphics/ImageType';
+import { ImageType } from '../../src/graphics/images/ImageType';
 
 /**
  * This file consists of some extreme "white-box testing" - just stepping through
@@ -88,61 +87,43 @@ describe('CanvasGraphicsImpl', () => {
     fillRectSpy.mockClear();
   });
 
-  test('drawImage (top-left)', () => {
-    const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const imageBitmap = {} as ImageBitmap;
-    const image = {
-      delegate: imageBitmap
-    } as ImageType;
-    graphics.drawImage(image, {
-      topLeft: { x: 10, y: 12 }
+  describe('drawImage', () => {
+    test('top-left', () => {
+      const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
+      const imageBitmap = {} as ImageBitmap;
+      const image = {
+        delegate: imageBitmap
+      } as ImageType;
+      graphics.drawImage(image, {
+        topLeft: { x: 10, y: 12 }
+      });
+      expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 10, 12);
+      drawImageSpy.mockClear();
     });
-    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 10, 12);
-    drawImageSpy.mockClear();
-  });
 
-  test('drawImage (rect)', () => {
-    const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const imageBitmap = {} as ImageBitmap;
-    const image = {
-      delegate: imageBitmap
-    } as ImageType;
-    graphics.drawImage(image, {
-      rect: { left: 5, top: 6, width: 7, height: 8 }
+    test('rect', () => {
+      const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
+      const imageBitmap = {} as ImageBitmap;
+      const image = {
+        delegate: imageBitmap
+      } as ImageType;
+      graphics.drawImage(image, {
+        rect: { left: 5, top: 6, width: 7, height: 8 }
+      });
+      expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 5, 6);
+      drawImageSpy.mockClear();
     });
-    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 5, 6);
-    drawImageSpy.mockClear();
-  });
 
-  test('drawImage (default position)', () => {
-    const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const imageBitmap = {} as ImageBitmap;
-    const image = {
-      delegate: imageBitmap
-    } as ImageType;
-    graphics.drawImage(image);
-    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 0, 0);
-    drawImageSpy.mockClear();
-  });
-
-  test('drawImage (rotation)', () => {
-    const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
-    const translateSpy = vi.spyOn(mockContext, 'translate');
-    const imageBitmap = {
-      width: 20,
-      height: 20
-    } as ImageBitmap;
-    const image = {
-      delegate: imageBitmap,
-      origin: { x: 10, y: 10 }
-    } as ImageType;
-    graphics.drawImage(image, {
-      rotation: Angle.ofDegrees(90)
+    test('default position', () => {
+      const drawImageSpy = vi.spyOn(mockContext, 'drawImage');
+      const imageBitmap = {} as ImageBitmap;
+      const image = {
+        delegate: imageBitmap
+      } as ImageType;
+      graphics.drawImage(image);
+      expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, 0, 0);
+      drawImageSpy.mockClear();
     });
-    expect(translateSpy).toHaveBeenCalledWith(10, 10);
-    expect(drawImageSpy).toHaveBeenCalledWith(imageBitmap, -10, -10);
-    drawImageSpy.mockClear();
-    translateSpy.mockClear();
   });
 
   test('drawText', () => {

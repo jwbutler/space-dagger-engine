@@ -6,7 +6,7 @@ import { check } from '../utils/preconditions';
 import { Scene } from './Scene';
 import { Arrays } from '../utils';
 import { EntityImpl } from '../entities/EntityImpl';
-import { ImageType } from '../graphics/ImageType';
+import { ImageType } from '../graphics/images/ImageType';
 
 type Props = Readonly<{
   name: string;

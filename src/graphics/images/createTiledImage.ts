@@ -1,5 +1,5 @@
 import { Dimensions } from '../../geometry/Dimensions';
-import { ImageType } from '../ImageType';
+import { ImageType } from './ImageType';
 import { Coordinates } from '../../geometry';
 
 export const createTiledImage = async (

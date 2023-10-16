@@ -1,5 +1,5 @@
 // Badly named to avoid collision with native type
-import { Coordinates, Dimensions } from '../geometry';
+import { Coordinates, Dimensions } from '../../geometry';
 
 export type ImageType = Readonly<{
   delegate: ImageBitmap | HTMLImageElement | HTMLCanvasElement;

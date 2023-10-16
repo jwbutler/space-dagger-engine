@@ -6,7 +6,7 @@ import { Dimensions } from '../../src/geometry/Dimensions';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { EntityImpl } from '../../src/entities/EntityImpl';
-import { ImageType } from '../../src/graphics/ImageType';
+import { ImageType } from '../../src/graphics/images/ImageType';
 
 test('scene', () => {
   const imageBitmap = {} as ImageBitmap;

@@ -1,7 +1,7 @@
 import { test, expect, vi } from 'vitest';
-import { createTiledImage } from '../../src/graphics';
-import { Dimensions } from '../../src/geometry';
-import { ImageType } from '../../src/graphics/ImageType';
+import { createTiledImage } from '../../../src/graphics';
+import { Dimensions } from '../../../src/geometry';
+import { ImageType } from '../../../src/graphics/images/ImageType';
 
 test('createTiledImage', async () => {
   const imageBitmap = {} as ImageBitmap;

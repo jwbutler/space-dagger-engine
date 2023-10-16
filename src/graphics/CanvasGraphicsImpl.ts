@@ -3,7 +3,7 @@ import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { Dimensions } from '../geometry/Dimensions';
 import { check } from '../utils/preconditions';
-import { ImageType } from './ImageType';
+import { ImageType } from './images/ImageType';
 
 export class CanvasGraphicsImpl implements Graphics {
   private readonly canvas: HTMLCanvasElement;
@@ -114,17 +114,8 @@ export class CanvasGraphicsImpl implements Graphics {
         return { x: 0, y: 0 };
       }
     })();
-    if (params?.rotation) {
-      // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate#examples
-      context.save();
-      const { origin } = image;
-      context.translate(topLeft.x + origin.x, topLeft.y + origin.y);
-      context.rotate(params.rotation.radians);
-      context.drawImage(image.delegate, -origin.x, -origin.y);
-      context.restore();
-    } else {
-      context.drawImage(image.delegate, topLeft.x, topLeft.y);
-    }
+
+    context.drawImage(image.delegate, topLeft.x, topLeft.y);
   };
 
   putImageData = (imageData: ImageData) => {

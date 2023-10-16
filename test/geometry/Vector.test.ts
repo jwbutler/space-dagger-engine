@@ -1,6 +1,7 @@
 import { test, expect } from 'vitest';
 import { Vector } from '../../src/geometry/Vector';
 import { Angle } from '../../src/geometry/Angle';
+import { isWithinEpsilon } from '../testUtils';
 
 test('magnitude', () => {
   const vector = { x: 3, y: 4 };
@@ -13,8 +14,8 @@ test('fromAngle', () => {
   const epsilon = 0.000001;
   const expected = Math.sqrt(2) / 2;
   // stupid little floating point errors
-  expect(_isWithinEpsilon(vector.x, expected, epsilon));
-  expect(_isWithinEpsilon(vector.y, expected, epsilon));
+  expect(isWithinEpsilon(vector.x, expected, epsilon)).toBe(true);
+  expect(isWithinEpsilon(vector.y, expected, epsilon)).toBe(true);
 });
 
 test('plus', () => {
@@ -43,7 +44,3 @@ test('withMagnitude, zero vector', () => {
   const vector = { x: 0, y: 0 };
   expect(Vector.withMagnitude(vector, 5)).toEqual(vector);
 });
-
-const _isWithinEpsilon = (value: number, expected: number, epsilon: number): boolean => {
-  return Math.abs(value - expected) < epsilon;
-};
