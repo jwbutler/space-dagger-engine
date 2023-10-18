@@ -1,63 +1,103 @@
 import { Entity, isCollidingWith } from '../entities';
-import { Arrays } from '../utils';
+import { Arrays, getCurrentTimeSeconds } from '../utils';
 
-export type CollisionDetectionPair = Readonly<{
+export type Collision = Readonly<{
   firstId: string;
   secondId: string;
 }>;
 
-// TODO this state needs to be stored somewhere else
+type Overlap = Readonly<{
+  firstId: string;
+  secondId: string;
+}>;
+
+type CollisionEvent = Readonly<
+  Collision & {
+    /** seconds */
+    timestamp: number;
+  }
+>;
 
 export interface CollisionHandler {
-  detectCollisions: (entities: Entity[]) => CollisionDetectionPair[];
+  detectCollisions: (entities: Entity[]) => Collision[];
 }
 
-class CollisionHandlerImpl implements CollisionHandler {
-  private readonly collisions: CollisionDetectionPair[];
+type Props = Readonly<{
+  /** seconds */
+  gracePeriod: number;
+}>;
 
-  constructor() {
-    this.collisions = [];
+export class CollisionHandlerImpl implements CollisionHandler {
+  private readonly gracePeriod: number;
+  /**
+   * Stores the set of overlaps from the previous tick
+   */
+  private readonly overlaps: Overlap[];
+  /**
+   * Stores "recent" collision events
+   */
+  private readonly collisionEvents: CollisionEvent[];
+
+  constructor({ gracePeriod }: Props) {
+    this.gracePeriod = gracePeriod;
+    this.overlaps = [];
+    this.collisionEvents = [];
   }
 
-  detectCollisions = (entities: Entity[]): CollisionDetectionPair[] => {
-    const updatedCollisions = detectCollisions(entities);
-    const newCollisions = findNewCollisions(this.collisions, updatedCollisions);
-    Arrays.clear(this.collisions);
-    this.collisions.push(...updatedCollisions);
-    return newCollisions;
+  detectCollisions = (entities: Entity[]): Collision[] => {
+    const currentTime = getCurrentTimeSeconds();
+    const overlaps = getActiveOverlaps(entities);
+    const collisions: Collision[] = [];
+
+    for (const overlap of overlaps) {
+      if (!this.overlaps.some(o => matches(o, overlap))) {
+        if (
+          !this.collisionEvents.some(
+            c =>
+              matches(c, overlap as Collision) &&
+              c.timestamp >= currentTime - this.gracePeriod
+          )
+        ) {
+          collisions.push(overlap as Collision);
+          this.collisionEvents.push({
+            ...overlap,
+            timestamp: currentTime
+          });
+        }
+      }
+    }
+
+    Arrays.clear(this.overlaps);
+    this.overlaps.push(...overlaps);
+    return collisions;
   };
 }
 
-const detectCollisions = (entities: Entity[]): CollisionDetectionPair[] => {
-  const collisions: CollisionDetectionPair[] = [];
+const getActiveOverlaps = (entities: Entity[]): Overlap[] => {
+  const overlaps: Overlap[] = [];
   for (let i = 0; i < entities.length; i++) {
     const first = entities[i];
     for (let j = i + 1; j < entities.length; j++) {
       const second = entities[j];
       if (isCollidingWith(first, second)) {
-        collisions.push({ firstId: first.getId(), secondId: second.getId() });
+        overlaps.push({
+          firstId: first.getId(),
+          secondId: second.getId()
+        });
       }
     }
   }
-  return collisions;
+  return overlaps;
 };
 
-/**
- * TODO massively inefficient
- */
-const findNewCollisions = (
-  collisions: CollisionDetectionPair[],
-  updatedCollisions: CollisionDetectionPair[]
-) => {
-  const newCollisions: CollisionDetectionPair[] = [];
-  for (const { firstId, secondId } of updatedCollisions) {
-    if (!collisions.some(c => c.firstId === firstId && c.secondId === secondId)) {
-      newCollisions.push({ firstId, secondId });
-    }
-  }
-  return newCollisions;
+export const matches = (first: Overlap, second: Overlap) => {
+  return (
+    (first.firstId === second.firstId && first.secondId === second.secondId) ||
+    (first.secondId === second.firstId && first.firstId === second.secondId)
+  );
 };
 
 export namespace CollisionHandler {
-  export const create = (): CollisionHandler => new CollisionHandlerImpl();
+  export const create = (): CollisionHandler =>
+    new CollisionHandlerImpl({ gracePeriod: 0.25 });
 }

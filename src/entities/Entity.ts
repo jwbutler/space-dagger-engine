@@ -39,6 +39,9 @@ export interface Entity {
 
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
+  getTags: () => Set<string>;
+  addTag: (tag: string) => void;
+  hasTag: (tag: string) => boolean;
 
   init: (engine: Engine) => void;
 }

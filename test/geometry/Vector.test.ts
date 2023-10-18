@@ -1,6 +1,7 @@
 import { test, expect, describe } from 'vitest';
 import { Vector } from '../../src/geometry/Vector';
 import { Angle } from '../../src/geometry/Angle';
+import { Entity } from '../../src/entities';
 
 const epsilon = 0.000001;
 
@@ -53,6 +54,20 @@ describe('Vector', () => {
     // stupid little floating point errors
     expect(_isWithinEpsilon(actual.x, expected.x, epsilon));
     expect(_isWithinEpsilon(actual.y, actual.y, epsilon));
+  });
+
+  test('between', () => {
+    expect(Vector.between({ x: 1, y: 2 }, { x: 10, y: 10 })).toEqual({ x: 9, y: 8 });
+  });
+
+  test('betweenEntities', () => {
+    const first = {
+      getCenterCoordinates: () => ({ x: 1, y: 2 })
+    } as Entity;
+    const second = {
+      getCenterCoordinates: () => ({ x: 10, y: 10 })
+    } as Entity;
+    expect(Vector.betweenEntities(first, second)).toEqual({ x: 9, y: 8 });
   });
 });
 

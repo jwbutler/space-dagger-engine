@@ -1,4 +1,6 @@
 import { Angle } from './Angle';
+import { Coordinates } from './Coordinates';
+import { Entity } from '../entities';
 
 export type Vector = Readonly<{
   x: number;
@@ -48,5 +50,15 @@ export namespace Vector {
       Angle.ofRadians(currentAngle.radians + angle.radians),
       magnitude
     );
+  };
+
+  export const between = (start: Coordinates, end: Coordinates): Vector => {
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    return { x: dx, y: dy };
+  };
+
+  export const betweenEntities = (start: Entity, end: Entity): Vector => {
+    return Vector.between(start.getCenterCoordinates(), end.getCenterCoordinates());
   };
 }
