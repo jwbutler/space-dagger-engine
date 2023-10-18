@@ -1,6 +1,9 @@
 import { Entity, isCollidingWith } from '../entities';
 import { Arrays, getCurrentTimeSeconds } from '../utils';
 
+// TODO - in general this logic is fairly application-specific to Space Dagger.
+// Think about how to generalize this and perhaps make collision detection an optional "plugin"
+
 export type Collision = Readonly<{
   firstId: string;
   secondId: string;

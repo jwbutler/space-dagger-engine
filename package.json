@@ -1,11 +1,11 @@
 {
   "name": "@jwbutler/space-dagger-engine",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "prettier": "prettier --write src/**/*.ts",
-    "lint": "eslint",
+    "prettier": "prettier --write {src,test}/**/*.ts",
+    "lint": "eslint {src,test}/**/*.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },

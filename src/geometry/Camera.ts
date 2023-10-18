@@ -31,9 +31,9 @@ class CameraImpl implements Camera {
     height: this.dimensions.height
   });
 
-  setCenterCoordinates(coordinates: Coordinates): void {
+  setCenterCoordinates = (coordinates: Coordinates) => {
     this.centerCoordinates = coordinates;
-  }
+  };
 }
 
 export namespace Camera {

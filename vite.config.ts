@@ -9,6 +9,7 @@ const config: UserConfig = {
         index: 'src/index.ts',
         'audio/index': 'src/audio/index.ts',
         'entities/index': 'src/entities/index.ts',
+        'events/index': 'src/events/index.ts',
         'geometry/index': 'src/geometry/index.ts',
         'graphics/index': 'src/graphics/index.ts',
         'utils/index': 'src/utils/index.ts'
