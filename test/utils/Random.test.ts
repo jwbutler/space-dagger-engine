@@ -1,5 +1,5 @@
-import { test, expect, describe, vi, afterAll } from 'vitest';
 import { Random } from '../../src/utils';
+import { test, expect, describe, vi, afterAll } from 'vitest';
 
 const floor = Math.floor;
 // this isn't actually true but it's good enough for our purposes without looking it up

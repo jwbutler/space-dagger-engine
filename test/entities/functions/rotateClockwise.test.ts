@@ -1,6 +1,6 @@
-import { test, expect } from 'vitest';
 import { Angle } from '../../../src/geometry/Angle';
 import { rotateClockwise } from '../../../src/entities/functions/rotateClockwise';
+import { test, expect } from 'vitest';
 
 test('rotate clockwise', () => {
   let angle: Angle = Angle.ofDegrees(10);

@@ -1,10 +1,10 @@
-import { test, expect } from 'vitest';
 import { getEntitiesOverlappingRect } from '../../../src/entities/functions/getEntitiesOverlappingRect';
 import { Scene } from '../../../src/core/Scene';
 import { Coordinates } from '../../../src/geometry/Coordinates';
 import { Entity } from '../../../src/entities/Entity';
 import { Sprite } from '../../../src/graphics/Sprite';
 import { Angle } from '../../../src/geometry/Angle';
+import { test, expect } from 'vitest';
 
 test('find overlapping entities', () => {
   const rect = { left: 10, top: 10, width: 20, height: 20 };

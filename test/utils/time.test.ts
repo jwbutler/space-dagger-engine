@@ -1,5 +1,5 @@
-import { test, expect, vi } from 'vitest';
 import { getCurrentTimeSeconds } from '../../src/utils';
+import { test, expect, vi } from 'vitest';
 
 test('time', () => {
   vi.useFakeTimers({

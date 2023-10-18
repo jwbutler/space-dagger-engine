@@ -1,6 +1,6 @@
-import { updatePosition } from '../entities/functions/updatePosition';
 import { Engine } from './Engine';
 import { EngineImpl } from './EngineImpl';
+import { updatePosition } from '../entities/functions/updatePosition';
 import { applyAcceleration } from '../entities/functions/applyAcceleration';
 import { applyFriction } from '../entities/functions/applyFriction';
 

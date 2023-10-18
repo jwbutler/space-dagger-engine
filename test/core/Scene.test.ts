@@ -1,4 +1,3 @@
-import { expect, test, vi } from 'vitest';
 import { Scene } from '../../src/core/Scene';
 import { Camera } from '../../src/geometry/Camera';
 import { Coordinates } from '../../src/geometry/Coordinates';
@@ -6,6 +5,7 @@ import { Dimensions } from '../../src/geometry/Dimensions';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { EntityImpl } from '../../src/entities/EntityImpl';
+import { expect, test, vi } from 'vitest';
 
 test('scene', () => {
   const image = {} as ImageBitmap;

@@ -1,6 +1,6 @@
-import { test, expect } from 'vitest';
 import { renderUserInterface } from '../../src/graphics/renderUserInterface';
 import { Graphics, UIElement, UserInterface } from '../../src/graphics';
+import { test, expect } from 'vitest';
 
 test('render user interface', () => {
   const graphics = {

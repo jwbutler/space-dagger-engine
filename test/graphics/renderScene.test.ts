@@ -1,4 +1,3 @@
-import { describe, expect, test, vi } from 'vitest';
 import { Graphics } from '../../src/graphics/Graphics';
 import { renderScene } from '../../src/graphics/renderScene';
 import { Sprite } from '../../src/graphics/Sprite';
@@ -7,6 +6,7 @@ import { Angle } from '../../src/geometry/Angle';
 import { Rect } from '../../src/geometry/Rect';
 import { Camera } from '../../src/geometry/Camera';
 import { Scene } from '../../src/core/Scene';
+import { describe, expect, test, vi } from 'vitest';
 
 describe('renderScene', () => {
   const graphics = {

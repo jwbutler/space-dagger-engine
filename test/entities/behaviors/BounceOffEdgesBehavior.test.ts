@@ -1,4 +1,3 @@
-import { expect, test } from 'vitest';
 import { Scene } from '../../../src/core/Scene';
 import { Entity } from '../../../src/entities/Entity';
 import { Vector } from '../../../src/geometry/Vector';
@@ -7,6 +6,7 @@ import { Sprite } from '../../../src/graphics/Sprite';
 import { Angle } from '../../../src/geometry/Angle';
 import { Coordinates } from '../../../src/geometry/Coordinates';
 import { Engine } from '../../../src';
+import { expect, test } from 'vitest';
 
 test('bounce off edges behavior', () => {
   const scene = {

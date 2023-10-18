@@ -1,9 +1,9 @@
+import { CanvasGraphicsImpl } from './CanvasGraphicsImpl';
+import { ImageType } from './images/ImageType';
 import { Dimensions } from '../geometry/Dimensions';
 import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
-import { CanvasGraphicsImpl } from './CanvasGraphicsImpl';
 import { Angle } from '../geometry/Angle';
-import { ImageType } from './images/ImageType';
 
 export type DrawOntoParams = Readonly<{
   sourceRect?: Rect;

@@ -1,5 +1,5 @@
-import { expect, test } from 'vitest';
 import { Keyboard } from '../../src/input/Keyboard';
+import { expect, test } from 'vitest';
 
 test('input state', () => {
   const keyboard = Keyboard.create();

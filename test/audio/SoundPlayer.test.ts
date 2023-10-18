@@ -1,6 +1,6 @@
-import { describe, expect, test, vi } from 'vitest';
 import { SoundPlayer, Waveform } from '../../src/audio';
 import { SoundPlayerImpl } from '../../src/audio/SoundPlayerImpl';
+import { describe, expect, test, vi } from 'vitest';
 
 describe('SoundPlayer', () => {
   // TODO: reusing this between tests is causing problems

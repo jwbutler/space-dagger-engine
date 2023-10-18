@@ -1,8 +1,8 @@
-import { afterAll, describe, expect, test, vi } from 'vitest';
 import { CollisionHandlerImpl, matches } from '../../src/core/CollisionHandler';
 import { Entity } from '../../src/entities';
 import { Sprite } from '../../src/graphics';
 import { Coordinates } from '../../src/geometry';
+import { afterAll, describe, expect, test, vi } from 'vitest';
 
 describe('CollisionHandler', () => {
   vi.useFakeTimers({

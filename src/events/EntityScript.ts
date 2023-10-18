@@ -1,8 +1,8 @@
-import { Entity } from '../entities/Entity';
 import { CollisionEvent } from './CollisionEvent';
 import { DestroyEvent } from './DestroyEvent';
 import { TickEvent } from './TickEvent';
 import { EntityInitEvent } from './EntityInitEvent';
+import { Entity } from '../entities/Entity';
 
 /**
  * I'm defining these events separately from the target entity

@@ -1,5 +1,5 @@
-import { test, expect, describe } from 'vitest';
 import { Rect } from '../../src/geometry/Rect';
+import { test, expect, describe } from 'vitest';
 
 describe('Rect', () => {
   test('containingPoints', () => {

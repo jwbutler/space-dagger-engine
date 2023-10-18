@@ -1,7 +1,7 @@
-import { test, expect } from 'vitest';
 import { Vector } from '../../../src/geometry/Vector';
 import { applyAcceleration } from '../../../src/entities/functions/applyAcceleration';
 import { Entity } from '../../../src/entities';
+import { test, expect } from 'vitest';
 
 test('accelerate', () => {
   let speed = { x: 3, y: 4 };

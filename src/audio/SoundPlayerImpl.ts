@@ -1,6 +1,6 @@
 import { SoundPlayer, ToneSequence } from './SoundPlayer';
-import { check } from '../utils';
 import { Waveform } from './Waveform';
+import { check } from '../utils';
 
 const BASE_GAIN = 0.25;
 

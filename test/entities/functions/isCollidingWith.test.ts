@@ -1,6 +1,6 @@
-import { expect, test, describe } from 'vitest';
 import { Entity, isCollidingWith } from '../../../src/entities';
 import { Sprite } from '../../../src/graphics';
+import { expect, test, describe } from 'vitest';
 
 describe('isCollidingWith', () => {
   test('corner to corner', () => {

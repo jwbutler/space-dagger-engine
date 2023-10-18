@@ -1,6 +1,6 @@
-import { afterAll, describe, expect, test, vi } from 'vitest';
 import { CanvasGraphicsImpl } from '../../src/graphics/CanvasGraphicsImpl';
 import { Angle } from '../../src/geometry';
+import { afterAll, describe, expect, test, vi } from 'vitest';
 
 /**
  * This file consists of some extreme "white-box testing" - just stepping through

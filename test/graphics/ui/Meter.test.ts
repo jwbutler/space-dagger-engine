@@ -1,5 +1,5 @@
-import { test, expect, describe, vi } from 'vitest';
 import { Graphics, Meter } from '../../../src/graphics';
+import { test, expect, describe, vi } from 'vitest';
 
 describe('Meter', () => {
   describe('non-empty border', () => {

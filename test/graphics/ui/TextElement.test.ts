@@ -1,5 +1,5 @@
-import { test, expect, describe, vi } from 'vitest';
 import { Graphics, TextElement } from '../../../src/graphics';
+import { test, expect, describe, vi } from 'vitest';
 
 describe('TextElement', () => {
   const textElement = TextElement.create({
