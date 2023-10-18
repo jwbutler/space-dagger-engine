@@ -21,9 +21,9 @@ export namespace Coordinates {
     return Math.hypot(dx, dy);
   };
 
-  export const minus = (first: Coordinates, second: Coordinates): Vector => {
-    const dx = first.x - second.x;
-    const dy = first.y - second.y;
+  export const minus = (coordinates: Coordinates, vector: Vector): Vector => {
+    const dx = coordinates.x - vector.x;
+    const dy = coordinates.y - vector.y;
     return { x: dx, y: dy };
   };
 }

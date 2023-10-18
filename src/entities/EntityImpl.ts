@@ -24,6 +24,7 @@ export class EntityImpl implements Entity {
   private readonly scripts: EntityScript[];
   private readonly behaviors: EntityBehavior[];
   private readonly stringVariables: Record<string, string | null>;
+  private readonly tags: Set<string>;
   private _isInitialized: boolean;
 
   constructor(props: EntityProps) {
@@ -42,6 +43,7 @@ export class EntityImpl implements Entity {
     this.scripts = props.scripts ?? [];
     this.behaviors = props.behaviors ?? [];
     this.stringVariables = {};
+    this.tags = new Set();
     this._isInitialized = false;
   }
 
@@ -105,6 +107,14 @@ export class EntityImpl implements Entity {
   setStringVariable = (key: string, value: string | null): void => {
     this.stringVariables[key] = value;
   };
+
+  getTags = (): Set<string> => this.tags;
+
+  addTag = (tag: string): void => {
+    this.tags.add(tag);
+  };
+
+  hasTag = (tag: string): boolean => this.tags.has(tag);
 
   init = (engine: Engine): void => {
     check(!this._isInitialized);

@@ -79,6 +79,17 @@ describe('Entity', () => {
     expect(entity.getStringVariable('one')).toBe(null);
   });
 
+  test('tags', () => {
+    entity.addTag('a');
+    expect(entity.getTags()).toEqual(new Set(['a']));
+    expect(entity.hasTag('a')).toBe(true);
+    expect(entity.hasTag('b')).toBe(false);
+    entity.addTag('b');
+    expect(entity.getTags()).toEqual(new Set(['a', 'b']));
+    expect(entity.hasTag('a')).toBe(true);
+    expect(entity.hasTag('b')).toBe(true);
+  });
+
   test('init', () => {
     const engine = {} as Engine;
     const script_init_spy = vi.spyOn(entity.getScripts()[0], 'init');
