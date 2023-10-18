@@ -1,8 +1,8 @@
 import { Scene } from './Scene';
+import { EngineImpl } from './EngineImpl';
 import { Keyboard } from '../input/Keyboard';
 import { UserInterface } from '../graphics/ui/UserInterface';
 import { GlobalScript } from '../events/GlobalScript';
-import { EngineImpl } from './EngineImpl';
 import { Graphics } from '../graphics/Graphics';
 import { SoundPlayer } from '../audio';
 

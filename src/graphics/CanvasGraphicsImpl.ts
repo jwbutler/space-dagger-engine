@@ -1,8 +1,8 @@
 import { DrawOntoParams, Graphics, GraphicsProps } from './Graphics';
+import { ImageType } from './images/ImageType';
 import { Coordinates } from '../geometry/Coordinates';
 import { Rect } from '../geometry/Rect';
 import { Dimensions } from '../geometry/Dimensions';
-import { ImageType } from './images/ImageType';
 import { Angle } from '../geometry';
 
 export class CanvasGraphicsImpl implements Graphics {

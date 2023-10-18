@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'vitest';
 import { Waveform } from '../../src/audio';
+import { describe, expect, test } from 'vitest';
 
 describe('Waveform', () => {
   test('toOscillatorType', () => {

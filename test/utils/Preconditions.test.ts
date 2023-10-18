@@ -1,6 +1,6 @@
+import * as Preconditions from '../../src/utils/preconditions';
 import { test, expect } from 'vitest';
 
-import * as Preconditions from '../../src/utils/preconditions';
 
 test('checkNotNull', () => {
   expect(() => Preconditions.checkNotNull(null)).toThrow();

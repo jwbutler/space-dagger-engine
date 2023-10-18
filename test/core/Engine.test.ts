@@ -1,4 +1,3 @@
-import { test, expect, vi, describe, beforeAll, afterAll } from 'vitest';
 import { EngineImpl } from '../../src/core/EngineImpl';
 import { Camera, Engine, Keyboard, Scene } from '../../src';
 import { Graphics, UserInterface } from '../../src/graphics';
@@ -6,6 +5,7 @@ import { Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
 import { SoundPlayer } from '../../src/audio';
+import { test, expect, vi, describe, beforeAll, afterAll } from 'vitest';
 
 describe('Engine', () => {
   beforeAll(() => {

@@ -1,7 +1,7 @@
-import { test, expect, describe } from 'vitest';
 import { applyFriction } from '../../../src/entities/functions/applyFriction';
 import { Entity } from '../../../src/entities';
 import { Vector } from '../../../src/geometry';
+import { test, expect, describe } from 'vitest';
 
 describe('applyFriction', () => {
   test('dt=1', () => {

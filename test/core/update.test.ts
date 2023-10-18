@@ -1,4 +1,3 @@
-import { expect, test, vi } from 'vitest';
 import { Angle } from '../../src/geometry/Angle';
 import { Sprite } from '../../src/graphics/Sprite';
 import { Rect } from '../../src/geometry/Rect';
@@ -9,6 +8,7 @@ import { Engine } from '../../src';
 import { CollisionHandler } from '../../src/core/CollisionHandler';
 import { check } from '../../src/utils';
 import { EntityScript, GlobalScript } from '../../src/events';
+import { expect, test, vi } from 'vitest';
 
 test('update', () => {
   const sprite = {

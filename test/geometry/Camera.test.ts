@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest';
 import { Camera } from '../../src/geometry/Camera';
+import { test, expect } from 'vitest';
 
 test('camera', () => {
   const centerCoordinates = { x: 20, y: 20 };

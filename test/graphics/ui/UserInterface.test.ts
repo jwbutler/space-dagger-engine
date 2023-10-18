@@ -1,5 +1,5 @@
-import { test, expect, describe } from 'vitest';
 import { Graphics, UIElement, UserInterface } from '../../../src/graphics';
+import { test, expect, describe } from 'vitest';
 
 describe('UserInterface', () => {
   test('UI elements', () => {

@@ -1,6 +1,6 @@
-import { test, expect, vi } from 'vitest';
 import { createTiledImage } from '../../../src/graphics';
 import { Dimensions } from '../../../src/geometry';
+import { test, expect, vi } from 'vitest';
 
 test('createTiledImage', async () => {
   const image = {

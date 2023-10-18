@@ -1,9 +1,9 @@
+import { Scene } from './Scene';
 import { Graphics } from '../graphics/Graphics';
 import { Dimensions } from '../geometry/Dimensions';
 import { Camera } from '../geometry/Camera';
 import { Entity } from '../entities/Entity';
 import { check } from '../utils/preconditions';
-import { Scene } from './Scene';
 import { Arrays } from '../utils';
 import { EntityImpl } from '../entities/EntityImpl';
 

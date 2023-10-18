@@ -1,5 +1,5 @@
-import { test, expect, vi } from 'vitest';
 import { Engine, init } from '../../src';
+import { test, expect, vi } from 'vitest';
 
 test('init', async () => {
   const container = {

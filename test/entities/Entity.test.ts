@@ -1,4 +1,3 @@
-import { expect, describe, test, vi } from 'vitest';
 import { Angle } from '../../src/geometry/Angle';
 import { Coordinates } from '../../src/geometry/Coordinates';
 import { Sprite } from '../../src/graphics/Sprite';
@@ -7,6 +6,7 @@ import { EntityImpl } from '../../src/entities/EntityImpl';
 import { Vector } from '../../src/geometry';
 import { EntityScript } from '../../src/events';
 import { Engine } from '../../src';
+import { expect, describe, test, vi } from 'vitest';
 
 describe('Entity', () => {
   const sprite = {} as Sprite;

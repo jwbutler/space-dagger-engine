@@ -1,7 +1,7 @@
 import { Engine } from './Engine';
+import { Scene } from './Scene';
 import { Keyboard } from '../input/Keyboard';
 import { Graphics } from '../graphics/Graphics';
-import { Scene } from './Scene';
 import { Camera } from '../geometry/Camera';
 import { UserInterface } from '../graphics/ui/UserInterface';
 import { Dimensions } from '../geometry';

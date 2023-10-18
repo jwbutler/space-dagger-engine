@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest';
 import * as Arrays from '../../src/utils/Arrays';
+import { test, expect } from 'vitest';
 
 test('filter in place', () => {
   const array = [3, 5, 7, 8, 9, 1];

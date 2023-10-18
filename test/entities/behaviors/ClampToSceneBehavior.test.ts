@@ -1,4 +1,3 @@
-import { expect, test } from 'vitest';
 import { ClampToSceneBehavior } from '../../../src/entities/behaviors/ClampToSceneBehavior';
 import { Entity } from '../../../src/entities/Entity';
 import { Scene } from '../../../src/core/Scene';
@@ -6,6 +5,7 @@ import { Coordinates } from '../../../src/geometry/Coordinates';
 import { Sprite } from '../../../src/graphics/Sprite';
 import { Angle } from '../../../src/geometry/Angle';
 import { Engine } from '../../../src';
+import { expect, test } from 'vitest';
 
 test('clamp to scene', () => {
   const scene = {

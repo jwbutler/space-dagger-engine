@@ -1,10 +1,10 @@
-import { test, expect } from 'vitest';
 import { clampToRect } from '../../../src/entities/functions/clampToRect';
 import { Sprite } from '../../../src/graphics/Sprite';
 import { Rect } from '../../../src/geometry/Rect';
 import { Coordinates } from '../../../src/geometry/Coordinates';
 import { Angle } from '../../../src/geometry/Angle';
 import { Entity } from '../../../src/entities/Entity';
+import { test, expect } from 'vitest';
 
 test('clamp to rect', () => {
   let centerCoordinates: Coordinates;

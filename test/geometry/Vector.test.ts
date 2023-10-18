@@ -1,7 +1,7 @@
-import { test, expect, describe } from 'vitest';
 import { Vector } from '../../src/geometry/Vector';
 import { Angle } from '../../src/geometry/Angle';
 import { Entity } from '../../src/entities';
+import { test, expect, describe } from 'vitest';
 
 const epsilon = 0.000001;
 

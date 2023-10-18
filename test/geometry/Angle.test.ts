@@ -1,6 +1,6 @@
+import { Angle } from '../../src/geometry/Angle';
 import { test, expect, describe } from 'vitest';
 
-import { Angle } from '../../src/geometry/Angle';
 
 const EPSILON = 0.00001;
 

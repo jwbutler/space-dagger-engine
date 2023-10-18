@@ -1,5 +1,5 @@
-import { test, expect, vi } from 'vitest';
 import { loadImageBitmap } from '../../../src/graphics';
+import { test, expect, vi } from 'vitest';
 
 test('loadImageBitmap', async () => {
   const mockImage = {

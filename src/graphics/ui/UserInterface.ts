@@ -1,5 +1,5 @@
-import { Graphics } from '../Graphics';
 import { UIElement } from './UIElement';
+import { Graphics } from '../Graphics';
 
 export interface UserInterface {
   getGraphics: () => Graphics;

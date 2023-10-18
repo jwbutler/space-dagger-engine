@@ -1,5 +1,5 @@
-import { test, expect, describe } from 'vitest';
 import { Coordinates } from '../../src/geometry/Coordinates';
+import { test, expect, describe } from 'vitest';
 
 describe('Coordinates', () => {
   test('plus', () => {

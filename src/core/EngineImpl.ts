@@ -1,13 +1,13 @@
 import { Engine, EngineProps } from './Engine';
+import { Scene } from './Scene';
+import { update } from './update';
+import { CollisionHandler } from './CollisionHandler';
 import { GlobalScript } from '../events/GlobalScript';
 import { Keyboard } from '../input/Keyboard';
-import { Scene } from './Scene';
 import { UserInterface } from '../graphics/ui/UserInterface';
 import { Graphics } from '../graphics/Graphics';
-import { update } from './update';
 import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
-import { CollisionHandler } from './CollisionHandler';
 import { getCurrentTimeSeconds } from '../utils';
 import { SoundPlayer } from '../audio';
 

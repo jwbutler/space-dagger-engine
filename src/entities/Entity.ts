@@ -1,11 +1,11 @@
+import { EntityProps } from './EntityProps';
+import { EntityImpl } from './EntityImpl';
+import { EntityBehavior } from './behaviors/EntityBehavior';
 import { Coordinates } from '../geometry/Coordinates';
 import { Vector } from '../geometry/Vector';
 import { Sprite } from '../graphics/Sprite';
 import { Angle } from '../geometry/Angle';
 import { EntityScript } from '../events/EntityScript';
-import { EntityProps } from './EntityProps';
-import { EntityImpl } from './EntityImpl';
-import { EntityBehavior } from './behaviors/EntityBehavior';
 import { Engine } from '../core/Engine';
 
 export interface Entity {

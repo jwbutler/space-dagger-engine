@@ -5,7 +5,8 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -26,11 +27,23 @@ module.exports = {
                 "singleReturnOnly": false,
                 "classPropertiesAllowed": true
             }
+        ],
+        "import/order": [
+            "error", {
+                "groups": [
+                    "index",
+                    "sibling",
+                    "parent",
+                    "internal",
+                    "external",
+                    "builtin",
+                    "object",
+                    "type"
+                ]
+            }
         ]
     },
-    "overrides": [
-        {
-            "files": ["src/**/*.ts", "test/**/*.ts"],
-        }
-    ]
+    "settings": {
+        "import/resolver": "typescript"
+    }
 };
