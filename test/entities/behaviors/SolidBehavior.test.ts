@@ -1,8 +1,7 @@
-import { test, expect, describe, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { Entity, SolidBehavior } from '../../../src/entities';
 import { EntityInitEvent } from '../../../src/events';
 import { Engine, Scene } from '../../../src';
-import { Rect } from '../../../src/geometry';
 
 const sqrt_2 = 2 ** 0.5;
 
