@@ -52,6 +52,12 @@ describe('Entity', () => {
     expect(entity.getFriction()).toBe(0.2);
   });
 
+  test('setSprite', () => {
+    const newSprite = {} as Sprite;
+    entity.setSprite(newSprite);
+    expect(entity.getSprite()).toBe(newSprite);
+  });
+
   test('addScript', () => {
     const script = {
       init: () => {}
