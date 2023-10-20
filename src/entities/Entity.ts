@@ -22,8 +22,9 @@ export interface Entity {
   getAngle: () => Angle;
   setAngle: (angle: Angle) => void;
   getSprite: () => Sprite;
-  setSpeed: (speed: Vector) => void;
+  setSprite: (sprite: Sprite) => void;
   getSpeed: () => Vector;
+  setSpeed: (speed: Vector) => void;
   getMaxSpeed: () => number | null;
   setMaxSpeed: (maxSpeed: number | null) => void;
   getAcceleration: () => Vector;

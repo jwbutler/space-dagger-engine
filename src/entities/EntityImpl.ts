@@ -20,7 +20,7 @@ export class EntityImpl implements Entity {
   private maxSpeed: number | null;
   private acceleration: Vector;
   private friction: number;
-  private readonly sprite: Sprite;
+  private sprite: Sprite;
   private readonly scripts: EntityScript[];
   private readonly behaviors: EntityBehavior[];
   private readonly stringVariables: Record<string, string | null>;
@@ -87,6 +87,8 @@ export class EntityImpl implements Entity {
   };
 
   getSprite = (): Sprite => this.sprite;
+
+  setSprite = (sprite: Sprite) => (this.sprite = sprite);
 
   getScripts = (): EntityScript[] => this.scripts;
 
