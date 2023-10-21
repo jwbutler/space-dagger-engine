@@ -21,7 +21,8 @@ const config: UserConfig = {
       output: {
         preserveModules: true
       }
-    }
+    },
+    sourcemap: true
   },
   plugins: [
     vitePlugin_dts({
