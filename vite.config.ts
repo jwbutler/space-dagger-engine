@@ -17,16 +17,10 @@ const config: UserConfig = {
       name: 'space-dagger-engine',
       formats: ['es']
     },
-    rollupOptions: {
-      output: {
-        preserveModules: true
-      }
-    },
     sourcemap: true
   },
   plugins: [
     vitePlugin_dts({
-      rollupTypes: false,
       include: 'src/**/*.ts'
     }),
     vitePlugin_checker({
