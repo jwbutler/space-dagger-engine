@@ -15,6 +15,9 @@ export type Tone = {
 export type ToneSequence = Readonly<{
   tones: Tone[];
   waveform: Waveform;
+}>;
+
+export type AudioParams = Readonly<{
   volume: number;
   /**
    * Used to uniquely identify a tone sequence.
@@ -25,7 +28,8 @@ export type ToneSequence = Readonly<{
 }>;
 
 export interface SoundPlayer {
-  playToneSequence: (toneSequence: ToneSequence) => void;
+  playToneSequence: (toneSequence: ToneSequence, params: AudioParams) => void;
+  playSoundFile: (filename: string, params: AudioParams) => void;
   stop: (id: string) => void;
   stopAllSounds: () => void;
 }
