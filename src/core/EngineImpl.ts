@@ -8,7 +8,7 @@ import { UserInterface } from '../graphics/ui/UserInterface';
 import { Graphics } from '../graphics/Graphics';
 import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
-import { getCurrentTimeSeconds } from '../utils';
+import { Arrays, getCurrentTimeSeconds } from '../utils';
 import { SoundPlayer } from '../audio';
 
 export class EngineImpl implements Engine {
@@ -21,6 +21,7 @@ export class EngineImpl implements Engine {
   private readonly stringVariables: Record<string, string | null>;
   private readonly collisionHandler: CollisionHandler;
   private lastUpdateTime: number;
+  private isStarted: boolean;
 
   constructor({ keyboard, soundPlayer, scene, userInterface, viewport }: EngineProps) {
     this.keyboard = keyboard;
@@ -32,6 +33,7 @@ export class EngineImpl implements Engine {
     this.stringVariables = {};
     this.collisionHandler = CollisionHandler.create();
     this.lastUpdateTime = getCurrentTimeSeconds();
+    this.isStarted = false;
   }
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
@@ -39,6 +41,8 @@ export class EngineImpl implements Engine {
   addGlobalScript = (script: GlobalScript) => {
     this.globalScripts.push(script);
   };
+
+  clearGlobalScripts = (): void => Arrays.clear(this.globalScripts);
 
   getKeyboard = (): Keyboard => this.keyboard;
 
@@ -51,20 +55,29 @@ export class EngineImpl implements Engine {
   getViewport = () => this.viewport;
 
   startGameLoop = (): void => {
+    this.isStarted = true;
     const timestampMillis = getCurrentTimeSeconds() * 1000;
     this.doGameLoop(timestampMillis);
+  };
+
+  stopGameLoop = (): void => {
+    this.isStarted = false;
   };
 
   /**
    * non-override
    */
   doGameLoop = (timestampMillis: number) => {
+    if (!this.isStarted) {
+      return;
+    }
+
     const timestampSeconds = timestampMillis / 1000;
     const dt = timestampSeconds - this.lastUpdateTime;
     this.lastUpdateTime = timestampSeconds;
     this.update(dt);
     this.render();
-    window.requestAnimationFrame(this.startGameLoop);
+    window.requestAnimationFrame(this.doGameLoop);
   };
 
   /** non-override */
