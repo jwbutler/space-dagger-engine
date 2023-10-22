@@ -22,11 +22,9 @@ export class EngineImpl implements Engine {
   private readonly collisionHandler: CollisionHandler;
   private lastUpdateTime: number;
   /**
-   * true if we should continue the update loop
-   */
-  private isStarted: boolean;
-  /**
-   * TODO feels like a huge hack
+   * This is used when stopping the game loop (see {@link #stopGameLoop}
+   * to delay further actions until the current loop has terminated.
+   * TODO naming
    */
   private stopLoopCallback: (() => void) | null;
 
@@ -40,7 +38,6 @@ export class EngineImpl implements Engine {
     this.stringVariables = {};
     this.collisionHandler = CollisionHandler.create();
     this.lastUpdateTime = getCurrentTimeSeconds();
-    this.isStarted = false;
     this.stopLoopCallback = null;
   }
 
@@ -63,13 +60,11 @@ export class EngineImpl implements Engine {
   getViewport = () => this.viewport;
 
   startGameLoop = (): void => {
-    this.isStarted = true;
     const timestampMillis = getCurrentTimeSeconds() * 1000;
     this.doGameLoop(timestampMillis);
   };
 
   stopGameLoop = async (): Promise<void> => {
-    this.isStarted = false;
     await new Promise<void>(resolve => {
       this.stopLoopCallback = resolve;
     });
@@ -79,19 +74,17 @@ export class EngineImpl implements Engine {
    * non-override
    */
   doGameLoop = (timestampMillis: number) => {
-    if (!this.isStarted) {
-      return;
-    }
-
     const timestampSeconds = timestampMillis / 1000;
     const dt = timestampSeconds - this.lastUpdateTime;
     this.lastUpdateTime = timestampSeconds;
     this.update(dt);
     this.render();
-    window.requestAnimationFrame(this.doGameLoop);
+
     if (this.stopLoopCallback) {
       this.stopLoopCallback();
       this.stopLoopCallback = null;
+    } else {
+      window.requestAnimationFrame(this.doGameLoop);
     }
   };
 
