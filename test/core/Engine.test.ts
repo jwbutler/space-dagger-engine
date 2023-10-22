@@ -187,6 +187,53 @@ describe('Engine', () => {
     expect(spyScript.onUpdate).not.toHaveBeenCalled();
   });
 
+  test('stopGameLoop', async () => {
+    const engine = new EngineImpl({
+      keyboard: {} as Keyboard,
+      soundPlayer: {} as SoundPlayer,
+      scene: {
+        getEntities: () => [],
+        getGraphics: () => ({}) as Graphics,
+        getBackgroundColor: () => null,
+        getBackgroundImage: () => null,
+        getCamera: () => ({}) as Camera
+      } as unknown as Scene,
+      userInterface: {} as UserInterface,
+      viewport: {
+        fill: () => {}
+      } as unknown as Graphics
+    });
+
+    let stopCallbackInvoked = false;
+    const waitForInvoke = engine.stopGameLoop().then(() => {
+      stopCallbackInvoked = true;
+    });
+
+    vi.spyOn(engine, 'update').mockImplementation(() => {});
+    vi.spyOn(engine, 'render').mockImplementation(() => {});
+
+    engine.doGameLoop(0);
+    await waitForInvoke;
+    expect(stopCallbackInvoked).toBe(true);
+    vi.clearAllMocks();
+  });
+
+  test('clearGlobalScripts', () => {
+    const engine = new EngineImpl({
+      keyboard: {} as Keyboard,
+      soundPlayer: {} as SoundPlayer,
+      scene: {} as Scene,
+      userInterface: {} as UserInterface,
+      viewport: {} as Graphics
+    });
+
+    const script = {} as GlobalScript;
+    engine.addGlobalScript(script);
+    expect(engine.getGlobalScripts()).toEqual([script]);
+    engine.clearGlobalScripts();
+    expect(engine.getGlobalScripts()).toEqual([]);
+  });
+
   afterAll(() => {
     vi.unstubAllGlobals();
   });
