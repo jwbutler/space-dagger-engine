@@ -1,5 +1,6 @@
 import { Coordinates } from './Coordinates';
 import { Dimensions } from './Dimensions';
+import { Polygon } from './Polygon';
 
 export type Rect = Readonly<{
   left: number;
@@ -82,4 +83,8 @@ export namespace Rect {
       height: dimensions.height
     };
   };
+
+  export const asPolygon = (rect: Rect): Polygon => ({
+    points: getVertices(rect)
+  });
 }

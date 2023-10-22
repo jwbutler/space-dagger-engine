@@ -1,8 +1,8 @@
 import { EntityBehavior } from './EntityBehavior';
 import { Entity } from '../Entity';
 import { TickEvent } from '../../events';
-import { getEntitiesOverlappingRect } from '../functions/getEntitiesOverlappingRect';
 import { Coordinates, Vector } from '../../geometry';
+import { getOverlappingEntities } from '../functions/getOverlappingEntities';
 
 export namespace SolidBehavior {
   export const TAG_NAME = 'solid';
@@ -14,11 +14,7 @@ export namespace SolidBehavior {
     };
 
     const onTick = (entity: Entity, { engine }: TickEvent) => {
-      const boundingRect = entity.getSprite().getBoundingRect(entity);
-      const overlappingEntities = getEntitiesOverlappingRect(
-        boundingRect,
-        engine.getScene()
-      );
+      const overlappingEntities = getOverlappingEntities(entity, engine.getScene());
       for (const other of overlappingEntities) {
         if (other === entity) continue;
 

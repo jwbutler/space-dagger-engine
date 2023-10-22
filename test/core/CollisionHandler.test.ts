@@ -1,7 +1,7 @@
 import { CollisionHandlerImpl, matches } from '../../src/core/CollisionHandler';
 import { Entity } from '../../src/entities';
 import { Sprite } from '../../src/graphics';
-import { Coordinates } from '../../src/geometry';
+import { Coordinates, Rect } from '../../src/geometry';
 import { afterAll, describe, expect, test, vi } from 'vitest';
 
 describe('CollisionHandler', () => {
@@ -11,7 +11,8 @@ describe('CollisionHandler', () => {
 
   const collisionHandler = new CollisionHandlerImpl({ gracePeriod: 0.25 });
   const firstSprite = {
-    getBoundingRect: () => ({ left: 10, top: 10, width: 20, height: 20 })
+    getCollisionPolygon: () =>
+      Rect.asPolygon({ left: 10, top: 10, width: 20, height: 20 })
   } as unknown as Sprite;
   const first = {
     getId: () => 'first',
@@ -20,12 +21,13 @@ describe('CollisionHandler', () => {
 
   let secondCenterCoordinates: Coordinates;
   const secondSprite = {
-    getBoundingRect: () => ({
-      left: secondCenterCoordinates.x - 10,
-      top: secondCenterCoordinates.y - 10,
-      width: 20,
-      height: 20
-    })
+    getCollisionPolygon: () =>
+      Rect.asPolygon({
+        left: secondCenterCoordinates.x - 10,
+        top: secondCenterCoordinates.y - 10,
+        width: 20,
+        height: 20
+      })
   } as unknown as Sprite;
   const second = {
     getId: () => 'second',

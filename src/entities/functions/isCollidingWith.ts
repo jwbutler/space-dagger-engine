@@ -1,10 +1,9 @@
 import { Entity } from '../Entity';
-import { Rect } from '../../geometry/Rect';
+import { Polygon } from '../../geometry';
 
-/** TODO naive collision detection */
 export const isCollidingWith = (first: Entity, second: Entity): boolean => {
-  return Rect.overlaps(
-    first.getSprite().getBoundingRect(first),
-    second.getSprite().getBoundingRect(second)
+  return Polygon.overlaps(
+    first.getSprite().getCollisionPolygon(first),
+    second.getSprite().getCollisionPolygon(second)
   );
 };
