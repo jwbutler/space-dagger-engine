@@ -9,7 +9,6 @@ export const getOverlappingEntities = (entity: Entity, scene: Scene): Entity[] =
     if (other === entity) continue;
 
     const otherPolygon = other.getSprite().getCollisionPolygon(other);
-    console.log(`TEST: ${JSON.stringify(entityPolygon)} ${JSON.stringify(otherPolygon)}`);
     if (Polygon.overlaps(entityPolygon, otherPolygon)) {
       overlappingEntities.push(other);
     }

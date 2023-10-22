@@ -30,6 +30,7 @@ export interface Graphics {
     origin: Coordinates
   ) => void;
   drawRect: (rect: Rect, color: string) => void;
+  drawPolygon: (points: Coordinates[], color: string) => void;
   drawText: (text: string, font: string, color: string, topLeft: Coordinates) => void;
   fill: (color: string) => void;
   fillRect: (rect: Rect, color: string) => void;
