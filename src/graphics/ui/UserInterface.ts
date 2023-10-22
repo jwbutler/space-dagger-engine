@@ -1,10 +1,15 @@
 import { UIElement } from './UIElement';
 import { Graphics } from '../Graphics';
+import { Arrays } from '../../utils';
 
 export interface UserInterface {
   getGraphics: () => Graphics;
   getUIElements: () => UIElement[];
   addUIElement: (element: UIElement) => void;
+  /**
+   * Remove all UI elements
+   */
+  clear: () => void;
 }
 
 type Props = Readonly<{
@@ -27,6 +32,8 @@ class UserInterfaceImpl implements UserInterface {
   getGraphics = (): Graphics => this.graphics;
 
   getUIElements = (): UIElement[] => this.uiElements;
+
+  clear = (): void => Arrays.clear(this.uiElements);
 }
 
 export namespace UserInterface {
