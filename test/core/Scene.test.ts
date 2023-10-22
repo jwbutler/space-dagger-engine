@@ -5,7 +5,7 @@ import { Dimensions } from '../../src/geometry/Dimensions';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { EntityImpl } from '../../src/entities/EntityImpl';
-import { expect, test, vi } from 'vitest';
+import { expect, test, vi, describe } from 'vitest';
 
 test('scene', () => {
   const image = {} as ImageBitmap;
@@ -61,7 +61,7 @@ test('factory method', () => {
   documentMock.clearAllMocks();
 });
 
-test('entities', () => {
+describe('entities', () => {
   const image = {} as ImageBitmap;
   const camera = Camera.create({
     centerCoordinates: Coordinates.zero(),
@@ -76,20 +76,35 @@ test('entities', () => {
     graphics: {} as Graphics
   });
 
-  expect(scene.getEntities()).toEqual([]);
-  const isInitialized = true;
+  test('init', () => {
+    expect(scene.getEntities()).toEqual([]);
+  });
+
   const entity = {
     getId: () => 'test_id',
     getName: () => 'test',
-    isInitialized: (): boolean => isInitialized
+    isInitialized: (): boolean => true
   } as EntityImpl;
-  scene.addEntity(entity);
-  expect(scene.getEntities()).toEqual([entity]);
-  expect(scene.getEntitiesByName('test')).toEqual([entity]);
-  expect(scene.getEntitiesByName('not')).toEqual([]);
-  expect(scene.getEntityById('test_id')).toBe(entity);
-  scene.removeEntity(entity);
-  expect(scene.getEntities()).toEqual([]);
-  expect(() => scene.removeEntity(entity)).toThrow();
-  expect(scene.getEntityById('test_id')).toBe(null);
+
+  test('addEntity', () => {
+    scene.addEntity(entity);
+    expect(scene.getEntities()).toEqual([entity]);
+    expect(scene.getEntitiesByName('test')).toEqual([entity]);
+    expect(scene.getEntitiesByName('not')).toEqual([]);
+    expect(scene.getEntityById('test_id')).toBe(entity);
+  });
+
+  test('removeEntity', () => {
+    scene.removeEntity(entity);
+    expect(scene.getEntities()).toEqual([]);
+    expect(() => scene.removeEntity(entity)).toThrow();
+    expect(scene.getEntityById('test_id')).toBe(null);
+  });
+
+  test('clear', () => {
+    scene.addEntity(entity);
+    expect(scene.getEntities()).toEqual([entity]);
+    scene.clear();
+    expect(scene.getEntities()).toEqual([]);
+  });
 });

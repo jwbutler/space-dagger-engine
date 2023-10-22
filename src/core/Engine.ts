@@ -13,11 +13,13 @@ export interface Engine {
   getUserInterface: () => UserInterface;
   getGlobalScripts: () => GlobalScript[];
   addGlobalScript: (script: GlobalScript) => void;
+  clearGlobalScripts: () => void;
   getViewport: () => Graphics;
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
 
   startGameLoop: () => void;
+  stopGameLoop: () => Promise<void>;
 }
 
 export type EngineProps = Readonly<{

@@ -8,7 +8,7 @@ import { UserInterface } from '../graphics/ui/UserInterface';
 import { Graphics } from '../graphics/Graphics';
 import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
-import { getCurrentTimeSeconds } from '../utils';
+import { Arrays, getCurrentTimeSeconds } from '../utils';
 import { SoundPlayer } from '../audio';
 
 export class EngineImpl implements Engine {
@@ -21,6 +21,12 @@ export class EngineImpl implements Engine {
   private readonly stringVariables: Record<string, string | null>;
   private readonly collisionHandler: CollisionHandler;
   private lastUpdateTime: number;
+  /**
+   * This is used when stopping the game loop (see {@link #stopGameLoop}
+   * to delay further actions until the current loop has terminated.
+   * TODO naming
+   */
+  private stopLoopCallback: (() => void) | null;
 
   constructor({ keyboard, soundPlayer, scene, userInterface, viewport }: EngineProps) {
     this.keyboard = keyboard;
@@ -32,6 +38,7 @@ export class EngineImpl implements Engine {
     this.stringVariables = {};
     this.collisionHandler = CollisionHandler.create();
     this.lastUpdateTime = getCurrentTimeSeconds();
+    this.stopLoopCallback = null;
   }
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
@@ -39,6 +46,8 @@ export class EngineImpl implements Engine {
   addGlobalScript = (script: GlobalScript) => {
     this.globalScripts.push(script);
   };
+
+  clearGlobalScripts = (): void => Arrays.clear(this.globalScripts);
 
   getKeyboard = (): Keyboard => this.keyboard;
 
@@ -55,6 +64,12 @@ export class EngineImpl implements Engine {
     this.doGameLoop(timestampMillis);
   };
 
+  stopGameLoop = async (): Promise<void> => {
+    await new Promise<void>(resolve => {
+      this.stopLoopCallback = resolve;
+    });
+  };
+
   /**
    * non-override
    */
@@ -64,7 +79,13 @@ export class EngineImpl implements Engine {
     this.lastUpdateTime = timestampSeconds;
     this.update(dt);
     this.render();
-    window.requestAnimationFrame(this.startGameLoop);
+
+    if (this.stopLoopCallback) {
+      this.stopLoopCallback();
+      this.stopLoopCallback = null;
+    } else {
+      window.requestAnimationFrame(this.doGameLoop);
+    }
   };
 
   /** non-override */

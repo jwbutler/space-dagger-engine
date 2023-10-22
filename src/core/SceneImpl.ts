@@ -67,11 +67,11 @@ export class SceneImpl implements Scene {
     Arrays.filterInPlace(this.entities, e => e !== entity);
   };
 
-  getEntitiesByName = (name: string): Entity[] => {
-    return this.entities.filter(entity => entity.getName() === name);
-  };
+  getEntitiesByName = (name: string): Entity[] =>
+    this.entities.filter(entity => entity.getName() === name);
 
-  getEntityById = (id: string): Entity | null => {
-    return this.entities.find(entity => entity.getId() === id) ?? null;
-  };
+  getEntityById = (id: string): Entity | null =>
+    this.entities.find(entity => entity.getId() === id) ?? null;
+
+  clear = (): void => Arrays.clear(this.entities);
 }

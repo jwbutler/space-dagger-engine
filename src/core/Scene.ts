@@ -18,6 +18,10 @@ export interface Scene {
   removeEntity: (entity: Entity) => void;
   getEntitiesByName: (name: string) => Entity[];
   getEntityById: (id: string) => Entity | null;
+  /**
+   * Remove all entities
+   */
+  clear: () => void;
 }
 
 type Props = Readonly<{
