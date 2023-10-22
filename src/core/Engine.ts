@@ -19,7 +19,7 @@ export interface Engine {
   setStringVariable: (key: string, value: string | null) => void;
 
   startGameLoop: () => void;
-  stopGameLoop: () => void;
+  stopGameLoop: () => Promise<void>;
 }
 
 export type EngineProps = Readonly<{

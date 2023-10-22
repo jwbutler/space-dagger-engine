@@ -21,7 +21,14 @@ export class EngineImpl implements Engine {
   private readonly stringVariables: Record<string, string | null>;
   private readonly collisionHandler: CollisionHandler;
   private lastUpdateTime: number;
+  /**
+   * true if we should continue the update loop
+   */
   private isStarted: boolean;
+  /**
+   * TODO feels like a huge hack
+   */
+  private stopLoopCallback: (() => void) | null;
 
   constructor({ keyboard, soundPlayer, scene, userInterface, viewport }: EngineProps) {
     this.keyboard = keyboard;
@@ -34,6 +41,7 @@ export class EngineImpl implements Engine {
     this.collisionHandler = CollisionHandler.create();
     this.lastUpdateTime = getCurrentTimeSeconds();
     this.isStarted = false;
+    this.stopLoopCallback = null;
   }
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
@@ -60,8 +68,11 @@ export class EngineImpl implements Engine {
     this.doGameLoop(timestampMillis);
   };
 
-  stopGameLoop = (): void => {
+  stopGameLoop = async (): Promise<void> => {
     this.isStarted = false;
+    await new Promise<void>(resolve => {
+      this.stopLoopCallback = resolve;
+    });
   };
 
   /**
@@ -78,6 +89,10 @@ export class EngineImpl implements Engine {
     this.update(dt);
     this.render();
     window.requestAnimationFrame(this.doGameLoop);
+    if (this.stopLoopCallback) {
+      this.stopLoopCallback();
+      this.stopLoopCallback = null;
+    }
   };
 
   /** non-override */
