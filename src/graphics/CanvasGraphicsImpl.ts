@@ -130,6 +130,21 @@ export class CanvasGraphicsImpl implements Graphics {
     this.context.putImageData(imageData, 0, 0);
   };
 
+  drawPolygon = (points: Coordinates[], color: string): void => {
+    const { context } = this;
+    context.strokeStyle = color;
+    context.fillStyle = color;
+    context.lineWidth = 1;
+    context.beginPath();
+    for (const point of points) {
+      context.lineTo(point.x, point.y);
+    }
+    // close the path
+    context.lineTo(points[0].x, points[0].y);
+    context.stroke();
+    context.closePath();
+  };
+
   drawText = (text: string, font: string, color: string, topLeft: Coordinates): void => {
     const { context } = this;
     context.fillStyle = color;

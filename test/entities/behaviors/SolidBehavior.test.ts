@@ -1,6 +1,7 @@
 import { Entity, SolidBehavior } from '../../../src/entities';
 import { EntityInitEvent } from '../../../src/events';
 import { Engine, Scene } from '../../../src';
+import { Rect } from '../../../src/geometry';
 import { describe, expect, test, vi } from 'vitest';
 
 const sqrt_2 = 2 ** 0.5;
@@ -9,7 +10,8 @@ describe('SolidBehavior', () => {
   const entity = {
     addTag: () => {},
     getSprite: () => ({
-      getBoundingRect: () => ({ left: 10, top: 10, width: 20, height: 20 })
+      getCollisionPolygon: () =>
+        Rect.asPolygon({ left: 10, top: 10, width: 20, height: 20 })
     }),
     getCenterCoordinates: () => ({ x: 20, y: 20 }),
     setCenterCoordinates: () => {}
@@ -26,7 +28,8 @@ describe('SolidBehavior', () => {
   test('onTick', () => {
     const otherEntity = {
       getSprite: () => ({
-        getBoundingRect: () => ({ left: 20, top: 20, width: 20, height: 20 })
+        getCollisionPolygon: () =>
+          Rect.asPolygon({ left: 20, top: 20, width: 20, height: 20 })
       }),
       getCenterCoordinates: () => ({ x: 30, y: 30 }),
       setCenterCoordinates: () => {},

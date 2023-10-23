@@ -35,9 +35,9 @@ export interface Entity {
    */
   getFriction: () => number;
   setFriction: (friction: number) => void;
+
   getScripts: () => EntityScript[];
   getBehaviors: () => EntityBehavior[];
-
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
   getTags: () => Set<string>;
