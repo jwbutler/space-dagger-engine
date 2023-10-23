@@ -6,6 +6,9 @@ export type Polygon = Readonly<{
 }>;
 
 export namespace Polygon {
+  /**
+   * TODO: This is massively inefficient
+   */
   export const overlaps = (first: Polygon, second: Polygon): boolean => {
     return SAT.testPolygonPolygon(toSATPolygon(first), toSATPolygon(second));
   };

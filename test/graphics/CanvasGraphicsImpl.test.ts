@@ -53,7 +53,8 @@ describe('CanvasGraphicsImpl', () => {
   });
 
   test('fillPolygon', () => {
-    const lineToSpy = vi.spyOn(mockContext, 'lineTo');
+    const lineTo_spy = vi.spyOn(mockContext, 'lineTo');
+    const fill_spy = vi.spyOn(mockContext, 'fill');
     const points = [
       { x: 10, y: 10 },
       { x: 20, y: 10 },
@@ -63,11 +64,13 @@ describe('CanvasGraphicsImpl', () => {
     graphics.fillPolygon(points, 'red');
     for (let i = 0; i < points.length; i++) {
       // toHaveBeenNthCalledWith is 1-indexed (ugh)
-      expect(lineToSpy).toHaveBeenNthCalledWith(i + 1, points[i].x, points[i].y);
+      expect(lineTo_spy).toHaveBeenNthCalledWith(i + 1, points[i].x, points[i].y);
     }
-    expect(lineToSpy).toHaveBeenNthCalledWith(5, points[0].x, points[0].y);
+    expect(lineTo_spy).toHaveBeenNthCalledWith(5, points[0].x, points[0].y);
     expect(mockContext.fillStyle).toBe('red');
-    lineToSpy.mockClear();
+    expect(fill_spy).toHaveBeenCalled();
+    lineTo_spy.mockClear();
+    fill_spy.mockClear();
   });
 
   test('fillRect', () => {
@@ -135,6 +138,27 @@ describe('CanvasGraphicsImpl', () => {
     expect(mockContext.strokeStyle).toBe('#00ffff');
     expect(mockContext.lineWidth).toBe(1);
     expect(strokeRectSpy).toHaveBeenCalledWith(1, 2, 3, 4);
+  });
+
+  test('drawPolygon', () => {
+    const lineTo_Spy = vi.spyOn(mockContext, 'lineTo');
+    const fill_spy = vi.spyOn(mockContext, 'fill');
+    const points = [
+      { x: 10, y: 10 },
+      { x: 20, y: 10 },
+      { x: 20, y: 20 },
+      { x: 10, y: 20 }
+    ];
+    graphics.drawPolygon(points, '#808000');
+    for (let i = 0; i < points.length; i++) {
+      // toHaveBeenNthCalledWith is 1-indexed (ugh)
+      expect(lineTo_Spy).toHaveBeenNthCalledWith(i + 1, points[i].x, points[i].y);
+    }
+    expect(lineTo_Spy).toHaveBeenNthCalledWith(5, points[0].x, points[0].y);
+    expect(fill_spy).not.toHaveBeenCalled();
+    expect(mockContext.fillStyle).toBe('#808000');
+    lineTo_Spy.mockClear();
+    fill_spy.mockClear();
   });
 
   test('clear', () => {

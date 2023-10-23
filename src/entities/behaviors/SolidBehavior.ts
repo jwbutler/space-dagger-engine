@@ -16,8 +16,6 @@ export namespace SolidBehavior {
     const onTick = (entity: Entity, { engine }: TickEvent) => {
       const overlappingEntities = getOverlappingEntities(entity, engine.getScene());
       for (const other of overlappingEntities) {
-        if (other === entity) continue;
-
         if (other.hasTag(TAG_NAME)) {
           const direction = Vector.withMagnitude(
             Vector.betweenEntities(entity, other),
