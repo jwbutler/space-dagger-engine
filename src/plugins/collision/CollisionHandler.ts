@@ -57,7 +57,6 @@ export class CollisionHandlerImpl implements CollisionHandler {
   }
 
   detectCollisions = (entities: Entity[]): CollisionResult => {
-    console.time('detectCollisions');
     const currentTime = getCurrentTimeSeconds();
     const overlaps = this.getActiveOverlaps(entities);
     const collisions: Collision[] = [];
@@ -82,7 +81,6 @@ export class CollisionHandlerImpl implements CollisionHandler {
 
     Arrays.clear(this.overlaps);
     this.overlaps.push(...overlaps);
-    console.timeEnd('detectCollisions');
     return { collisions, overlaps };
   };
 

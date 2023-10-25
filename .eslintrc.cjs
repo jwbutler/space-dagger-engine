@@ -20,6 +20,8 @@ module.exports = {
     "rules": {
         "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-unused-vars": "warn",
+        "no-alert": "error",
+        "no-console": "error",
         "prefer-arrow/prefer-arrow-functions": [
             "error",
             {

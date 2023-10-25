@@ -51,7 +51,6 @@ export const getCachedOverlaps = (engine: Engine): Overlap[] => {
 export const setCachedOverlaps = (engine: Engine, overlaps: Overlap[]): void => {
   const value = serializeOverlaps(overlaps);
   engine.setStringVariable(VAR_KEY_OVERLAPS, value);
-  console.log(`cached overlaps: ${value}`);
 };
 
 type Props = Readonly<{
