@@ -1,1 +1,3 @@
-export const getCurrentTimeSeconds = () => performance.now() / 1000;
+export type Seconds = number;
+
+export const getCurrentTimeSeconds = (): Seconds => performance.now() / 1000;

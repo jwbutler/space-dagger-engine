@@ -2,7 +2,8 @@ import { EntityBehavior } from './EntityBehavior';
 import { Entity } from '../Entity';
 import { TickEvent } from '../../events';
 import { Coordinates, Vector } from '../../geometry';
-import { getOverlappingEntities } from '../functions/getOverlappingEntities';
+import { Engine } from '../../core/Engine';
+import { getCachedOverlaps } from '../../plugins/collision/CollisionDetectionPlugin';
 
 export namespace SolidBehavior {
   export const TAG_NAME = 'solid';
@@ -14,7 +15,7 @@ export namespace SolidBehavior {
     };
 
     const onTick = (entity: Entity, { engine }: TickEvent) => {
-      const overlappingEntities = getOverlappingEntities(entity, engine.getScene());
+      const overlappingEntities = getCachedOverlappingEntities(entity, engine);
       for (const other of overlappingEntities) {
         if (other.hasTag(TAG_NAME)) {
           const direction = Vector.withMagnitude(
@@ -34,3 +35,21 @@ export namespace SolidBehavior {
     return { init, onTick } as EntityBehavior;
   };
 }
+
+/** exporting for test coverage */
+export const getCachedOverlappingEntities = (
+  entity: Entity,
+  engine: Engine
+): Entity[] => {
+  const overlaps = getCachedOverlaps(engine);
+  return overlaps
+    .filter(
+      ({ firstId, secondId }) => firstId === entity.getId() || secondId === entity.getId()
+    )
+    .map(overlap => {
+      const otherId =
+        overlap.firstId === entity.getId() ? overlap.secondId : overlap.firstId;
+      return engine.getScene().getEntityById(otherId);
+    })
+    .filter(other => other !== null) as Entity[];
+};
