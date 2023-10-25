@@ -1,4 +1,7 @@
-import { CollisionHandlerImpl, matches } from '../../src/core/CollisionHandler';
+import {
+  CollisionHandlerImpl,
+  matches
+} from '../../src/plugins/collision/CollisionHandler';
 import { Entity } from '../../src/entities';
 import { Sprite } from '../../src/graphics';
 import { Coordinates, Rect } from '../../src/geometry';

@@ -1,7 +1,6 @@
 import { Engine, EngineProps } from './Engine';
 import { Scene } from './Scene';
 import { update } from './update';
-import { CollisionHandler } from './CollisionHandler';
 import { GlobalScript } from '../events/GlobalScript';
 import { Keyboard } from '../input/Keyboard';
 import { UserInterface } from '../graphics/ui/UserInterface';
@@ -19,7 +18,6 @@ export class EngineImpl implements Engine {
   private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
   private readonly stringVariables: Record<string, string | null>;
-  private readonly collisionHandler: CollisionHandler;
   private lastUpdateTime: number;
   /**
    * This is used when stopping the game loop (see {@link #stopGameLoop}
@@ -36,7 +34,6 @@ export class EngineImpl implements Engine {
     this.viewport = viewport;
     this.globalScripts = [];
     this.stringVariables = {};
-    this.collisionHandler = CollisionHandler.create();
     this.lastUpdateTime = getCurrentTimeSeconds();
     this.stopLoopCallback = null;
   }
@@ -126,9 +123,4 @@ export class EngineImpl implements Engine {
   setStringVariable = (key: string, value: string | null): void => {
     this.stringVariables[key] = value;
   };
-
-  /**
-   * Non-override
-   */
-  getCollisionHandler = (): CollisionHandler => this.collisionHandler;
 }

@@ -2,6 +2,9 @@
   "name": "@jwbutler/space-dagger-engine",
   "version": "0.5.0",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsc && vite build",
     "prettier": "prettier --write {src,test}/**/*.ts",
@@ -11,18 +14,18 @@
   },
   "devDependencies": {
     "@types/sat": "^0.0.34",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.8.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
     "@vitest/coverage-v8": "^0.34.6",
-    "eslint": "^8.51.0",
+    "eslint": "^8.52.0",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.6.0",
+    "vite-plugin-dts": "^3.6.1",
     "vitest": "^0.34.6"
   },
   "publishConfig": {
@@ -56,6 +59,10 @@
     "./graphics": {
       "import": "./dist/graphics/index.js",
       "types": "./dist/graphics/index.d.ts"
+    },
+    "./plugins": {
+      "import": "./dist/plugins/index.js",
+      "types": "./dist/plugins/index.d.ts"
     },
     "./utils": {
       "import": "./dist/utils/index.js",

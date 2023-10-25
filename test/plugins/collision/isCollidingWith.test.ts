@@ -1,9 +1,10 @@
-import { Entity, isCollidingWith } from '../../../src/entities';
+import { Entity } from '../../../src/entities';
 import { Sprite } from '../../../src/graphics';
 import { Rect } from '../../../src/geometry';
+import { isOverlapping } from '../../../src/plugins/collision/CollisionHandler';
 import { expect, test, describe } from 'vitest';
 
-describe('isCollidingWith', () => {
+describe('isOverlapping', () => {
   test('corner to corner', () => {
     const first = {
       getSprite: () =>
@@ -19,7 +20,7 @@ describe('isCollidingWith', () => {
             Rect.asPolygon({ left: 4, top: 6, width: 3, height: 4 })
         }) as unknown as Sprite
     } as Entity;
-    expect(isCollidingWith(first, second)).toBe(true);
+    expect(isOverlapping(first, second)).toBe(true);
   });
 
   test('overlapping', () => {
@@ -37,6 +38,6 @@ describe('isCollidingWith', () => {
             Rect.asPolygon({ left: 3, top: 5, width: 3, height: 4 })
         }) as unknown as Sprite
     } as Entity;
-    expect(isCollidingWith(first, second)).toBe(true);
+    expect(isOverlapping(first, second)).toBe(true);
   });
 });

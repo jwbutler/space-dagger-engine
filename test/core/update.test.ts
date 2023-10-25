@@ -5,7 +5,7 @@ import { update } from '../../src/core/update';
 import { Entity } from '../../src/entities/Entity';
 import { Scene } from '../../src/core/Scene';
 import { Engine } from '../../src';
-import { CollisionHandler } from '../../src/core/CollisionHandler';
+import { CollisionHandler } from '../../src/plugins/collision/CollisionHandler';
 import { check } from '../../src/utils';
 import { EntityScript, GlobalScript } from '../../src/events';
 import { expect, test, vi } from 'vitest';
@@ -48,7 +48,10 @@ test('update', () => {
   } as GlobalScript;
   const collisionHandler = {
     // this is, of course, invalid
-    detectCollisions: () => [{ firstId: ship.getId(), secondId: ship.getId() }]
+    detectCollisions: () => ({
+      collisions: [{ firstId: ship.getId(), secondId: ship.getId() }],
+      overlaps: [{ firstId: ship.getId(), secondId: ship.getId() }]
+    })
   } as CollisionHandler;
 
   const detectCollisions_spy = vi.spyOn(collisionHandler, 'detectCollisions');
