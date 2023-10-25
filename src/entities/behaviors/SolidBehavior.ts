@@ -36,7 +36,11 @@ export namespace SolidBehavior {
   };
 }
 
-const getCachedOverlappingEntities = (entity: Entity, engine: Engine): Entity[] => {
+/** exporting for test coverage */
+export const getCachedOverlappingEntities = (
+  entity: Entity,
+  engine: Engine
+): Entity[] => {
   const overlaps = getCachedOverlaps(engine);
   return overlaps
     .filter(

@@ -3,21 +3,8 @@ import { TickEvent } from '../../events';
 import { Engine } from '../../core/Engine';
 import type { Plugin } from '../Plugin';
 
-type Props = Readonly<{
-  /** Ignore possible collisions outside of this range */
-  sanityDX: number;
-  /** Ignore possible collisions outside of this range */
-  sanityDY: number;
-  /** Ignore new collisions within X seconds of a previous collision */
-  gracePeriod: number;
-}>;
-
-class CollisionDetectionPluginImpl implements Plugin {
-  private readonly collisionHandler: CollisionHandler;
-
-  constructor({ sanityDX, sanityDY, gracePeriod }: Props) {
-    this.collisionHandler = CollisionHandler.create({ sanityDX, sanityDY, gracePeriod });
-  }
+export class CollisionDetectionPluginImpl implements Plugin {
+  constructor(private readonly collisionHandler: CollisionHandler) {}
 
   onTick = ({ engine, dt }: TickEvent) => {
     const { collisionHandler } = this;
@@ -44,7 +31,7 @@ class CollisionDetectionPluginImpl implements Plugin {
   };
 }
 
-const VAR_KEY_OVERLAPS = 'OVERLAPS';
+const VAR_KEY_OVERLAPS = 'overlaps';
 
 const serializeOverlaps = (overlaps: Overlap[]): string => {
   return JSON.stringify(overlaps);
@@ -67,11 +54,27 @@ export const setCachedOverlaps = (engine: Engine, overlaps: Overlap[]): void => 
   console.log(`cached overlaps: ${value}`);
 };
 
+type Props = Readonly<{
+  /** Ignore possible collisions outside of this range */
+  sanityDX: number;
+  /** Ignore possible collisions outside of this range */
+  sanityDY: number;
+  /** Ignore new collisions within X seconds of a previous collision */
+  gracePeriod: number;
+}>;
+
 export namespace CollisionDetectionPlugin {
-  export const create = (): Plugin =>
-    new CollisionDetectionPluginImpl({
-      sanityDX: 1000,
-      sanityDY: 1000,
-      gracePeriod: 0.25
+  export const create = ({
+    sanityDX = 1000,
+    sanityDY = 1000,
+    gracePeriod = 0.25
+  }: Props): Plugin => {
+    const collisionHandler = CollisionHandler.create({
+      sanityDX,
+      sanityDY,
+      gracePeriod
     });
+
+    return new CollisionDetectionPluginImpl(collisionHandler);
+  };
 }

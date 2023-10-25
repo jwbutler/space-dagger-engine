@@ -87,12 +87,16 @@ export class CollisionHandlerImpl implements CollisionHandler {
   };
 
   getActiveOverlaps = (entities: Entity[]): Overlap[] => {
+    const { sanityDX, sanityDY } = this;
     const overlaps: Overlap[] = [];
     for (let i = 0; i < entities.length; i++) {
       const first = entities[i];
       for (let j = i + 1; j < entities.length; j++) {
         const second = entities[j];
-        if (this.isMaybeOverlapping(first, second) && isOverlapping(first, second)) {
+        if (
+          isMaybeOverlapping(first, second, sanityDX, sanityDY) &&
+          isOverlapping(first, second)
+        ) {
           overlaps.push({
             firstId: first.getId(),
             secondId: second.getId()
@@ -102,21 +106,26 @@ export class CollisionHandlerImpl implements CollisionHandler {
     }
     return overlaps;
   };
-
-  private isMaybeOverlapping = (first: Entity, second: Entity): boolean => {
-    const { sanityDX, sanityDY } = this;
-    if (sanityDX !== null && sanityDY !== null) {
-      const { x: x1, y: y1 } = first.getCenterCoordinates();
-      const { x: x2, y: y2 } = second.getCenterCoordinates();
-      const dx = Math.abs(x2 - x1);
-      const dy = Math.abs(y2 - y1);
-      if (dx > sanityDX || dy > sanityDY) {
-        return false;
-      }
-    }
-    return true;
-  };
 }
+
+/** exported for testing */
+export const isMaybeOverlapping = (
+  first: Entity,
+  second: Entity,
+  sanityDX: number | null,
+  sanityDY: number | null
+): boolean => {
+  if (sanityDX !== null && sanityDY !== null) {
+    const { x: x1, y: y1 } = first.getCenterCoordinates();
+    const { x: x2, y: y2 } = second.getCenterCoordinates();
+    const dx = Math.abs(x2 - x1);
+    const dy = Math.abs(y2 - y1);
+    if (dx > sanityDX || dy > sanityDY) {
+      return false;
+    }
+  }
+  return true;
+};
 
 /** exported for testing */
 export const isOverlapping = (first: Entity, second: Entity): boolean => {
