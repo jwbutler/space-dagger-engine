@@ -5,6 +5,8 @@ import { Dimensions } from './Dimensions';
 export interface Camera {
   getCenterCoordinates: () => Coordinates;
   setCenterCoordinates: (coordinates: Coordinates) => void;
+  getDimensions: () => Dimensions;
+  setDimensions: (dimensions: Dimensions) => void;
   getRect: () => Rect;
 }
 
@@ -15,7 +17,7 @@ type Props = Readonly<{
 
 class CameraImpl implements Camera {
   private centerCoordinates: Coordinates;
-  private readonly dimensions: Dimensions;
+  private dimensions: Dimensions;
 
   constructor({ centerCoordinates, dimensions }: Props) {
     this.centerCoordinates = centerCoordinates;
@@ -31,8 +33,14 @@ class CameraImpl implements Camera {
     height: this.dimensions.height
   });
 
-  setCenterCoordinates = (coordinates: Coordinates) => {
+  setCenterCoordinates = (coordinates: Coordinates): void => {
     this.centerCoordinates = coordinates;
+  };
+
+  getDimensions = (): Dimensions => this.dimensions;
+
+  setDimensions = (dimensions: Dimensions): void => {
+    this.dimensions = dimensions;
   };
 }
 
