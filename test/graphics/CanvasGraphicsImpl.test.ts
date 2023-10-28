@@ -24,7 +24,8 @@ describe('CanvasGraphicsImpl', () => {
     fillText: () => {},
     clearRect: () => {},
     putImageData: () => {},
-    strokeRect: () => {}
+    strokeRect: () => {},
+    resetTransform: () => {}
   } as unknown as CanvasRenderingContext2D;
   const mockCanvas = {
     getContext: () => mockContext
@@ -212,6 +213,13 @@ describe('CanvasGraphicsImpl', () => {
     graphics.putImageData(imageData);
     expect(putImageData_spy).toHaveBeenCalledWith(imageData, 0, 0);
     putImageData_spy.mockClear();
+  });
+
+  test('translate', () => {
+    const context_translate_spy = vi.spyOn(mockContext, 'translate');
+    graphics.translate({ x: 2, y: 2 });
+    expect(context_translate_spy).toHaveBeenCalledWith(-2, -2);
+    graphics.translate({ x: 2, y: 2 });
   });
 
   afterAll(() => {

@@ -3,7 +3,6 @@ import { renderScene } from '../../src/graphics/renderScene';
 import { Sprite } from '../../src/graphics/Sprite';
 import { Coordinates } from '../../src/geometry/Coordinates';
 import { Angle } from '../../src/geometry/Angle';
-import { Rect } from '../../src/geometry/Rect';
 import { Camera } from '../../src/geometry/Camera';
 import { Scene } from '../../src/core/Scene';
 import { describe, expect, test, vi } from 'vitest';
@@ -14,11 +13,13 @@ describe('renderScene', () => {
     drawImage: () => {},
     fill: () => {},
     scroll: () => {},
-    renderOther: () => {}
-  } as Partial<Graphics> as Graphics;
+    renderOther: () => {},
+    translate: () => {}
+  } as unknown as Graphics;
   const sprite = {
-    render: () => {}
-  } as Partial<Sprite> as Sprite;
+    render: () => {},
+    getBoundingRect: () => ({ left: 10, top: 10, width: 10, height: 10 })
+  } as unknown as Sprite;
   const backgroundImage = {} as unknown;
   const entity = {
     getSprite: () => sprite,
@@ -26,7 +27,7 @@ describe('renderScene', () => {
     getAngle: () => Angle.ofDegrees(0)
   };
   const camera = {
-    getRect: () => Rect.allBalls()
+    getRect: () => ({ left: 10, top: 10, width: 10, height: 10 })
   } as Camera;
   const scene = {
     getGraphics: () => graphics,

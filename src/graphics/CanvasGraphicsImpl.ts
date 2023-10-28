@@ -27,6 +27,14 @@ export class CanvasGraphicsImpl implements Graphics {
     height: this.canvas.height
   });
 
+  translate = (topLeft: Coordinates): void => {
+    this.clear();
+    this.context.resetTransform();
+    this.clear();
+    this.context.translate(-topLeft.x, -topLeft.y);
+    this.clear();
+  };
+
   fillCircle = (centerCoordinates: Coordinates, radius: number, color: string): void => {
     const { context } = this;
     context.strokeStyle = color;
