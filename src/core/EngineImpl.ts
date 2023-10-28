@@ -105,9 +105,9 @@ export class EngineImpl implements Engine {
   render = () => {
     const startTime = getCurrentTimeSeconds();
     const { scene, userInterface, viewport } = this;
-    renderScene(scene);
     viewport.fill('#000000');
-    scene.getGraphics().drawOnto(viewport, { sourceRect: scene.getCamera().getRect() });
+    renderScene(scene);
+    scene.getGraphics().drawOnto(viewport);
     renderUserInterface(userInterface);
     const endTime = getCurrentTimeSeconds();
 

@@ -4,6 +4,9 @@ import { Coordinates } from '../geometry';
 
 export const renderScene = (scene: Scene) => {
   const graphics = scene.getGraphics();
+  const cameraRect = scene.getCamera().getRect();
+  graphics.translate(Rect.getTopLeft(cameraRect));
+
   const backgroundColor = scene.getBackgroundColor();
   if (backgroundColor) {
     graphics.fillRect(Rect.fromDimensions(scene.getDimensions()), backgroundColor);
@@ -13,7 +16,11 @@ export const renderScene = (scene: Scene) => {
     graphics.drawImage(backgroundImage, Coordinates.zero());
   }
 
+  const sceneRect = Rect.fromDimensions(scene.getDimensions());
+
   for (const entity of scene.getEntities()) {
-    entity.getSprite().render(entity, graphics);
+    if (Rect.overlaps(sceneRect, entity.getSprite().getBoundingRect(entity))) {
+      entity.getSprite().render(entity, graphics);
+    }
   }
 };

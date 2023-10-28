@@ -35,7 +35,10 @@ type Props = Readonly<{
 export namespace Scene {
   export const create = (props: Props): Scene => {
     const graphics = Graphics.create({
-      dimensions: props.dimensions,
+      dimensions: {
+        width: props.camera.getRect().width,
+        height: props.camera.getRect().height
+      },
       id: `graphics_${props.name}`
     });
     return new SceneImpl({
