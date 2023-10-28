@@ -219,6 +219,7 @@ describe('CanvasGraphicsImpl', () => {
     const context_translate_spy = vi.spyOn(mockContext, 'translate');
     graphics.translate({ x: 2, y: 2 });
     expect(context_translate_spy).toHaveBeenCalledWith(-2, -2);
+    graphics.translate({ x: 2, y: 2 });
   });
 
   afterAll(() => {
