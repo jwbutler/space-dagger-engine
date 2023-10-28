@@ -1,7 +1,7 @@
 import { EngineImpl } from '../../src/core/EngineImpl';
 import { Camera, Engine, Keyboard, Scene } from '../../src';
 import { Graphics, UserInterface } from '../../src/graphics';
-import { Rect } from '../../src/geometry';
+import { Dimensions, Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
 import { SoundPlayer } from '../../src/audio';
@@ -51,8 +51,9 @@ describe('Engine', () => {
     const keyboard = {} as Keyboard;
     const soundPlayer = {} as SoundPlayer;
     const graphics = {
-      drawOnto: () => {}
-    } as Partial<Graphics> as Graphics;
+      drawOnto: () => {},
+      translate: () => {}
+    } as unknown as Graphics;
     const camera = {
       getRect: () => Rect.allBalls()
     } as Camera;
@@ -61,18 +62,19 @@ describe('Engine', () => {
       getGraphics: () => graphics,
       getCamera: () => camera,
       getBackgroundColor: () => null,
-      getBackgroundImage: () => null
-    } as Partial<Scene> as Scene;
+      getBackgroundImage: () => null,
+      getDimensions: () => Dimensions.allBalls()
+    } as unknown as Scene;
     const uiGraphics = {
       clear: () => {}
-    } as Partial<Graphics> as Graphics;
+    } as unknown as Graphics;
     const userInterface = {
       getGraphics: () => uiGraphics,
       getUIElements: () => []
-    } as Partial<UserInterface> as UserInterface;
+    } as unknown as UserInterface;
     const viewport = {
       fill: () => {}
-    } as Partial<Graphics> as Graphics;
+    } as unknown as Graphics;
     const engine: Engine = new EngineImpl({
       keyboard,
       soundPlayer,
@@ -97,7 +99,8 @@ describe('Engine', () => {
     const sceneGraphics = {
       drawOnto: () => {
         vi.advanceTimersByTime(renderTime * 1000);
-      }
+      },
+      translate: () => {}
     } as unknown as Graphics;
     const viewport = {
       fill: () => {}
@@ -117,7 +120,8 @@ describe('Engine', () => {
       getCamera: () => camera,
       getBackgroundColor: () => null,
       getBackgroundImage: () => null,
-      getEntities: () => []
+      getEntities: () => [],
+      getDimensions: () => Dimensions.allBalls()
     } as unknown as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
