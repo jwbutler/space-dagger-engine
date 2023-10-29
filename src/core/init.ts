@@ -22,7 +22,6 @@ export const init = async ({
   sceneDimensions
 }: Props): Promise<Engine> => {
   const keyboard = Keyboard.create();
-  keyboard.registerEventHandlers(window);
 
   const viewport = Graphics.create({
     id: 'viewport',
@@ -48,11 +47,14 @@ export const init = async ({
   const userInterface = UserInterface.create({ graphics: uiGraphics });
   const soundPlayer = SoundPlayer.create();
 
-  return Engine.create({
+  const engine = Engine.create({
     scene,
     userInterface,
     keyboard,
     soundPlayer,
     viewport
   });
+  keyboard.registerEventHandlers(window, engine);
+
+  return engine;
 };
