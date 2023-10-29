@@ -1,11 +1,11 @@
 import { EngineImpl } from '../../src/core/EngineImpl';
-import { Camera, Engine, Keyboard, Scene } from '../../src';
+import { Camera, Engine, Keyboard, ModifierKey, Scene } from '../../src';
 import { Graphics, UserInterface } from '../../src/graphics';
 import { Dimensions, Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
 import { SoundPlayer } from '../../src/audio';
-import { test, expect, vi, describe, beforeAll, afterAll } from 'vitest';
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 describe('Engine', () => {
   beforeAll(() => {
@@ -220,6 +220,44 @@ describe('Engine', () => {
     await waitForInvoke;
     expect(stopCallbackInvoked).toBe(true);
     vi.clearAllMocks();
+  });
+
+  describe('key handlers', () => {
+    const engine = new EngineImpl({
+      keyboard: {} as Keyboard,
+      soundPlayer: {} as SoundPlayer,
+      scene: {} as Scene,
+      userInterface: {} as UserInterface,
+      viewport: {} as Graphics
+    });
+
+    const script = {
+      onKeyDown: () => {},
+      onKeyUp: () => {}
+    } as GlobalScript;
+    engine.addGlobalScript(script);
+
+    test('keyDown', () => {
+      const onKeyDown_spy = vi.spyOn(script, 'onKeyDown');
+      const event = {
+        code: 'Enter',
+        modifiers: new Set([ModifierKey.CTRL]),
+        timestamp: 1234
+      };
+      engine.keyDown(event);
+      expect(onKeyDown_spy).toHaveBeenCalledWith(event);
+      onKeyDown_spy.mockClear();
+    });
+    test('keyUp', () => {
+      const onKeyUp_spy = vi.spyOn(script, 'onKeyUp');
+      const event = {
+        code: 'Enter',
+        timestamp: 1234
+      };
+      engine.keyUp(event);
+      expect(onKeyUp_spy).toHaveBeenCalledWith(event);
+      onKeyUp_spy.mockClear();
+    });
   });
 
   test('clearGlobalScripts', () => {
