@@ -6,7 +6,7 @@ import type { Plugin } from '../Plugin';
 export class CollisionDetectionPluginImpl implements Plugin {
   constructor(private readonly collisionHandler: CollisionHandler) {}
 
-  onTick = ({ engine, dt }: TickEvent) => {
+  onTick = ({ engine }: TickEvent) => {
     const { collisionHandler } = this;
     const scene = engine.getScene();
     // Phase 1 - detect and fire collision events
@@ -21,10 +21,10 @@ export class CollisionDetectionPluginImpl implements Plugin {
       const second = scene.getEntityById(secondId);
       if (first && second) {
         for (const script of first.getScripts()) {
-          script.onCollision?.(first, { other: second, engine, dt });
+          script.onCollision?.(first, { other: second, engine });
         }
         for (const script of second.getScripts()) {
-          script.onCollision?.(second, { other: first, engine, dt });
+          script.onCollision?.(second, { other: first, engine });
         }
       }
     }
