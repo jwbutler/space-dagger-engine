@@ -51,23 +51,35 @@ class KeyboardImpl implements Keyboard {
   }
 
   keyDown = (event: KeyboardEvent) => {
-    checkNotNull(this.engine);
     if (event.repeat) {
       return;
     }
 
+    const engine = checkNotNull(this.engine);
+    engine.keyDown({
+      code: event.code,
+      modifiers: getModifiers(event),
+      timestamp: event.timeStamp / 1000
+    });
+
     this.keyHistory.push({
       code: event.code,
       type: KeyEventType.KEY_DOWN,
-      timestamp: event.timeStamp
+      timestamp: event.timeStamp / 1000
     });
   };
 
   keyUp = (event: KeyboardEvent) => {
+    const engine = checkNotNull(this.engine);
+    engine.keyUp({
+      code: event.code,
+      timestamp: event.timeStamp / 1000
+    });
+
     this.keyHistory.push({
       code: event.code,
       type: KeyEventType.KEY_UP,
-      timestamp: event.timeStamp
+      timestamp: event.timeStamp / 1000
     });
   };
 
@@ -95,7 +107,7 @@ class KeyboardImpl implements Keyboard {
           event =>
             event.type === KeyEventType.KEY_DOWN &&
             event.timestamp < latestEvent.timestamp &&
-            event.timestamp >= latestEvent.timestamp - this.doubleTapThreshold * 1000
+            event.timestamp >= latestEvent.timestamp - this.doubleTapThreshold
         );
         heldKeys[code] = {
           code,
@@ -113,3 +125,17 @@ export namespace Keyboard {
       doubleTapThreshold: 0.25
     });
 }
+
+const getModifiers = (event: KeyboardEvent): Set<ModifierKey> => {
+  const modifiers = new Set<ModifierKey>();
+  if (event.altKey) {
+    modifiers.add(ModifierKey.ALT);
+  }
+  if (event.ctrlKey) {
+    modifiers.add(ModifierKey.CTRL);
+  }
+  if (event.shiftKey) {
+    modifiers.add(ModifierKey.SHIFT);
+  }
+  return modifiers;
+};

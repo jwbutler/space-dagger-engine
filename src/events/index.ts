@@ -1,3 +1,5 @@
+import type { KeyDownEvent } from './KeyDownEvent';
+import type { KeyUpEvent } from './KeyUpEvent';
 import type { CollisionEvent } from './CollisionEvent';
 import type { DestroyEvent } from './DestroyEvent';
 import type { EntityInitEvent } from './EntityInitEvent';
@@ -13,6 +15,8 @@ export type {
   EntityInitEvent,
   EntityScript,
   GlobalScript,
+  KeyDownEvent,
+  KeyUpEvent,
   RenderEvent,
   TickEvent,
   UpdateEvent
