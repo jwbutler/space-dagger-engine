@@ -22,9 +22,9 @@ test('destroy', () => {
   const onDestroy_spy = vi.spyOn(entityScript, 'onDestroy');
   const removeEntity_spy = vi.spyOn(scene, 'removeEntity');
 
-  destroy(entity, engine, 1);
+  destroy(entity, engine);
 
-  expect(onDestroy_spy).toHaveBeenCalledWith(entity, { engine, dt: 1 });
+  expect(onDestroy_spy).toHaveBeenCalledWith(entity, { engine });
   expect(removeEntity_spy).toHaveBeenCalledWith(entity);
   expect(scene.removeEntity);
 

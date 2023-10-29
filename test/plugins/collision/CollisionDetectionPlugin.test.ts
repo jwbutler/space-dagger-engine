@@ -69,13 +69,11 @@ describe('CollisionDetectionPlugin', () => {
     );
     expect(firstCollision_spy).toHaveBeenCalledWith(first, {
       other: second,
-      engine,
-      dt: 1
+      engine
     });
     expect(secondCollision_spy).toHaveBeenCalledWith(second, {
       other: first,
-      engine,
-      dt: 1
+      engine
     });
 
     setStringVariable_spy.mockClear();
