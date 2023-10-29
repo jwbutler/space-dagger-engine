@@ -35,7 +35,7 @@ describe('Arrays', () => {
       expect(Arrays.min(array, x => x.length)).toBe(array[2]);
     });
 
-    test('max of empty array throws exception', () => {
+    test('min of empty array throws exception', () => {
       expect(() => Arrays.min([], () => 0)).toThrow();
     });
   });
