@@ -24,6 +24,8 @@ export default defineConfig({
         'src/events/EntityInitEvent.ts',
         'src/events/EntityScript.ts',
         'src/events/GlobalScript.ts',
+        'src/events/KeyDownEvent.ts',
+        'src/events/KeyUpEvent.ts',
         'src/events/RenderEvent.ts',
         'src/events/TickEvent.ts',
         'src/events/UpdateEvent.ts',

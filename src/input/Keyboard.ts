@@ -2,10 +2,16 @@ import * as Arrays from '../utils/Arrays';
 import { Engine } from '../core/Engine';
 import { check, checkNotNull } from '../utils';
 
+// TODO:
+// There are basically two input systems in here - one using HeldKey (old)
+// and one using the event-based system (new).
+// Need to think about how to convert HeldKey stuff to the new system,
+// especially the double-tap system.
+
 /** Corresponds to {@link KeyboardEvent.code} */
 export type KeyCode = string;
 
-export const enum ModifierKey {
+export enum ModifierKey {
   ALT,
   CTRL,
   SHIFT
@@ -126,7 +132,8 @@ export namespace Keyboard {
     });
 }
 
-const getModifiers = (event: KeyboardEvent): Set<ModifierKey> => {
+/** exported for testing */
+export const getModifiers = (event: KeyboardEvent): Set<ModifierKey> => {
   const modifiers = new Set<ModifierKey>();
   if (event.altKey) {
     modifiers.add(ModifierKey.ALT);

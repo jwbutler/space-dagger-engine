@@ -1,4 +1,4 @@
-import { Keyboard } from '../../src/input/Keyboard';
+import { getModifiers, Keyboard, ModifierKey } from '../../src/input/Keyboard';
 import { Engine } from '../../src';
 import { expect, test, describe, vi } from 'vitest';
 
@@ -81,5 +81,34 @@ describe('Keyboard', () => {
     const event = { repeat: true } as KeyboardEvent;
     keyboard.keyDown(event);
     expect(keyboard.getHeldKeys()).toEqual([]);
+  });
+});
+
+describe('getModifiers', () => {
+  test('alt', () => {
+    const event = { altKey: true } as KeyboardEvent;
+    expect(getModifiers(event)).toEqual(new Set([ModifierKey.ALT]));
+  });
+
+  test('ctrl', () => {
+    const event = { ctrlKey: true } as KeyboardEvent;
+    expect(getModifiers(event)).toEqual(new Set([ModifierKey.CTRL]));
+  });
+
+  test('shift', () => {
+    const event = { shiftKey: true } as KeyboardEvent;
+    expect(getModifiers(event)).toEqual(new Set([ModifierKey.SHIFT]));
+  });
+
+  test('all', () => {
+    const event = { altKey: true, ctrlKey: true, shiftKey: true } as KeyboardEvent;
+    expect(getModifiers(event)).toEqual(
+      new Set([ModifierKey.ALT, ModifierKey.CTRL, ModifierKey.SHIFT])
+    );
+  });
+
+  test('none', () => {
+    const event = {} as KeyboardEvent;
+    expect(getModifiers(event)).toEqual(new Set());
   });
 });
