@@ -9,6 +9,8 @@ import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
 import { Arrays, getCurrentTimeSeconds } from '../utils';
 import { SoundPlayer } from '../audio';
+import { KeyDownEvent } from '../events/KeyDownEvent';
+import { KeyUpEvent } from '../events/KeyUpEvent';
 
 export class EngineImpl implements Engine {
   private readonly globalScripts: GlobalScript[];
@@ -122,5 +124,17 @@ export class EngineImpl implements Engine {
   getStringVariable = (key: string): string | null => this.stringVariables[key] ?? null;
   setStringVariable = (key: string, value: string | null): void => {
     this.stringVariables[key] = value;
+  };
+
+  keyDown = (event: KeyDownEvent): void => {
+    for (const script of this.globalScripts) {
+      script.onKeyDown?.(event);
+    }
+  };
+
+  keyUp = (event: KeyUpEvent): void => {
+    for (const script of this.globalScripts) {
+      script.onKeyUp?.(event);
+    }
   };
 }

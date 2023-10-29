@@ -1,6 +1,5 @@
+import { Seconds } from '../utils/time';
+
 export type RenderEvent = Readonly<{
-  /**
-   * seconds
-   */
-  renderTime: number;
+  renderTime: Seconds;
 }>;

@@ -5,6 +5,8 @@ import { UserInterface } from '../graphics/ui/UserInterface';
 import { GlobalScript } from '../events/GlobalScript';
 import { Graphics } from '../graphics/Graphics';
 import { SoundPlayer } from '../audio';
+import { KeyDownEvent } from '../events/KeyDownEvent';
+import { KeyUpEvent } from '../events/KeyUpEvent';
 
 export interface Engine {
   getScene: () => Scene;
@@ -17,6 +19,8 @@ export interface Engine {
   getViewport: () => Graphics;
   getStringVariable: (key: string) => string | null;
   setStringVariable: (key: string, value: string | null) => void;
+  keyDown: (event: KeyDownEvent) => void;
+  keyUp: (event: KeyUpEvent) => void;
 
   startGameLoop: () => void;
   stopGameLoop: () => Promise<void>;

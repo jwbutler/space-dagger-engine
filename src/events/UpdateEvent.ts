@@ -1,6 +1,5 @@
+import { Seconds } from '../utils/time';
+
 export type UpdateEvent = Readonly<{
-  /**
-   * seconds
-   */
-  updateTime: number;
+  updateTime: Seconds;
 }>;

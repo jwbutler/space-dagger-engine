@@ -1,4 +1,15 @@
 import * as Arrays from '../utils/Arrays';
+import { Engine } from '../core/Engine';
+import { check, checkNotNull } from '../utils';
+
+/** Corresponds to {@link KeyboardEvent.code} */
+export type KeyCode = string;
+
+export const enum ModifierKey {
+  ALT,
+  CTRL,
+  SHIFT
+}
 
 const enum KeyEventType {
   KEY_UP,
@@ -6,20 +17,20 @@ const enum KeyEventType {
 }
 
 type KeyPressEvent = Readonly<{
-  code: string;
+  code: KeyCode;
   type: KeyEventType;
   timestamp: number;
 }>;
 
 export type HeldKey = Readonly<{
-  code: string;
+  code: KeyCode;
   isDoubleTap: boolean;
 }>;
 
 export interface Keyboard {
   keyDown: (event: KeyboardEvent) => void;
   keyUp: (event: KeyboardEvent) => void;
-  registerEventHandlers: (window: Window) => void;
+  registerEventHandlers: (window: Window, engine: Engine) => void;
   getHeldKeys: () => HeldKey[];
 }
 
@@ -31,13 +42,16 @@ type Props = Readonly<{
 class KeyboardImpl implements Keyboard {
   private readonly keyHistory: KeyPressEvent[];
   private readonly doubleTapThreshold: number;
+  private engine: Engine | null;
 
   constructor({ doubleTapThreshold }: Props) {
     this.keyHistory = [];
     this.doubleTapThreshold = doubleTapThreshold;
+    this.engine = null;
   }
 
   keyDown = (event: KeyboardEvent) => {
+    checkNotNull(this.engine);
     if (event.repeat) {
       return;
     }
@@ -57,7 +71,9 @@ class KeyboardImpl implements Keyboard {
     });
   };
 
-  registerEventHandlers = (window: Window) => {
+  registerEventHandlers = (window: Window, engine: Engine) => {
+    check(this.engine === null);
+    this.engine = engine;
     window.addEventListener('keydown', this.keyDown);
     window.addEventListener('keyup', this.keyUp);
   };
