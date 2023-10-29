@@ -24,6 +24,18 @@ export const max = <T>(array: T[], keyFunction: KeyFunction<T>): T => {
   return maxItem!;
 };
 
+export const min = <T>(array: T[], keyFunction: KeyFunction<T>): T => {
+  check(array.length > 0);
+  let min = array[0];
+  for (let i = 1; i < array.length; i++) {
+    const item = array[i];
+    if (keyFunction(item) < keyFunction(min)) {
+      min = item;
+    }
+  }
+  return min!;
+};
+
 export const clear = <T>(array: T[]): void => {
   array.splice(0, array.length);
 };
