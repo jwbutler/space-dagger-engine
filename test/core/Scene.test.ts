@@ -120,4 +120,11 @@ describe('entities', () => {
     scene.removeElement(element);
     expect(scene.getElements()).toEqual([]);
   });
+
+  test('clearElements', () => {
+    scene.addElement(element);
+    expect(scene.getElements()).toEqual([element]);
+    scene.clearElements();
+    expect(scene.getElements()).toEqual([]);
+  });
 });

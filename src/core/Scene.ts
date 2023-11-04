@@ -29,6 +29,7 @@ export interface Scene {
   getElements: () => Element[];
   addElement: (element: Element) => void;
   removeElement: (element: Element) => void;
+  clearElements: () => void;
 }
 
 type Props = Readonly<{

@@ -88,4 +88,6 @@ export class SceneImpl implements Scene {
     check(this.elements.includes(element));
     Arrays.filterInPlace(this.elements, e => e !== element);
   };
+
+  clearElements = (): void => Arrays.clear(this.elements);
 }
