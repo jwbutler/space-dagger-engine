@@ -9,6 +9,8 @@ import { KeyUpEvent } from '../events/KeyUpEvent';
 
 export interface Engine {
   getScene: () => Scene;
+  addScene: (scene: Scene) => void;
+  setScene: (name: string) => void;
   getKeyboard: () => Keyboard;
   getSoundPlayer: () => SoundPlayer;
   getGlobalScripts: () => GlobalScript[];
@@ -27,7 +29,8 @@ export interface Engine {
 export type EngineProps = Readonly<{
   keyboard: Keyboard;
   soundPlayer: SoundPlayer;
-  scene: Scene;
+  scenes: Scene[];
+  initialScene: string;
   viewport: Graphics;
 }>;
 

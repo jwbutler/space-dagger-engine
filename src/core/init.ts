@@ -41,7 +41,8 @@ export const init = async ({
   const soundPlayer = SoundPlayer.create();
 
   const engine = Engine.create({
-    scene,
+    scenes: [scene],
+    initialScene: 'scene',
     keyboard,
     soundPlayer,
     viewport

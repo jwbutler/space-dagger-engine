@@ -14,26 +14,50 @@ describe('Engine', () => {
     });
   });
 
-  test('engine', () => {
-    const keyboard = {} as Keyboard;
-    const soundPlayer = {} as SoundPlayer;
-    const scene = {} as Scene;
-    const viewport = {} as Graphics;
-    const engine: Engine = new EngineImpl({
-      keyboard,
-      soundPlayer,
-      scene,
-      viewport
-    });
+  const graphics = {
+    drawOnto: () => {},
+    translate: () => {}
+  } as unknown as Graphics;
+  const camera = {
+    getRect: () => Rect.allBalls()
+  } as Camera;
+  const keyboard = {} as Keyboard;
+  const soundPlayer = {} as SoundPlayer;
+  const scene = {
+    getName: () => 'what',
+    getEntities: () => [],
+    getElements: () => [],
+    getGraphics: () => graphics,
+    getCamera: () => camera,
+    getBackgroundColor: () => null,
+    getBackgroundImage: () => null,
+    getDimensions: () => Dimensions.allBalls()
+  } as unknown as Scene;
+  const viewport = {
+    fill: () => {}
+  } as unknown as Graphics;
+  const engine: Engine = new EngineImpl({
+    keyboard,
+    soundPlayer,
+    scenes: [scene],
+    initialScene: 'what',
+    viewport
+  });
 
-    const script = {} as GlobalScript;
-    engine.addGlobalScript(script);
-    expect(engine.getGlobalScripts()).toEqual([script]);
+  test('init', () => {
     expect(engine.getKeyboard()).toBe(keyboard);
     expect(engine.getSoundPlayer()).toBe(soundPlayer);
     expect(engine.getScene()).toBe(scene);
     expect(engine.getViewport()).toBe(viewport);
+  });
 
+  test('addGlobalScript', () => {
+    const script = {} as GlobalScript;
+    engine.addGlobalScript(script);
+    expect(engine.getGlobalScripts()).toEqual([script]);
+  });
+
+  test('string variables', () => {
     expect(engine.getStringVariable('key')).toBe(null);
     engine.setStringVariable('key', 'value');
     expect(engine.getStringVariable('key')).toBe('value');
@@ -45,34 +69,6 @@ describe('Engine', () => {
    * TODO this sucks and is not testing anything
    */
   test('startGameLoop', () => {
-    const keyboard = {} as Keyboard;
-    const soundPlayer = {} as SoundPlayer;
-    const graphics = {
-      drawOnto: () => {},
-      translate: () => {}
-    } as unknown as Graphics;
-    const camera = {
-      getRect: () => Rect.allBalls()
-    } as Camera;
-    const scene = {
-      getEntities: () => [],
-      getElements: () => [],
-      getGraphics: () => graphics,
-      getCamera: () => camera,
-      getBackgroundColor: () => null,
-      getBackgroundImage: () => null,
-      getDimensions: () => Dimensions.allBalls()
-    } as unknown as Scene;
-    const viewport = {
-      fill: () => {}
-    } as unknown as Graphics;
-    const engine: Engine = new EngineImpl({
-      keyboard,
-      soundPlayer,
-      scene,
-      viewport
-    });
-
     const intervalMock = vi.stubGlobal('setInterval', (callback: () => void) => {
       callback();
     });
@@ -99,6 +95,7 @@ describe('Engine', () => {
       getRect: () => Rect.allBalls()
     } as Camera;
     const scene = {
+      getName: () => 'what',
       getGraphics: () => sceneGraphics,
       getCamera: () => camera,
       getBackgroundColor: () => null,
@@ -110,7 +107,8 @@ describe('Engine', () => {
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
-      scene,
+      scenes: [scene],
+      initialScene: 'what',
       viewport
     });
     const script = {
@@ -130,15 +128,17 @@ describe('Engine', () => {
       toFake: ['performance']
     });
 
+    const scene = new SceneImpl({
+      graphics: {} as Graphics,
+      name: 'test',
+      camera: {} as Camera,
+      dimensions: { width: 640, height: 480 }
+    });
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
-      scene: new SceneImpl({
-        graphics: {} as Graphics,
-        name: 'test',
-        camera: {} as Camera,
-        dimensions: { width: 640, height: 480 }
-      }),
+      scenes: [scene],
+      initialScene: 'test',
       viewport: {} as Graphics
     });
     const delayScript = {
@@ -158,10 +158,14 @@ describe('Engine', () => {
   });
 
   test('no-op update', () => {
+    const scene = {
+      getName: () => 'what'
+    } as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
-      scene: {} as Scene,
+      scenes: [scene],
+      initialScene: 'what',
       viewport: {} as Graphics
     });
     const spyScript = {
@@ -173,16 +177,19 @@ describe('Engine', () => {
   });
 
   test('stopGameLoop', async () => {
+    const scene = {
+      getName: () => 'what',
+      getEntities: () => [],
+      getGraphics: () => ({}) as Graphics,
+      getBackgroundColor: () => null,
+      getBackgroundImage: () => null,
+      getCamera: () => ({}) as Camera
+    } as unknown as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
-      scene: {
-        getEntities: () => [],
-        getGraphics: () => ({}) as Graphics,
-        getBackgroundColor: () => null,
-        getBackgroundImage: () => null,
-        getCamera: () => ({}) as Camera
-      } as unknown as Scene,
+      scenes: [scene],
+      initialScene: 'what',
       viewport: {
         fill: () => {}
       } as unknown as Graphics
@@ -203,10 +210,14 @@ describe('Engine', () => {
   });
 
   describe('key handlers', () => {
+    const scene = {
+      getName: () => 'what'
+    } as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
-      scene: {} as Scene,
+      scenes: [scene],
+      initialScene: 'what',
       viewport: {} as Graphics
     });
 
@@ -240,10 +251,14 @@ describe('Engine', () => {
   });
 
   test('clearGlobalScripts', () => {
+    const scene = {
+      getName: () => 'what'
+    } as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
-      scene: {} as Scene,
+      scenes: [scene],
+      initialScene: 'what',
       viewport: {} as Graphics
     });
 
@@ -252,6 +267,16 @@ describe('Engine', () => {
     expect(engine.getGlobalScripts()).toEqual([script]);
     engine.clearGlobalScripts();
     expect(engine.getGlobalScripts()).toEqual([]);
+  });
+
+  test('addScene', () => {
+    const scene2 = {
+      getName: () => 'scene2'
+    } as Scene;
+    engine.addScene(scene2);
+    expect((engine as EngineImpl).getScenes()).toEqual([scene, scene2]);
+    engine.setScene('scene2');
+    expect(engine.getScene()).toEqual(scene2);
   });
 
   afterAll(() => {

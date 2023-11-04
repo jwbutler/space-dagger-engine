@@ -6,6 +6,9 @@ import { Graphics } from '../graphics/Graphics';
 import { Element } from '../graphics';
 
 export interface Scene {
+  /**
+   * This must be unique
+   */
   getName: () => string;
   getGraphics: () => Graphics;
   getDimensions: () => Dimensions;
