@@ -47,7 +47,7 @@ describe('Engine', () => {
   test('init', () => {
     expect(engine.getKeyboard()).toBe(keyboard);
     expect(engine.getSoundPlayer()).toBe(soundPlayer);
-    expect(engine.getScene()).toBe(scene);
+    expect(engine.getCurrentScene()).toBe(scene);
     expect(engine.getViewport()).toBe(viewport);
   });
 
@@ -275,8 +275,8 @@ describe('Engine', () => {
     } as Scene;
     engine.addScene(scene2);
     expect((engine as EngineImpl).getScenes()).toEqual([scene, scene2]);
-    engine.setScene('scene2');
-    expect(engine.getScene()).toEqual(scene2);
+    engine.setCurrentScene('scene2');
+    expect(engine.getCurrentScene()).toEqual(scene2);
   });
 
   afterAll(() => {

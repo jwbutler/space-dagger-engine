@@ -6,9 +6,9 @@ import { Sprite } from '../../../src/graphics/Sprite';
 import { Angle } from '../../../src/geometry/Angle';
 import { Coordinates } from '../../../src/geometry/Coordinates';
 import { Engine } from '../../../src';
-import { expect, test } from 'vitest';
+import { expect, test, describe } from 'vitest';
 
-test('bounce off edges behavior', () => {
+describe('BounceOffEdgesBehavior', () => {
   const scene = {
     getDimensions: () => ({ width: 200, height: 200 })
   } as Scene;
@@ -37,43 +37,39 @@ test('bounce off edges behavior', () => {
   } as Entity;
 
   const engine = {
-    getScene: () => scene
-  } as Partial<Engine> as Engine;
+    getCurrentScene: () => scene
+  } as unknown as Engine;
   const behavior = BounceOffEdgesBehavior.create({ coefficient: 1 });
 
-  // right
-  {
+  test('right', () => {
     centerCoordinates = { x: 200, y: 100 };
     speed = { x: 1, y: 0 };
     behavior.onTick?.(entity, { engine, dt: 1 });
     expect(speed).toEqual({ x: -1, y: 0 });
     expect(centerCoordinates).toEqual({ x: 190, y: 100 });
-  }
+  });
 
-  // left
-  {
+  test('left', () => {
     centerCoordinates = { x: 0, y: 100 };
     speed = { x: -1, y: 0 };
     behavior.onTick?.(entity, { engine, dt: 1 });
     expect(speed).toEqual({ x: 1, y: 0 });
     expect(centerCoordinates).toEqual({ x: 10, y: 100 });
-  }
+  });
 
-  // top
-  {
+  test('top', () => {
     centerCoordinates = { x: 100, y: 0 };
     speed = { x: 0, y: -1 };
     behavior.onTick?.(entity, { engine, dt: 1 });
     expect(speed).toEqual({ x: 0, y: 1 });
     expect(centerCoordinates).toEqual({ x: 100, y: 10 });
-  }
+  });
 
-  // bottom
-  {
+  test('bottom', () => {
     centerCoordinates = { x: 100, y: 200 };
     speed = { x: 0, y: 1 };
     behavior.onTick?.(entity, { engine, dt: 1 });
     expect(speed).toEqual({ x: 0, y: -1 });
     expect(centerCoordinates).toEqual({ x: 100, y: 190 });
-  }
+  });
 });

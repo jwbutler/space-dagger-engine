@@ -31,7 +31,7 @@ export class EngineImpl implements Engine {
     this.keyboard = keyboard;
     this.soundPlayer = soundPlayer;
     this.scenes = scenes;
-    this.scene = this._getSceneByName(initialScene);
+    this.scene = this.getScene(initialScene);
     this.viewport = viewport;
     this.globalScripts = [];
     this.stringVariables = {};
@@ -39,21 +39,21 @@ export class EngineImpl implements Engine {
     this.stopLoopCallback = null;
   }
 
-  getScene = (): Scene => this.scene;
+  getCurrentScene = (): Scene => this.scene;
+
+  setCurrentScene = (name: string): void => {
+    this.scene = this.getScene(name);
+  };
 
   addScene = (scene: Scene): void => {
     this.scenes.push(scene);
   };
 
-  setScene = (name: string): void => {
-    this.scene = this._getSceneByName(name);
-  };
+  getScene = (name: string): Scene =>
+    checkNotNull(this.scenes.find(scene => scene.getName() === name));
 
   /** non-override, exported for testing */
   getScenes = (): Scene[] => this.scenes;
-
-  private _getSceneByName = (name: string): Scene =>
-    checkNotNull(this.scenes.find(scene => scene.getName() === name));
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
 

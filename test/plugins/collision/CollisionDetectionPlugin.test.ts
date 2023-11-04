@@ -39,7 +39,7 @@ describe('CollisionDetectionPlugin', () => {
     getEntityById: (id: string) => (id === '1' ? first : second)
   } as unknown as Scene;
   const engine = {
-    getScene: () => scene,
+    getCurrentScene: () => scene,
     setStringVariable: () => {}
   } as unknown as Engine;
 

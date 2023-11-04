@@ -49,7 +49,7 @@ export const getCachedOverlappingEntities = (
     .map(overlap => {
       const otherId =
         overlap.firstId === entity.getId() ? overlap.secondId : overlap.firstId;
-      return engine.getScene().getEntityById(otherId);
+      return engine.getCurrentScene().getEntityById(otherId);
     })
     .filter(other => other !== null) as Entity[];
 };

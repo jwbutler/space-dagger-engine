@@ -46,9 +46,9 @@ test('update', () => {
   } as GlobalScript;
 
   const engine = {
-    getScene: () => scene,
+    getCurrentScene: () => scene,
     getGlobalScripts: () => [globalScript]
-  } as Partial<Engine> as Engine;
+  } as unknown as Engine;
 
   const globalScript_onTick_spy = vi.spyOn(globalScript, 'onTick');
   const dt = 1;

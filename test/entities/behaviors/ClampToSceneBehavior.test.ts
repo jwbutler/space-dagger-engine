@@ -20,7 +20,7 @@ test('clamp to scene', () => {
       width: 20,
       height: 20
     })
-  } as Partial<Sprite> as Sprite;
+  } as unknown as Sprite;
   const entity = {
     getCenterCoordinates: () => centerCoordinates,
     setCenterCoordinates: (coordinates: Coordinates) => {
@@ -31,7 +31,7 @@ test('clamp to scene', () => {
   } as Entity;
 
   const engine = {
-    getScene: () => scene
+    getCurrentScene: () => scene
   } as Engine;
 
   const behavior = ClampToSceneBehavior.create();

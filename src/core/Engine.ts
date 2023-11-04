@@ -8,9 +8,10 @@ import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 
 export interface Engine {
-  getScene: () => Scene;
+  getCurrentScene: () => Scene;
+  setCurrentScene: (name: string) => void;
+  getScene: (name: string) => Scene;
   addScene: (scene: Scene) => void;
-  setScene: (name: string) => void;
   getKeyboard: () => Keyboard;
   getSoundPlayer: () => SoundPlayer;
   getGlobalScripts: () => GlobalScript[];

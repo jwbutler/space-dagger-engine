@@ -16,7 +16,7 @@ test('destroy', () => {
   } as unknown as Scene;
 
   const engine = {
-    getScene: () => scene
+    getCurrentScene: () => scene
   } as Engine;
 
   const onDestroy_spy = vi.spyOn(entityScript, 'onDestroy');

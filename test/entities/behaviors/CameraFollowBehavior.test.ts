@@ -15,7 +15,7 @@ test('camera follow behavior', () => {
   } as unknown as Scene;
 
   const engine = {
-    getScene: () => scene
+    getCurrentScene: () => scene
   } as Engine;
 
   const entity = {

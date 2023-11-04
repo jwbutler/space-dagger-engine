@@ -5,7 +5,7 @@ import { TickEvent } from '../../events/TickEvent';
 export namespace CameraFollowBehavior {
   export const create = (): EntityBehavior => ({
     onTick: (entity: Entity, { engine }: TickEvent): void => {
-      const camera = engine.getScene().getCamera();
+      const camera = engine.getCurrentScene().getCamera();
       camera.setCenterCoordinates(entity.getCenterCoordinates());
     }
   });

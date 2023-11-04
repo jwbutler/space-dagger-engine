@@ -4,7 +4,7 @@ import { applyAcceleration } from '../entities/functions/applyAcceleration';
 import { applyFriction } from '../entities/functions/applyFriction';
 
 export const update = (engine: Engine, dt: number): void => {
-  const scene = engine.getScene();
+  const scene = engine.getCurrentScene();
 
   // Phase 1 - execute global scripts
   // Includes plugins

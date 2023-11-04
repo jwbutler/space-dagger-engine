@@ -12,7 +12,7 @@ export namespace BounceOffEdgesBehavior {
   export const create = ({ coefficient }: Props): EntityBehavior => ({
     onTick: (entity: Entity, { engine }: TickEvent): void => {
       const entityRect = entity.getSprite().getBoundingRect(entity);
-      const sceneRect = Rect.fromDimensions(engine.getScene().getDimensions());
+      const sceneRect = Rect.fromDimensions(engine.getCurrentScene().getDimensions());
       let speed = entity.getSpeed();
       if (entityRect.left < sceneRect.left) {
         speed = { x: speed.x * -1 * coefficient, y: speed.y };

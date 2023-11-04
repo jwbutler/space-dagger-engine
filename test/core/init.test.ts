@@ -39,7 +39,7 @@ test('init', async () => {
     scenes: [scene],
     initialScene: 'scene'
   });
-  expect(engine.getScene()).toBe(scene);
+  expect(engine.getCurrentScene()).toBe(scene);
   const viewport = engine.getViewport();
   expect(viewport.getDimensions()).toEqual(viewportDimensions);
 
