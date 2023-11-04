@@ -5,7 +5,8 @@ import { Dimensions } from '../../src/geometry/Dimensions';
 import { Graphics } from '../../src/graphics/Graphics';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { EntityImpl } from '../../src/entities/EntityImpl';
-import { expect, test, vi, describe } from 'vitest';
+import { Element } from '../../src/graphics/ui/Element';
+import { describe, expect, test, vi } from 'vitest';
 
 test('scene', () => {
   const image = {} as ImageBitmap;
@@ -86,6 +87,8 @@ describe('entities', () => {
     isInitialized: (): boolean => true
   } as EntityImpl;
 
+  const element = {} as Element;
+
   test('addEntity', () => {
     scene.addEntity(entity);
     expect(scene.getEntities()).toEqual([entity]);
@@ -101,10 +104,20 @@ describe('entities', () => {
     expect(scene.getEntityById('test_id')).toBe(null);
   });
 
-  test('clear', () => {
+  test('clearEntities', () => {
     scene.addEntity(entity);
     expect(scene.getEntities()).toEqual([entity]);
-    scene.clear();
+    scene.clearEntities();
     expect(scene.getEntities()).toEqual([]);
+  });
+
+  test('addElement', () => {
+    scene.addElement(element);
+    expect(scene.getElements()).toEqual([element]);
+  });
+
+  test('removeElement', () => {
+    scene.removeElement(element);
+    expect(scene.getElements()).toEqual([]);
   });
 });

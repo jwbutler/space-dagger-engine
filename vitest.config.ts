@@ -30,7 +30,7 @@ export default defineConfig({
         'src/events/TickEvent.ts',
         'src/events/UpdateEvent.ts',
         'src/graphics/Sprite.ts',
-        'src/graphics/ui/UIElement.ts',
+        'src/graphics/ui/Element.ts',
         // This one is just bullshit, it reports missing coverage on an empty brace.
         'src/audio/Waveform.ts'
       ]

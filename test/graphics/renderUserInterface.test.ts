@@ -1,21 +1,20 @@
 import { renderUserInterface } from '../../src/graphics/renderUserInterface';
-import { Graphics, UIElement, UserInterface } from '../../src/graphics';
-import { test, expect } from 'vitest';
+import { Graphics, Element } from '../../src/graphics';
+import { Scene } from '../../src';
+import { test, expect, vi } from 'vitest';
 
-test('render user interface', () => {
+test('renderUserInterface', () => {
   const graphics = {
     clear: () => {}
   } as Graphics;
-  let rendered = false;
-  const uiElement = {
-    render: () => {
-      rendered = true;
-    }
-  } as UIElement;
-  const userInterface = {
-    getGraphics: () => graphics,
-    getUIElements: () => [uiElement]
-  } as Partial<UserInterface> as UserInterface;
-  renderUserInterface(userInterface);
-  expect(rendered).toBe(true);
+  const element = {
+    render: () => {}
+  } as Element;
+
+  const scene = {
+    getElements: () => [element]
+  } as Scene;
+  const element_render_spy = vi.spyOn(element, 'render');
+  renderUserInterface(scene, graphics);
+  expect(element_render_spy).toHaveBeenCalledWith(graphics);
 });

@@ -31,8 +31,6 @@ test('init', async () => {
   expect(scene.getDimensions()).toEqual(sceneDimensions);
   const viewport = engine.getViewport();
   expect(viewport.getDimensions()).toEqual(viewportDimensions);
-  const userInterface = engine.getUserInterface();
-  expect(userInterface.getGraphics().getDimensions()).toEqual(viewportDimensions);
 
   mockWindow.clearAllMocks();
   mockDocument.clearAllMocks();

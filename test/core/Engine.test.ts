@@ -1,6 +1,6 @@
 import { EngineImpl } from '../../src/core/EngineImpl';
 import { Camera, Engine, Keyboard, ModifierKey, Scene } from '../../src';
-import { Graphics, UserInterface } from '../../src/graphics';
+import { Graphics } from '../../src/graphics';
 import { Dimensions, Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
 import { GlobalScript } from '../../src/events';
@@ -18,13 +18,11 @@ describe('Engine', () => {
     const keyboard = {} as Keyboard;
     const soundPlayer = {} as SoundPlayer;
     const scene = {} as Scene;
-    const userInterface = {} as UserInterface;
     const viewport = {} as Graphics;
     const engine: Engine = new EngineImpl({
       keyboard,
       soundPlayer,
       scene,
-      userInterface,
       viewport
     });
 
@@ -35,7 +33,6 @@ describe('Engine', () => {
     expect(engine.getSoundPlayer()).toBe(soundPlayer);
     expect(engine.getScene()).toBe(scene);
     expect(engine.getViewport()).toBe(viewport);
-    expect(engine.getUserInterface()).toBe(userInterface);
 
     expect(engine.getStringVariable('key')).toBe(null);
     engine.setStringVariable('key', 'value');
@@ -59,19 +56,13 @@ describe('Engine', () => {
     } as Camera;
     const scene = {
       getEntities: () => [],
+      getElements: () => [],
       getGraphics: () => graphics,
       getCamera: () => camera,
       getBackgroundColor: () => null,
       getBackgroundImage: () => null,
       getDimensions: () => Dimensions.allBalls()
     } as unknown as Scene;
-    const uiGraphics = {
-      clear: () => {}
-    } as unknown as Graphics;
-    const userInterface = {
-      getGraphics: () => uiGraphics,
-      getUIElements: () => []
-    } as unknown as UserInterface;
     const viewport = {
       fill: () => {}
     } as unknown as Graphics;
@@ -79,7 +70,6 @@ describe('Engine', () => {
       keyboard,
       soundPlayer,
       scene,
-      userInterface,
       viewport
     });
 
@@ -108,26 +98,19 @@ describe('Engine', () => {
     const camera = {
       getRect: () => Rect.allBalls()
     } as Camera;
-    const uiGraphics = {
-      clear: () => {}
-    } as Graphics;
-    const userInterface = {
-      getGraphics: () => uiGraphics,
-      getUIElements: () => []
-    } as unknown as UserInterface;
     const scene = {
       getGraphics: () => sceneGraphics,
       getCamera: () => camera,
       getBackgroundColor: () => null,
       getBackgroundImage: () => null,
       getEntities: () => [],
+      getElements: () => [],
       getDimensions: () => Dimensions.allBalls()
     } as unknown as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
       scene,
-      userInterface,
       viewport
     });
     const script = {
@@ -156,7 +139,6 @@ describe('Engine', () => {
         camera: {} as Camera,
         dimensions: { width: 640, height: 480 }
       }),
-      userInterface: {} as UserInterface,
       viewport: {} as Graphics
     });
     const delayScript = {
@@ -180,7 +162,6 @@ describe('Engine', () => {
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
       scene: {} as Scene,
-      userInterface: {} as UserInterface,
       viewport: {} as Graphics
     });
     const spyScript = {
@@ -202,7 +183,6 @@ describe('Engine', () => {
         getBackgroundImage: () => null,
         getCamera: () => ({}) as Camera
       } as unknown as Scene,
-      userInterface: {} as UserInterface,
       viewport: {
         fill: () => {}
       } as unknown as Graphics
@@ -227,7 +207,6 @@ describe('Engine', () => {
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
       scene: {} as Scene,
-      userInterface: {} as UserInterface,
       viewport: {} as Graphics
     });
 
@@ -265,7 +244,6 @@ describe('Engine', () => {
       keyboard: {} as Keyboard,
       soundPlayer: {} as SoundPlayer,
       scene: {} as Scene,
-      userInterface: {} as UserInterface,
       viewport: {} as Graphics
     });
 

@@ -1,9 +1,9 @@
-import { UIElement } from './UIElement';
+import { Element } from './Element';
 import { Rect } from '../../geometry';
 import { check } from '../../utils';
 import { Graphics } from '../Graphics';
 
-interface Meter extends UIElement {
+interface Meter extends Element {
   getValue: () => number;
   setValue: (value: number) => void;
 }

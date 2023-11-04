@@ -3,7 +3,6 @@ import { Scene } from './Scene';
 import { Keyboard } from '../input/Keyboard';
 import { Graphics } from '../graphics/Graphics';
 import { Camera } from '../geometry/Camera';
-import { UserInterface } from '../graphics/ui/UserInterface';
 import { Dimensions } from '../geometry';
 import { SoundPlayer } from '../audio';
 
@@ -39,17 +38,10 @@ export const init = async ({
       dimensions: viewportDimensions
     })
   });
-  const uiGraphics = Graphics.create({
-    id: 'UI',
-    dimensions: viewportDimensions
-  });
-  uiGraphics.attach(container);
-  const userInterface = UserInterface.create({ graphics: uiGraphics });
   const soundPlayer = SoundPlayer.create();
 
   const engine = Engine.create({
     scene,
-    userInterface,
     keyboard,
     soundPlayer,
     viewport

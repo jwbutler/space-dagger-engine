@@ -8,8 +8,12 @@ export const checkNotNull = <T>(item: T | null | undefined): T => {
   return item;
 };
 
-export const check = (condition: boolean) => {
+export const check = (condition: boolean, message?: string) => {
   if (!condition) {
-    throw new Error();
+    if (message) {
+      throw new Error(message);
+    } else {
+      throw new Error();
+    }
   }
 };

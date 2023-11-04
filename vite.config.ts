@@ -16,6 +16,7 @@ const config: UserConfig = {
         'utils/index': 'src/utils/index.ts'
       },
       name: 'space-dagger-engine',
+      fileName: 'space-dagger-engine',
       formats: ['es']
     },
     sourcemap: true

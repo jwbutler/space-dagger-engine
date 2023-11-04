@@ -3,7 +3,6 @@ import { Scene } from './Scene';
 import { update } from './update';
 import { GlobalScript } from '../events/GlobalScript';
 import { Keyboard } from '../input/Keyboard';
-import { UserInterface } from '../graphics/ui/UserInterface';
 import { Graphics } from '../graphics/Graphics';
 import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
@@ -17,7 +16,6 @@ export class EngineImpl implements Engine {
   private readonly keyboard: Keyboard;
   private readonly soundPlayer: SoundPlayer;
   private readonly scene: Scene;
-  private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
   private readonly stringVariables: Record<string, string | null>;
   private lastUpdateTime: number;
@@ -28,11 +26,10 @@ export class EngineImpl implements Engine {
    */
   private stopLoopCallback: (() => void) | null;
 
-  constructor({ keyboard, soundPlayer, scene, userInterface, viewport }: EngineProps) {
+  constructor({ keyboard, soundPlayer, scene, viewport }: EngineProps) {
     this.keyboard = keyboard;
     this.soundPlayer = soundPlayer;
     this.scene = scene;
-    this.userInterface = userInterface;
     this.viewport = viewport;
     this.globalScripts = [];
     this.stringVariables = {};
@@ -53,8 +50,6 @@ export class EngineImpl implements Engine {
   getSoundPlayer = (): SoundPlayer => this.soundPlayer;
 
   getScene = (): Scene => this.scene;
-
-  getUserInterface = (): UserInterface => this.userInterface;
 
   getViewport = () => this.viewport;
 
@@ -106,11 +101,11 @@ export class EngineImpl implements Engine {
   /** non-override */
   render = () => {
     const startTime = getCurrentTimeSeconds();
-    const { scene, userInterface, viewport } = this;
+    const { scene, viewport } = this;
     viewport.fill('#000000');
     renderScene(scene);
     scene.getGraphics().drawOnto(viewport);
-    renderUserInterface(userInterface);
+    renderUserInterface(scene, viewport);
     const endTime = getCurrentTimeSeconds();
 
     // TODO: utility function to broadcast global scripts
