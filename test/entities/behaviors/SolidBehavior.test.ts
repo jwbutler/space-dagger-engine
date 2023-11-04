@@ -49,7 +49,7 @@ describe('SolidBehavior', () => {
       }
     } as unknown as Scene;
     const engine = {
-      getScene: () => scene,
+      getCurrentScene: () => scene,
       getStringVariable: () => JSON.stringify([{ firstId: 'entity', secondId: 'other' }])
     } as unknown as Engine;
 
@@ -79,7 +79,7 @@ describe('getCachedOverlappingEntities', () => {
   } as Scene;
   const engine = {
     getStringVariable: () => JSON.stringify([{ firstId: '1', secondId: '2' }]),
-    getScene: () => scene
+    getCurrentScene: () => scene
   } as unknown as Engine;
 
   test('with flipped ids', () => {

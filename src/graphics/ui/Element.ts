@@ -1,5 +1,5 @@
 import { Graphics } from '../Graphics';
 
-export interface UIElement {
+export interface Element {
   render: (graphics: Graphics) => void;
 }

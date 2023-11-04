@@ -1,4 +1,4 @@
-import { UIElement } from './UIElement';
+import { Element } from './Element';
 import { Graphics } from '../Graphics';
 import { Coordinates } from '../../geometry/Coordinates';
 
@@ -9,7 +9,7 @@ type Props = Readonly<{
   topLeft: Coordinates;
 }>;
 
-interface TextElement extends UIElement {
+interface TextElement extends Element {
   getText: () => string;
   setText: (value: string) => void;
 }

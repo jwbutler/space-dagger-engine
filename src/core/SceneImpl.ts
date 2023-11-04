@@ -6,6 +6,7 @@ import { Entity } from '../entities/Entity';
 import { check } from '../utils/preconditions';
 import { Arrays } from '../utils';
 import { EntityImpl } from '../entities/EntityImpl';
+import { Element } from '../graphics';
 
 type Props = Readonly<{
   name: string;
@@ -24,6 +25,7 @@ export class SceneImpl implements Scene {
   private backgroundImage: ImageBitmap | null;
   private readonly camera: Camera;
   private readonly entities: Entity[];
+  private readonly elements: Element[];
 
   constructor(props: Props) {
     this.name = props.name;
@@ -33,6 +35,7 @@ export class SceneImpl implements Scene {
     this.backgroundImage = props.backgroundImage ?? null;
     this.camera = props.camera;
     this.entities = [];
+    this.elements = [];
   }
 
   getName = (): string => this.name;
@@ -73,5 +76,18 @@ export class SceneImpl implements Scene {
   getEntityById = (id: string): Entity | null =>
     this.entities.find(entity => entity.getId() === id) ?? null;
 
-  clear = (): void => Arrays.clear(this.entities);
+  clearEntities = (): void => Arrays.clear(this.entities);
+
+  addElement = (element: Element): void => {
+    this.elements.push(element);
+  };
+
+  getElements = (): Element[] => this.elements;
+
+  removeElement = (element: Element) => {
+    check(this.elements.includes(element));
+    Arrays.filterInPlace(this.elements, e => e !== element);
+  };
+
+  clearElements = (): void => Arrays.clear(this.elements);
 }

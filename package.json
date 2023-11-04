@@ -1,6 +1,6 @@
 {
   "name": "@jwbutler/space-dagger-engine",
-  "version": "0.6.5",
+  "version": "0.7.0",
   "type": "module",
   "engines": {
     "node": ">=18"
@@ -11,6 +11,9 @@
     "lint": "eslint --fix {src,test}/**/*.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "sat": "^0.9.0"
   },
   "devDependencies": {
     "@types/sat": "^0.0.34",
@@ -68,8 +71,5 @@
       "import": "./dist/utils/index.js",
       "types": "./dist/utils/index.d.ts"
     }
-  },
-  "dependencies": {
-    "sat": "^0.9.0"
   }
 }

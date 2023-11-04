@@ -1,7 +1,6 @@
 import * as Preconditions from '../../src/utils/preconditions';
 import { test, expect } from 'vitest';
 
-
 test('checkNotNull', () => {
   expect(() => Preconditions.checkNotNull(null)).toThrow();
   expect(() => Preconditions.checkNotNull(undefined)).toThrow();
@@ -14,4 +13,5 @@ test('check', () => {
   const value = 'asdf';
   expect(() => Preconditions.check(value.length === 4)).not.toThrow();
   expect(() => Preconditions.check(value.length !== 4)).toThrow();
+  expect(() => Preconditions.check(value.length === 100, 'what')).toThrow('what');
 });

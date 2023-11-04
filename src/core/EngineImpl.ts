@@ -3,21 +3,20 @@ import { Scene } from './Scene';
 import { update } from './update';
 import { GlobalScript } from '../events/GlobalScript';
 import { Keyboard } from '../input/Keyboard';
-import { UserInterface } from '../graphics/ui/UserInterface';
 import { Graphics } from '../graphics/Graphics';
 import { renderScene } from '../graphics/renderScene';
 import { renderUserInterface } from '../graphics/renderUserInterface';
-import { Arrays, getCurrentTimeSeconds } from '../utils';
+import { Arrays, checkNotNull, getCurrentTimeSeconds } from '../utils';
 import { SoundPlayer } from '../audio';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 
 export class EngineImpl implements Engine {
+  private readonly scenes: Scene[];
+  private scene: Scene;
   private readonly globalScripts: GlobalScript[];
   private readonly keyboard: Keyboard;
   private readonly soundPlayer: SoundPlayer;
-  private readonly scene: Scene;
-  private readonly userInterface: UserInterface;
   private readonly viewport: Graphics;
   private readonly stringVariables: Record<string, string | null>;
   private lastUpdateTime: number;
@@ -28,17 +27,33 @@ export class EngineImpl implements Engine {
    */
   private stopLoopCallback: (() => void) | null;
 
-  constructor({ keyboard, soundPlayer, scene, userInterface, viewport }: EngineProps) {
+  constructor({ keyboard, soundPlayer, scenes, initialScene, viewport }: EngineProps) {
     this.keyboard = keyboard;
     this.soundPlayer = soundPlayer;
-    this.scene = scene;
-    this.userInterface = userInterface;
+    this.scenes = scenes;
+    this.scene = this.getScene(initialScene);
     this.viewport = viewport;
     this.globalScripts = [];
     this.stringVariables = {};
     this.lastUpdateTime = getCurrentTimeSeconds();
     this.stopLoopCallback = null;
   }
+
+  getCurrentScene = (): Scene => this.scene;
+
+  setCurrentScene = (name: string): void => {
+    this.scene = this.getScene(name);
+  };
+
+  addScene = (scene: Scene): void => {
+    this.scenes.push(scene);
+  };
+
+  getScene = (name: string): Scene =>
+    checkNotNull(this.scenes.find(scene => scene.getName() === name));
+
+  /** non-override, exported for testing */
+  getScenes = (): Scene[] => this.scenes;
 
   getGlobalScripts = (): GlobalScript[] => this.globalScripts;
 
@@ -51,10 +66,6 @@ export class EngineImpl implements Engine {
   getKeyboard = (): Keyboard => this.keyboard;
 
   getSoundPlayer = (): SoundPlayer => this.soundPlayer;
-
-  getScene = (): Scene => this.scene;
-
-  getUserInterface = (): UserInterface => this.userInterface;
 
   getViewport = () => this.viewport;
 
@@ -106,11 +117,11 @@ export class EngineImpl implements Engine {
   /** non-override */
   render = () => {
     const startTime = getCurrentTimeSeconds();
-    const { scene, userInterface, viewport } = this;
+    const { scene, viewport } = this;
     viewport.fill('#000000');
     renderScene(scene);
     scene.getGraphics().drawOnto(viewport);
-    renderUserInterface(userInterface);
+    renderUserInterface(scene, viewport);
     const endTime = getCurrentTimeSeconds();
 
     // TODO: utility function to broadcast global scripts

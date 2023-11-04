@@ -8,7 +8,7 @@ export class CollisionDetectionPluginImpl implements Plugin {
 
   onTick = ({ engine }: TickEvent) => {
     const { collisionHandler } = this;
-    const scene = engine.getScene();
+    const scene = engine.getCurrentScene();
     // Phase 1 - detect and fire collision events
     const { collisions, overlaps } = collisionHandler.detectCollisions(
       scene.getEntities()

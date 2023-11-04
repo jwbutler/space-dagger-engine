@@ -1,9 +1,8 @@
-import { UserInterface } from './ui/UserInterface';
+import { Graphics } from './Graphics';
+import { Scene } from '../core/Scene';
 
-export const renderUserInterface = (userInterface: UserInterface): void => {
-  const graphics = userInterface.getGraphics();
-  graphics.clear();
-  for (const uiElement of userInterface.getUIElements()) {
-    uiElement.render(graphics);
+export const renderUserInterface = (scene: Scene, graphics: Graphics): void => {
+  for (const element of scene.getElements()) {
+    element.render(graphics);
   }
 };
