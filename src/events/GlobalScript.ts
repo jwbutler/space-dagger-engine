@@ -3,6 +3,8 @@ import { RenderEvent } from './RenderEvent';
 import { UpdateEvent } from './UpdateEvent';
 import { KeyDownEvent } from './KeyDownEvent';
 import { KeyUpEvent } from './KeyUpEvent';
+import { DestroyEvent } from './DestroyEvent';
+import { Entity } from '../entities';
 
 export type GlobalScript = Readonly<{
   onTick?: (event: TickEvent) => void;
@@ -17,4 +19,6 @@ export type GlobalScript = Readonly<{
 
   onKeyDown?: (event: KeyDownEvent) => void;
   onKeyUp?: (event: KeyUpEvent) => void;
+
+  onDestroy?: (entity: Entity, event: DestroyEvent) => void;
 }>;

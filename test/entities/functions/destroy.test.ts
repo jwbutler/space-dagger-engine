@@ -1,12 +1,16 @@
 import { destroy, Entity } from '../../../src/entities';
 import { Engine, Scene } from '../../../src';
-import { EntityScript } from '../../../src/events';
+import { EntityScript, GlobalScript } from '../../../src/events';
 import { test, expect, vi } from 'vitest';
 
 test('destroy', () => {
   const entityScript = {
     onDestroy: () => {}
   } as EntityScript;
+
+  const globalScript = {
+    onDestroy: () => {}
+  } as GlobalScript;
 
   const entity = {
     getScripts: () => [entityScript]
@@ -16,15 +20,18 @@ test('destroy', () => {
   } as unknown as Scene;
 
   const engine = {
-    getCurrentScene: () => scene
+    getCurrentScene: () => scene,
+    getGlobalScripts: () => [globalScript]
   } as Engine;
 
-  const onDestroy_spy = vi.spyOn(entityScript, 'onDestroy');
+  const entity_onDestroy_spy = vi.spyOn(entityScript, 'onDestroy');
+  const global_onDestroy_spy = vi.spyOn(globalScript, 'onDestroy');
   const removeEntity_spy = vi.spyOn(scene, 'removeEntity');
 
   destroy(entity, engine);
 
-  expect(onDestroy_spy).toHaveBeenCalledWith(entity, { engine });
+  expect(entity_onDestroy_spy).toHaveBeenCalledWith(entity, { engine });
+  expect(global_onDestroy_spy).toHaveBeenCalledWith(entity, { engine });
   expect(removeEntity_spy).toHaveBeenCalledWith(entity);
   expect(scene.removeEntity);
 
