@@ -43,7 +43,7 @@ export class EntityImpl implements Entity {
     this.scripts = props.scripts ?? [];
     this.behaviors = props.behaviors ?? [];
     this.stringVariables = {};
-    this.tags = new Set();
+    this.tags = new Set(props.tags ?? []);
     this._isInitialized = false;
   }
 

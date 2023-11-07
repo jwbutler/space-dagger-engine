@@ -27,6 +27,7 @@ describe('Entity', () => {
     expect(entity.getMaxSpeed()).toBe(null);
     expect(entity.getAcceleration()).toEqual(Vector.zero());
     expect(entity.getFriction()).toBe(0.5);
+    expect(entity.getTags()).toEqual(new Set());
     expect(entity.getScripts()).toEqual([]);
     expect(entity.getBehaviors()).toEqual([]);
   });

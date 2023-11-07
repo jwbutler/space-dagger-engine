@@ -13,6 +13,7 @@ export type EntityProps = Readonly<{
   maxSpeed?: number;
   friction?: number;
   sprite: Sprite;
+  tags?: string[];
   scripts?: EntityScript[];
   behaviors?: EntityBehavior[];
 }>;
