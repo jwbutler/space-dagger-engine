@@ -61,6 +61,10 @@ export class EngineImpl implements Engine {
     this.globalScripts.push(script);
   };
 
+  removeGlobalScript = (script: GlobalScript): void => {
+    Arrays.filterInPlace(this.globalScripts, s => s !== script);
+  };
+
   clearGlobalScripts = (): void => Arrays.clear(this.globalScripts);
 
   getKeyboard = (): Keyboard => this.keyboard;

@@ -51,10 +51,12 @@ describe('Engine', () => {
     expect(engine.getViewport()).toBe(viewport);
   });
 
-  test('addGlobalScript', () => {
+  test('global scripts', () => {
     const script = {} as GlobalScript;
     engine.addGlobalScript(script);
     expect(engine.getGlobalScripts()).toEqual([script]);
+    engine.removeGlobalScript(script);
+    expect(engine.getGlobalScripts()).toEqual([]);
   });
 
   test('string variables', () => {
@@ -238,6 +240,7 @@ describe('Engine', () => {
       expect(onKeyDown_spy).toHaveBeenCalledWith(event);
       onKeyDown_spy.mockClear();
     });
+
     test('keyUp', () => {
       const onKeyUp_spy = vi.spyOn(script, 'onKeyUp');
       const event = {

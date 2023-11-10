@@ -59,22 +59,28 @@ describe('Entity', () => {
     expect(entity.getSprite()).toBe(newSprite);
   });
 
-  test('addScript', () => {
+  test('scripts', () => {
     const script = {
       init: () => {}
     } as EntityScript;
     entity.addScript(script);
     expect(entity.getScripts().length).toBe(1);
     expect(entity.getScripts()[0]).toBe(script);
+
+    entity.removeScript(script);
+    expect(entity.getScripts()).toEqual([]);
   });
 
-  test('addBehavior', () => {
+  test('behaviors', () => {
     const behavior = {
       init: () => {}
     } as EntityBehavior;
     entity.addBehavior(behavior);
     expect(entity.getBehaviors().length).toBe(1);
     expect(entity.getBehaviors()).toEqual([behavior]);
+
+    entity.removeBehavior(behavior);
+    expect(entity.getBehaviors()).toEqual([]);
   });
 
   test('setStringVariable', () => {
@@ -99,8 +105,16 @@ describe('Entity', () => {
 
   test('init', () => {
     const engine = {} as Engine;
-    const script_init_spy = vi.spyOn(entity.getScripts()[0], 'init');
-    const behavior_init_spy = vi.spyOn(entity.getBehaviors()[0], 'init');
+    const script = {
+      init: () => {}
+    } as EntityScript;
+    entity.addScript(script);
+    const behavior = {
+      init: () => {}
+    } as EntityBehavior;
+    entity.addBehavior(behavior);
+    const script_init_spy = vi.spyOn(script, 'init');
+    const behavior_init_spy = vi.spyOn(behavior, 'init');
     expect(entity.isInitialized()).toBe(false);
     entity.init(engine);
     expect(entity.isInitialized()).toBe(true);

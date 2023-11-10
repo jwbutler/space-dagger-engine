@@ -16,6 +16,7 @@ export interface Engine {
   getSoundPlayer: () => SoundPlayer;
   getGlobalScripts: () => GlobalScript[];
   addGlobalScript: (script: GlobalScript) => void;
+  removeGlobalScript: (script: GlobalScript) => void;
   clearGlobalScripts: () => void;
   getViewport: () => Graphics;
   getStringVariable: (key: string) => string | null;
