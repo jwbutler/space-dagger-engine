@@ -6,7 +6,7 @@ import { Angle } from '../geometry/Angle';
 import { Vector } from '../geometry/Vector';
 import { Sprite } from '../graphics/Sprite';
 import { EntityScript } from '../scripts/EntityScript';
-import { check } from '../utils';
+import { Arrays, check } from '../utils';
 import { Engine } from '../core/Engine';
 
 let nextId: number = 1;
@@ -96,10 +96,18 @@ export class EntityImpl implements Entity {
     this.scripts.push(script);
   };
 
+  removeScript = (script: EntityScript): void => {
+    Arrays.filterInPlace(this.scripts, s => s !== script);
+  };
+
   getBehaviors = (): EntityBehavior[] => this.behaviors;
 
   addBehavior = (behavior: EntityBehavior): void => {
     this.behaviors.push(behavior);
+  };
+
+  removeBehavior = (behavior: EntityBehavior): void => {
+    Arrays.filterInPlace(this.behaviors, b => b !== behavior);
   };
 
   getStringVariable = (key: string): string | null => {

@@ -58,7 +58,7 @@ export class SceneImpl implements Scene {
 
   getCamera = (): Camera => this.camera;
 
-  getEntities = (): Entity[] => this.entities;
+  getEntities = (): Entity[] => [...this.entities];
 
   addEntity = (entity: Entity) => {
     check((entity as EntityImpl).isInitialized());
@@ -82,7 +82,7 @@ export class SceneImpl implements Scene {
     this.elements.push(element);
   };
 
-  getElements = (): Element[] => this.elements;
+  getElements = (): Element[] => [...this.elements];
 
   removeElement = (element: Element) => {
     check(this.elements.includes(element));
