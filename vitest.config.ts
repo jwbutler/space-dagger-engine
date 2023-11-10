@@ -22,8 +22,6 @@ export default defineConfig({
         'src/events/CollisionEvent.ts',
         'src/events/DestroyEvent.ts',
         'src/events/EntityInitEvent.ts',
-        'src/events/EntityScript.ts',
-        'src/events/GlobalScript.ts',
         'src/events/KeyDownEvent.ts',
         'src/events/KeyUpEvent.ts',
         'src/events/RenderEvent.ts',
@@ -31,6 +29,8 @@ export default defineConfig({
         'src/events/UpdateEvent.ts',
         'src/graphics/Sprite.ts',
         'src/graphics/ui/Element.ts',
+        'src/scripts/EntityScript.ts',
+        'src/scripts/GlobalScript.ts',
         // This one is just bullshit, it reports missing coverage on an empty brace.
         'src/audio/Waveform.ts'
       ]
