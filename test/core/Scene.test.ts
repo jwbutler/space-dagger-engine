@@ -98,10 +98,12 @@ describe('entities', () => {
   });
 
   test('removeEntity', () => {
+    const entities = scene.getEntities();
     scene.removeEntity(entity);
     expect(scene.getEntities()).toEqual([]);
     expect(() => scene.removeEntity(entity)).toThrow();
     expect(scene.getEntityById('test_id')).toBe(null);
+    expect(entities).toEqual([entity]);
   });
 
   test('clearEntities', () => {
@@ -117,8 +119,10 @@ describe('entities', () => {
   });
 
   test('removeElement', () => {
+    const elements = scene.getElements();
     scene.removeElement(element);
     expect(scene.getElements()).toEqual([]);
+    expect(elements).toEqual([element]);
   });
 
   test('clearElements', () => {
