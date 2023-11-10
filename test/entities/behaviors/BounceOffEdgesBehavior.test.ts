@@ -44,7 +44,7 @@ describe('BounceOffEdgesBehavior', () => {
   test('right', () => {
     centerCoordinates = { x: 200, y: 100 };
     speed = { x: 1, y: 0 };
-    behavior.onTick?.(entity, { engine, dt: 1 });
+    behavior.onTick?.(entity, engine, { dt: 1 });
     expect(speed).toEqual({ x: -1, y: 0 });
     expect(centerCoordinates).toEqual({ x: 190, y: 100 });
   });
@@ -52,7 +52,7 @@ describe('BounceOffEdgesBehavior', () => {
   test('left', () => {
     centerCoordinates = { x: 0, y: 100 };
     speed = { x: -1, y: 0 };
-    behavior.onTick?.(entity, { engine, dt: 1 });
+    behavior.onTick?.(entity, engine, { dt: 1 });
     expect(speed).toEqual({ x: 1, y: 0 });
     expect(centerCoordinates).toEqual({ x: 10, y: 100 });
   });
@@ -60,7 +60,7 @@ describe('BounceOffEdgesBehavior', () => {
   test('top', () => {
     centerCoordinates = { x: 100, y: 0 };
     speed = { x: 0, y: -1 };
-    behavior.onTick?.(entity, { engine, dt: 1 });
+    behavior.onTick?.(entity, engine, { dt: 1 });
     expect(speed).toEqual({ x: 0, y: 1 });
     expect(centerCoordinates).toEqual({ x: 100, y: 10 });
   });
@@ -68,7 +68,7 @@ describe('BounceOffEdgesBehavior', () => {
   test('bottom', () => {
     centerCoordinates = { x: 100, y: 200 };
     speed = { x: 0, y: 1 };
-    behavior.onTick?.(entity, { engine, dt: 1 });
+    behavior.onTick?.(entity, engine, { dt: 1 });
     expect(speed).toEqual({ x: 0, y: -1 });
     expect(centerCoordinates).toEqual({ x: 100, y: 190 });
   });

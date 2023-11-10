@@ -9,7 +9,7 @@ export const update = (engine: Engine, dt: number): void => {
   // Phase 1 - execute global scripts
   // Includes plugins
   for (const script of engine.getGlobalScripts()) {
-    script.onTick?.({ engine, dt });
+    script.onTick?.(engine, { dt });
   }
 
   // Phase 2 - execute everything's "update" event
@@ -18,11 +18,11 @@ export const update = (engine: Engine, dt: number): void => {
   for (const entity of scene.getEntities()) {
     // TODO - think about script/behavior precedence
     for (const script of entity.getScripts()) {
-      script.onTick?.(entity, { engine, dt });
+      script.onTick?.(entity, engine, { dt });
     }
     const behaviors = entity.getBehaviors();
     for (const behavior of behaviors) {
-      behavior.onTick?.(entity, { engine, dt });
+      behavior.onTick?.(entity, engine, { dt });
     }
   }
 

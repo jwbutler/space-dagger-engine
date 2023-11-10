@@ -1,7 +1,6 @@
 import { Entity } from '../entities';
-import { Engine } from '../core/Engine';
 
 export type CollisionEvent = Readonly<{
+  entity: Entity;
   other: Entity;
-  engine: Engine;
 }>;

@@ -1,12 +1,11 @@
 import { CollisionHandler, Overlap } from './CollisionHandler';
-import { TickEvent } from '../../events';
 import { Engine } from '../../core/Engine';
 import type { Plugin } from '../Plugin';
 
 export class CollisionDetectionPluginImpl implements Plugin {
   constructor(private readonly collisionHandler: CollisionHandler) {}
 
-  onTick = ({ engine }: TickEvent) => {
+  onTick = (engine: Engine) => {
     const { collisionHandler } = this;
     const scene = engine.getCurrentScene();
     // Phase 1 - detect and fire collision events
@@ -21,10 +20,10 @@ export class CollisionDetectionPluginImpl implements Plugin {
       const second = scene.getEntityById(secondId);
       if (first && second) {
         for (const script of first.getScripts()) {
-          script.onCollision?.(first, { other: second, engine });
+          script.onCollision?.(first, engine, { entity: first, other: second });
         }
         for (const script of second.getScripts()) {
-          script.onCollision?.(second, { other: first, engine });
+          script.onCollision?.(second, engine, { entity: second, other: first });
         }
       }
     }

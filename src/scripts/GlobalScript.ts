@@ -1,11 +1,13 @@
-import { TickEvent } from './TickEvent';
-import { RenderEvent } from './RenderEvent';
-import { UpdateEvent } from './UpdateEvent';
-import { KeyDownEvent } from './KeyDownEvent';
-import { KeyUpEvent } from './KeyUpEvent';
+import { TickEvent } from '../events/TickEvent';
+import { RenderEvent } from '../events/RenderEvent';
+import { UpdateEvent } from '../events/UpdateEvent';
+import { KeyDownEvent } from '../events/KeyDownEvent';
+import { KeyUpEvent } from '../events/KeyUpEvent';
+import { Engine } from '../core/Engine';
 
 export type GlobalScript = Readonly<{
-  onTick?: (event: TickEvent) => void;
+  onTick?: (engine: Engine, event: TickEvent) => void;
+
   /**
    * This is fired after the main render loop, primarily as a timing callback
    */

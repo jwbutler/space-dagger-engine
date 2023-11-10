@@ -67,6 +67,10 @@
       "import": "./dist/plugins/index.js",
       "types": "./dist/plugins/index.d.ts"
     },
+    "./scripts": {
+      "import": "./dist/scripts/index.js",
+      "types": "./dist/scripts/index.d.ts"
+    },
     "./utils": {
       "import": "./dist/utils/index.js",
       "types": "./dist/utils/index.d.ts"

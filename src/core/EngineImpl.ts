@@ -1,7 +1,7 @@
 import { Engine, EngineProps } from './Engine';
 import { Scene } from './Scene';
 import { update } from './update';
-import { GlobalScript } from '../events/GlobalScript';
+import { GlobalScript } from '../scripts/GlobalScript';
 import { Keyboard } from '../input/Keyboard';
 import { Graphics } from '../graphics/Graphics';
 import { renderScene } from '../graphics/renderScene';

@@ -4,7 +4,7 @@ import { Sprite } from '../../src/graphics/Sprite';
 import { EntityBehavior } from '../../src/entities/behaviors/EntityBehavior';
 import { EntityImpl } from '../../src/entities/EntityImpl';
 import { Vector } from '../../src/geometry';
-import { EntityScript } from '../../src/events';
+import { EntityScript } from '../../src/scripts';
 import { Engine } from '../../src';
 import { expect, describe, test, vi } from 'vitest';
 
@@ -104,7 +104,7 @@ describe('Entity', () => {
     expect(entity.isInitialized()).toBe(false);
     entity.init(engine);
     expect(entity.isInitialized()).toBe(true);
-    expect(script_init_spy).toHaveBeenCalledWith(entity, { engine });
-    expect(behavior_init_spy).toHaveBeenCalledWith(entity, { engine });
+    expect(script_init_spy).toHaveBeenCalledWith(entity, engine, { entity });
+    expect(behavior_init_spy).toHaveBeenCalledWith(entity, engine, { entity });
   });
 });

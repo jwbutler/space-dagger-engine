@@ -23,7 +23,7 @@ describe('SolidBehavior', () => {
   const behavior = SolidBehavior.create();
 
   test('init', () => {
-    behavior.init?.(entity, {} as EntityInitEvent);
+    behavior.init?.(entity, {} as Engine, {} as EntityInitEvent);
     expect(addTag_spy).toHaveBeenCalledWith(SolidBehavior.TAG_NAME);
   });
 
@@ -53,7 +53,7 @@ describe('SolidBehavior', () => {
       getStringVariable: () => JSON.stringify([{ firstId: 'entity', secondId: 'other' }])
     } as unknown as Engine;
 
-    behavior.onTick?.(entity, { engine, dt: 1 });
+    behavior.onTick?.(entity, engine, { dt: 1 });
     expect(entity_setCoordinates_spy).toHaveBeenCalledWith({
       x: 20 - 2 ** 0.5 / 2,
       y: 20 - 2 ** 0.5 / 2
