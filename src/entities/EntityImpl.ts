@@ -5,7 +5,7 @@ import { Coordinates } from '../geometry/Coordinates';
 import { Angle } from '../geometry/Angle';
 import { Vector } from '../geometry/Vector';
 import { Sprite } from '../graphics/Sprite';
-import { EntityScript } from '../events/EntityScript';
+import { EntityScript } from '../scripts/EntityScript';
 import { check } from '../utils';
 import { Engine } from '../core/Engine';
 
@@ -121,10 +121,10 @@ export class EntityImpl implements Entity {
   init = (engine: Engine): void => {
     check(!this._isInitialized);
     for (const script of this.getScripts()) {
-      script.init?.(this, { engine });
+      script.init?.(this, engine, { entity: this });
     }
     for (const behavior of this.getBehaviors()) {
-      behavior.init?.(this, { engine });
+      behavior.init?.(this, engine, { entity: this });
     }
     this._isInitialized = true;
   };

@@ -13,6 +13,7 @@ const config: UserConfig = {
         'geometry/index': 'src/geometry/index.ts',
         'graphics/index': 'src/graphics/index.ts',
         'plugins/index': 'src/plugins/index.ts',
+        'scripts/index': 'src/scripts/index.ts',
         'utils/index': 'src/utils/index.ts'
       },
       name: 'space-dagger-engine',

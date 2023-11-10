@@ -1,7 +1,7 @@
 import { Scene } from './Scene';
 import { EngineImpl } from './EngineImpl';
 import { Keyboard } from '../input/Keyboard';
-import { GlobalScript } from '../events/GlobalScript';
+import { GlobalScript } from '../scripts/GlobalScript';
 import { Graphics } from '../graphics/Graphics';
 import { SoundPlayer } from '../audio';
 import { KeyDownEvent } from '../events/KeyDownEvent';

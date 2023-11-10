@@ -1,6 +1,6 @@
 {
   "name": "@jwbutler/space-dagger-engine",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "type": "module",
   "engines": {
     "node": ">=18"
@@ -66,6 +66,10 @@
     "./plugins": {
       "import": "./dist/plugins/index.js",
       "types": "./dist/plugins/index.d.ts"
+    },
+    "./scripts": {
+      "import": "./dist/scripts/index.js",
+      "types": "./dist/scripts/index.d.ts"
     },
     "./utils": {
       "import": "./dist/utils/index.js",

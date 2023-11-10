@@ -23,6 +23,6 @@ test('camera follow behavior', () => {
   } as Entity;
 
   const behavior = CameraFollowBehavior.create();
-  behavior.onTick?.(entity, { engine, dt: 1 });
+  behavior.onTick?.(entity, engine, { dt: 1 });
   expect(camera.getCenterCoordinates()).toEqual({ x: 20, y: 20 });
 });

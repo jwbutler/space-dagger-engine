@@ -6,7 +6,7 @@ import { Entity } from '../../src/entities/Entity';
 import { Scene } from '../../src/core/Scene';
 import { Engine } from '../../src';
 import { check } from '../../src/utils';
-import { EntityScript, GlobalScript } from '../../src/events';
+import { EntityScript, GlobalScript } from '../../src/scripts';
 import { expect, test, vi } from 'vitest';
 
 test('update', () => {
@@ -54,14 +54,11 @@ test('update', () => {
   const dt = 1;
   update(engine, dt);
   expect(ship.getCenterCoordinates()).toEqual({ x: 3, y: 4 });
-  expect(globalScript_onTick_spy).toHaveBeenCalledWith({
-    engine,
-    dt
-  });
+  expect(globalScript_onTick_spy).toHaveBeenCalledWith(engine, { dt });
 
-  expect(entityScript_update_spy).toHaveBeenCalledWith(ship, { engine, dt });
+  expect(entityScript_update_spy).toHaveBeenCalledWith(ship, engine, { dt });
   for (const behaviorSpy of behaviorSpies) {
-    expect(behaviorSpy).toHaveBeenCalledWith(ship, { engine, dt });
+    expect(behaviorSpy).toHaveBeenCalledWith(ship, engine, { dt });
   }
 
   // TODO: verify that applyAcceleration / updatePosition were called here

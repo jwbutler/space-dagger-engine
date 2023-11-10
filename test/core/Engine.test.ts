@@ -3,7 +3,7 @@ import { Camera, Engine, Keyboard, ModifierKey, Scene } from '../../src';
 import { Graphics } from '../../src/graphics';
 import { Dimensions, Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
-import { GlobalScript } from '../../src/events';
+import { GlobalScript } from '../../src/scripts';
 import { SoundPlayer } from '../../src/audio';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 

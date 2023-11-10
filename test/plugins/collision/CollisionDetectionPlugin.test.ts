@@ -10,6 +10,7 @@ import {
 } from '../../../src/plugins/collision/CollisionDetectionPlugin';
 import { Entity } from '../../../src/entities';
 import { describe, expect, test, vi } from 'vitest';
+import type { Plugin } from '../../../src/plugins/Plugin';
 
 describe('CollisionDetectionPlugin', () => {
   let collisions: CollisionResult;
@@ -17,7 +18,7 @@ describe('CollisionDetectionPlugin', () => {
     detectCollisions: () => collisions
   } as CollisionHandler;
 
-  const plugin = new CollisionDetectionPluginImpl(handler);
+  const plugin = new CollisionDetectionPluginImpl(handler) as Plugin;
 
   const firstCollisionScript = {
     onCollision: () => {}
@@ -49,7 +50,7 @@ describe('CollisionDetectionPlugin', () => {
       overlaps: []
     };
     const setStringVariable_spy = vi.spyOn(engine, 'setStringVariable');
-    plugin.onTick?.({ dt: 1, engine });
+    plugin.onTick?.(engine, { dt: 1 });
     expect(setStringVariable_spy).toHaveBeenCalledWith('overlaps', '[]');
     setStringVariable_spy.mockClear();
   });
@@ -62,18 +63,18 @@ describe('CollisionDetectionPlugin', () => {
     const setStringVariable_spy = vi.spyOn(engine, 'setStringVariable');
     const firstCollision_spy = vi.spyOn(firstCollisionScript, 'onCollision');
     const secondCollision_spy = vi.spyOn(secondCollisionScript, 'onCollision');
-    plugin.onTick?.({ dt: 1, engine });
+    plugin.onTick?.(engine, { dt: 1 });
     expect(setStringVariable_spy).toHaveBeenCalledWith(
       'overlaps',
       '[{"firstId":"1","secondId":"2"}]'
     );
-    expect(firstCollision_spy).toHaveBeenCalledWith(first, {
-      other: second,
-      engine
+    expect(firstCollision_spy).toHaveBeenCalledWith(first, engine, {
+      entity: first,
+      other: second
     });
-    expect(secondCollision_spy).toHaveBeenCalledWith(second, {
-      other: first,
-      engine
+    expect(secondCollision_spy).toHaveBeenCalledWith(second, engine, {
+      entity: second,
+      other: first
     });
 
     setStringVariable_spy.mockClear();

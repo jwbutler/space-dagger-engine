@@ -1,3 +1,3 @@
-import { EntityScript } from '../../events/EntityScript';
+import { EntityScript } from '../../scripts/EntityScript';
 
 export interface EntityBehavior extends EntityScript {}

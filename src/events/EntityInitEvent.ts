@@ -1,5 +1,5 @@
-import { Engine } from '../core/Engine';
+import { Entity } from '../entities';
 
 export type EntityInitEvent = Readonly<{
-  engine: Engine;
+  entity: Entity;
 }>;

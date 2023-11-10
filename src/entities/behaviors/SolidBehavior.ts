@@ -1,6 +1,5 @@
 import { EntityBehavior } from './EntityBehavior';
 import { Entity } from '../Entity';
-import { TickEvent } from '../../events';
 import { Coordinates, Vector } from '../../geometry';
 import { Engine } from '../../core/Engine';
 import { getCachedOverlaps } from '../../plugins/collision/CollisionDetectionPlugin';
@@ -14,7 +13,7 @@ export namespace SolidBehavior {
       entity.addTag(TAG_NAME);
     };
 
-    const onTick = (entity: Entity, { engine }: TickEvent) => {
+    const onTick = (entity: Entity, engine: Engine) => {
       const overlappingEntities = getCachedOverlappingEntities(entity, engine);
       for (const other of overlappingEntities) {
         if (other.hasTag(TAG_NAME)) {
@@ -32,7 +31,7 @@ export namespace SolidBehavior {
       }
     };
 
-    return { init, onTick } as EntityBehavior;
+    return { init, onTick };
   };
 }
 

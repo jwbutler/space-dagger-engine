@@ -1,6 +1,6 @@
 import { destroy, Entity } from '../../../src/entities';
 import { Engine, Scene } from '../../../src';
-import { EntityScript } from '../../../src/events';
+import { EntityScript } from '../../../src/scripts';
 import { test, expect, vi } from 'vitest';
 
 test('destroy', () => {
@@ -24,7 +24,7 @@ test('destroy', () => {
 
   destroy(entity, engine);
 
-  expect(onDestroy_spy).toHaveBeenCalledWith(entity, { engine });
+  expect(onDestroy_spy).toHaveBeenCalledWith(entity, engine, { entity });
   expect(removeEntity_spy).toHaveBeenCalledWith(entity);
   expect(scene.removeEntity);
 
