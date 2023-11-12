@@ -4,9 +4,12 @@ import { UpdateEvent } from '../events/UpdateEvent';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 import { Engine } from '../core/Engine';
+import { DestroyEvent } from '../events';
 
 export type GlobalScript = Readonly<{
   onTick?: (engine: Engine, event: TickEvent) => void;
+
+  onDestroy?: (engine: Engine, event: DestroyEvent) => void;
 
   /**
    * This is fired after the main render loop, primarily as a timing callback
