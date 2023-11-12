@@ -18,6 +18,7 @@ export type GraphicsProps = Readonly<{
 export interface Graphics {
   attach: (root: HTMLElement) => void;
   getDimensions: () => Dimensions;
+  setDimensions: (dimensions: Dimensions) => void;
   translate: (topLeft: Coordinates) => void;
   fillCircle: (centerCoordinates: Coordinates, radius: number, color: string) => void;
   fillOval: (rect: Rect, color: string) => void;

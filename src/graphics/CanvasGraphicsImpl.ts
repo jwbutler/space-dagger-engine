@@ -27,6 +27,11 @@ export class CanvasGraphicsImpl implements Graphics {
     height: this.canvas.height
   });
 
+  setDimensions = (dimensions: Dimensions): void => {
+    this.canvas.width = dimensions.width;
+    this.canvas.height = dimensions.height;
+  };
+
   translate = (topLeft: Coordinates): void => {
     this.clear();
     this.context.resetTransform();
