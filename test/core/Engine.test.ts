@@ -304,7 +304,7 @@ describe('Engine', () => {
     engine.addScene(scene3);
     engine.setCurrentScene('scene3');
 
-    const event = { foo: 'bar' };
+    const event = { type: 'TEST', foo: 'bar' };
     engine.broadcastCustomEvent(event);
 
     expect(globalScript.onCustomEvent).toHaveBeenCalledWith(engine, event);

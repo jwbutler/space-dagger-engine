@@ -1,1 +1,4 @@
-export type CustomEvent = Readonly<Record<string, string>>;
+export type CustomEvent = Readonly<{
+  type: string;
+  [key: string]: string;
+}>;
