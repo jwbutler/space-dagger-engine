@@ -1,4 +1,5 @@
 import { CollisionEvent } from '../events/CollisionEvent';
+import { CustomEvent } from '../events/CustomEvent';
 import { DestroyEvent } from '../events/DestroyEvent';
 import { TickEvent } from '../events/TickEvent';
 import { EntityInitEvent } from '../events/EntityInitEvent';
@@ -14,4 +15,5 @@ export type EntityScript = Readonly<{
   onTick?: (entity: Entity, engine: Engine, event: TickEvent) => void;
   onCollision?: (entity: Entity, engine: Engine, event: CollisionEvent) => void;
   onDestroy?: (entity: Entity, engine: Engine, event: DestroyEvent) => void;
+  onCustomEvent?: (entity: Entity, engine: Engine, event: CustomEvent) => void;
 }>;

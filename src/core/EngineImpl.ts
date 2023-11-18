@@ -10,6 +10,7 @@ import { Arrays, checkNotNull, getCurrentTimeSeconds } from '../utils';
 import { SoundPlayer } from '../audio';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
+import { CustomEvent } from '../events/CustomEvent';
 
 export class EngineImpl implements Engine {
   private readonly scenes: Scene[];
@@ -150,6 +151,18 @@ export class EngineImpl implements Engine {
   keyUp = (event: KeyUpEvent): void => {
     for (const script of this.globalScripts) {
       script.onKeyUp?.(event);
+    }
+  };
+
+  broadcastCustomEvent = (event: CustomEvent): void => {
+    for (const script of this.globalScripts) {
+      script.onCustomEvent?.(this, event);
+    }
+
+    for (const entity of this.getCurrentScene().getEntities()) {
+      for (const script of entity.getScripts()) {
+        script.onCustomEvent?.(entity, this, event);
+      }
     }
   };
 }

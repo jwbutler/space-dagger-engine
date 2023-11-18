@@ -4,9 +4,12 @@ import { UpdateEvent } from '../events/UpdateEvent';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 import { Engine } from '../core/Engine';
+import { CustomEvent } from '../events/CustomEvent';
 
 export type GlobalScript = Readonly<{
   onTick?: (engine: Engine, event: TickEvent) => void;
+
+  onCustomEvent?: (engine: Engine, event: CustomEvent) => void;
 
   /**
    * This is fired after the main render loop, primarily as a timing callback

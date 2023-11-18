@@ -3,8 +3,9 @@ import { Camera, Engine, Keyboard, ModifierKey, Scene } from '../../src';
 import { Graphics } from '../../src/graphics';
 import { Dimensions, Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
-import { GlobalScript } from '../../src/scripts';
+import { EntityScript, GlobalScript } from '../../src/scripts';
 import { SoundPlayer } from '../../src/audio';
+import { Entity } from '../../src/entities';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 describe('Engine', () => {
@@ -280,6 +281,34 @@ describe('Engine', () => {
     expect((engine as EngineImpl).getScenes()).toEqual([scene, scene2]);
     engine.setCurrentScene('scene2');
     expect(engine.getCurrentScene()).toEqual(scene2);
+  });
+
+  test('broadcastCustomEvent', () => {
+    const globalScript = {
+      onCustomEvent: vi.fn(() => {})
+    } as GlobalScript;
+    const entityScript = {
+      onCustomEvent: vi.fn(() => {})
+    } as EntityScript;
+
+    engine.addGlobalScript(globalScript);
+
+    const entity = {
+      getScripts: () => [entityScript]
+    } as Entity;
+
+    const scene3 = {
+      getName: () => 'scene3',
+      getEntities: () => [entity]
+    } as Scene;
+    engine.addScene(scene3);
+    engine.setCurrentScene('scene3');
+
+    const event = { foo: 'bar' };
+    engine.broadcastCustomEvent(event);
+
+    expect(globalScript.onCustomEvent).toHaveBeenCalledWith(engine, event);
+    expect(entityScript.onCustomEvent).toHaveBeenCalledWith(entity, engine, event);
   });
 
   afterAll(() => {
