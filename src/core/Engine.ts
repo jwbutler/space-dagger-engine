@@ -6,6 +6,7 @@ import { Graphics } from '../graphics/Graphics';
 import { SoundPlayer } from '../audio';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
+import { CustomEvent } from '../events/CustomEvent';
 
 export interface Engine {
   getCurrentScene: () => Scene;
@@ -23,6 +24,7 @@ export interface Engine {
   setStringVariable: (key: string, value: string | null) => void;
   keyDown: (event: KeyDownEvent) => void;
   keyUp: (event: KeyUpEvent) => void;
+  broadcastCustomEvent: (event: CustomEvent) => void;
 
   startGameLoop: () => void;
   stopGameLoop: () => Promise<void>;

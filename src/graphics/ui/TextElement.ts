@@ -9,7 +9,7 @@ type Props = Readonly<{
   topLeft: Coordinates;
 }>;
 
-interface TextElement extends Element {
+export interface TextElement extends Element {
   getText: () => string;
   setText: (value: string) => void;
 }

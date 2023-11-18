@@ -20,6 +20,7 @@ export default defineConfig({
         'src/entities/EntityProps.ts',
         'src/entities/behaviors/EntityBehavior.ts',
         'src/events/CollisionEvent.ts',
+        'src/events/CustomEvent.ts',
         'src/events/DestroyEvent.ts',
         'src/events/EntityInitEvent.ts',
         'src/events/KeyDownEvent.ts',
