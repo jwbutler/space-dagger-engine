@@ -5,10 +5,11 @@ import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 import { Engine } from '../core/Engine';
 import { CustomEvent } from '../events/CustomEvent';
+import { DestroyEvent } from '../events';
 
 export type GlobalScript = Readonly<{
   onTick?: (engine: Engine, event: TickEvent) => void;
-
+  onDestroy?: (engine: Engine, event: DestroyEvent) => void;
   onCustomEvent?: (engine: Engine, event: CustomEvent) => void;
 
   /**

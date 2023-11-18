@@ -5,28 +5,29 @@ import { test, expect, vi } from 'vitest';
 
 test('destroy', () => {
   const entityScript = {
-    onDestroy: () => {}
+    onDestroy: vi.fn(() => {})
+  } as EntityScript;
+  const globalScript = {
+    onDestroy: vi.fn(() => {})
   } as EntityScript;
 
   const entity = {
     getScripts: () => [entityScript]
   } as Entity;
   const scene = {
-    removeEntity: () => {}
+    removeEntity: vi.fn(() => {})
   } as unknown as Scene;
 
   const engine = {
-    getCurrentScene: () => scene
+    getCurrentScene: () => scene,
+    getGlobalScripts: () => [globalScript]
   } as Engine;
-
-  const onDestroy_spy = vi.spyOn(entityScript, 'onDestroy');
-  const removeEntity_spy = vi.spyOn(scene, 'removeEntity');
 
   destroy(entity, engine);
 
-  expect(onDestroy_spy).toHaveBeenCalledWith(entity, engine, { entity });
-  expect(removeEntity_spy).toHaveBeenCalledWith(entity);
-  expect(scene.removeEntity);
+  expect(globalScript.onDestroy).toHaveBeenCalledWith(engine, { entity });
+  expect(entityScript.onDestroy).toHaveBeenCalledWith(entity, engine, { entity });
+  expect(scene.removeEntity).toHaveBeenCalledWith(entity);
 
   vi.clearAllMocks();
 });
