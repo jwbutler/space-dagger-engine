@@ -6,6 +6,7 @@ import { SceneImpl } from '../../src/core/SceneImpl';
 import { EntityScript, GlobalScript } from '../../src/scripts';
 import { SoundPlayer } from '../../src/audio';
 import { Entity } from '../../src/entities';
+import { Mouse } from '../../src/input/Mouse';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 describe('Engine', () => {
@@ -23,6 +24,7 @@ describe('Engine', () => {
     getRect: () => Rect.allBalls()
   } as Camera;
   const keyboard = {} as Keyboard;
+  const mouse = {} as Mouse;
   const soundPlayer = {} as SoundPlayer;
   const scene = {
     getName: () => 'what',
@@ -39,6 +41,7 @@ describe('Engine', () => {
   } as unknown as Graphics;
   const engine: Engine = new EngineImpl({
     keyboard,
+    mouse,
     soundPlayer,
     scenes: [scene],
     initialScene: 'what',
@@ -109,6 +112,7 @@ describe('Engine', () => {
     } as unknown as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      mouse: {} as Mouse,
       soundPlayer: {} as SoundPlayer,
       scenes: [scene],
       initialScene: 'what',
@@ -139,6 +143,7 @@ describe('Engine', () => {
     });
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      mouse: {} as Mouse,
       soundPlayer: {} as SoundPlayer,
       scenes: [scene],
       initialScene: 'test',
@@ -166,6 +171,7 @@ describe('Engine', () => {
     } as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      mouse: {} as Mouse,
       soundPlayer: {} as SoundPlayer,
       scenes: [scene],
       initialScene: 'what',
@@ -190,6 +196,7 @@ describe('Engine', () => {
     } as unknown as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      mouse: {} as Mouse,
       soundPlayer: {} as SoundPlayer,
       scenes: [scene],
       initialScene: 'what',
@@ -218,6 +225,7 @@ describe('Engine', () => {
     } as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      mouse: {} as Mouse,
       soundPlayer: {} as SoundPlayer,
       scenes: [scene],
       initialScene: 'what',
@@ -260,6 +268,7 @@ describe('Engine', () => {
     } as Scene;
     const engine = new EngineImpl({
       keyboard: {} as Keyboard,
+      mouse: {} as Mouse,
       soundPlayer: {} as SoundPlayer,
       scenes: [scene],
       initialScene: 'what',

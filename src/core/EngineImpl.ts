@@ -11,12 +11,16 @@ import { SoundPlayer } from '../audio';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 import { CustomEvent } from '../events/CustomEvent';
+import { MouseDownEvent } from '../events/MouseDownEvent';
+import { MouseUpEvent } from '../events/MouseUpEvent';
+import { Mouse } from '../input/Mouse';
 
 export class EngineImpl implements Engine {
   private readonly scenes: Scene[];
   private scene: Scene;
   private readonly globalScripts: GlobalScript[];
   private readonly keyboard: Keyboard;
+  private readonly mouse: Mouse;
   private readonly soundPlayer: SoundPlayer;
   private readonly viewport: Graphics;
   private readonly stringVariables: Record<string, string | null>;
@@ -28,8 +32,16 @@ export class EngineImpl implements Engine {
    */
   private stopLoopCallback: (() => void) | null;
 
-  constructor({ keyboard, soundPlayer, scenes, initialScene, viewport }: EngineProps) {
+  constructor({
+    keyboard,
+    mouse,
+    soundPlayer,
+    scenes,
+    initialScene,
+    viewport
+  }: EngineProps) {
     this.keyboard = keyboard;
+    this.mouse = mouse;
     this.soundPlayer = soundPlayer;
     this.scenes = scenes;
     this.scene = this.getScene(initialScene);
@@ -69,6 +81,8 @@ export class EngineImpl implements Engine {
   clearGlobalScripts = (): void => Arrays.clear(this.globalScripts);
 
   getKeyboard = (): Keyboard => this.keyboard;
+
+  getMouse = (): Mouse => this.mouse;
 
   getSoundPlayer = (): SoundPlayer => this.soundPlayer;
 
@@ -151,6 +165,18 @@ export class EngineImpl implements Engine {
   keyUp = (event: KeyUpEvent): void => {
     for (const script of this.globalScripts) {
       script.onKeyUp?.(event);
+    }
+  };
+
+  mouseDown = (event: MouseDownEvent): void => {
+    for (const script of this.globalScripts) {
+      script.onMouseDown?.(event);
+    }
+  };
+
+  mouseUp = (event: MouseUpEvent): void => {
+    for (const script of this.globalScripts) {
+      script.onMouseUp?.(event);
     }
   };
 

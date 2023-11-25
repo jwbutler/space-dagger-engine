@@ -1,6 +1,6 @@
 import { Dimensions } from '../../geometry/Dimensions';
 
-export const createTiledImage = (
+export const createTiledImage = async (
   image: ImageBitmap,
   dimensions: Dimensions
 ): Promise<ImageBitmap> => {

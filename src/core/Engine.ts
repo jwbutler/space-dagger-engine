@@ -7,6 +7,9 @@ import { SoundPlayer } from '../audio';
 import { KeyDownEvent } from '../events/KeyDownEvent';
 import { KeyUpEvent } from '../events/KeyUpEvent';
 import { CustomEvent } from '../events/CustomEvent';
+import { Mouse } from '../input/Mouse';
+import { MouseDownEvent } from '../events/MouseDownEvent';
+import { MouseUpEvent } from '../events/MouseUpEvent';
 
 export interface Engine {
   getCurrentScene: () => Scene;
@@ -14,6 +17,7 @@ export interface Engine {
   getScene: (name: string) => Scene;
   addScene: (scene: Scene) => void;
   getKeyboard: () => Keyboard;
+  getMouse: () => Mouse;
   getSoundPlayer: () => SoundPlayer;
   getGlobalScripts: () => GlobalScript[];
   addGlobalScript: (script: GlobalScript) => void;
@@ -24,6 +28,8 @@ export interface Engine {
   setStringVariable: (key: string, value: string | null) => void;
   keyDown: (event: KeyDownEvent) => void;
   keyUp: (event: KeyUpEvent) => void;
+  mouseDown: (event: MouseDownEvent) => void;
+  mouseUp: (event: MouseUpEvent) => void;
   broadcastCustomEvent: (event: CustomEvent) => void;
 
   startGameLoop: () => void;
@@ -32,6 +38,7 @@ export interface Engine {
 
 export type EngineProps = Readonly<{
   keyboard: Keyboard;
+  mouse: Mouse;
   soundPlayer: SoundPlayer;
   scenes: Scene[];
   initialScene: string;

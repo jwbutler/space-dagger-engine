@@ -6,6 +6,8 @@ import { KeyUpEvent } from '../events/KeyUpEvent';
 import { Engine } from '../core/Engine';
 import { CustomEvent } from '../events/CustomEvent';
 import { DestroyEvent } from '../events';
+import { MouseUpEvent } from '../events/MouseUpEvent';
+import { MouseDownEvent } from '../events/MouseDownEvent';
 
 export type GlobalScript = Readonly<{
   onTick?: (engine: Engine, event: TickEvent) => void;
@@ -23,4 +25,7 @@ export type GlobalScript = Readonly<{
 
   onKeyDown?: (event: KeyDownEvent) => void;
   onKeyUp?: (event: KeyUpEvent) => void;
+
+  onMouseDown?: (event: MouseDownEvent) => void;
+  onMouseUp?: (event: MouseUpEvent) => void;
 }>;

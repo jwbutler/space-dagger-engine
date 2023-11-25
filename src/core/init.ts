@@ -4,6 +4,7 @@ import { Keyboard } from '../input/Keyboard';
 import { Graphics } from '../graphics/Graphics';
 import { Dimensions } from '../geometry';
 import { SoundPlayer } from '../audio';
+import { Mouse } from '../input/Mouse';
 
 type Props = Readonly<{
   container: HTMLElement;
@@ -19,6 +20,7 @@ export const init = async ({
   initialScene
 }: Props): Promise<Engine> => {
   const keyboard = Keyboard.create();
+  const mouse = Mouse.create();
 
   const viewport = Graphics.create({
     id: 'viewport',
@@ -31,10 +33,12 @@ export const init = async ({
     scenes,
     initialScene,
     keyboard,
+    mouse,
     soundPlayer,
     viewport
   });
   keyboard.registerEventHandlers(window, engine);
+  mouse.registerEventHandlers(window, engine);
 
   return engine;
 };
