@@ -6,6 +6,8 @@ import { Graphics } from '../Graphics';
 interface Meter extends Element {
   getValue: () => number;
   setValue: (value: number) => void;
+  getMaxValue: () => number;
+  setMaxValue: (value: number) => void;
 }
 
 type Props = Readonly<{
@@ -52,6 +54,13 @@ class MeterImpl implements Meter {
   setValue = (value: number): void => {
     check(value >= 0 && value <= this.maxValue);
     this.value = value;
+  };
+
+  getMaxValue = (): number => this.maxValue;
+
+  setMaxValue = (value: number): void => {
+    check(value > 0);
+    this.maxValue = value;
   };
 }
 
