@@ -21,6 +21,16 @@ describe('Meter', () => {
       expect(meter.getValue()).toBe(80);
     });
 
+    test('set invalid value', () => {
+      expect(() => meter.setValue(200)).toThrow();
+    });
+
+    test('get/set max value', () => {
+      meter.setMaxValue(120);
+      expect(meter.getMaxValue()).toBe(120);
+      meter.setMaxValue(100);
+    });
+
     test('render', () => {
       const mockGraphics = {
         drawRect: () => {},
