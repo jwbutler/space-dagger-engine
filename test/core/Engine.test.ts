@@ -262,7 +262,8 @@ describe('Engine', () => {
 
     test('mouseDown', () => {
       const event = {
-        button: MouseButton.LEFT
+        button: MouseButton.LEFT,
+        coordinates: { x: 1, y: 2 }
       };
       engine.mouseDown(event);
       expect(script.onMouseDown).toHaveBeenCalledWith(event);
@@ -270,7 +271,8 @@ describe('Engine', () => {
 
     test('mouseUp', () => {
       const event = {
-        button: MouseButton.LEFT
+        button: MouseButton.LEFT,
+        coordinates: { x: 3, y: 4 }
       };
       engine.mouseUp(event);
       expect(script.onMouseUp).toHaveBeenCalledWith(event);
