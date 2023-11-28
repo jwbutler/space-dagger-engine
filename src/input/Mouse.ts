@@ -22,34 +22,45 @@ const createMouseImpl = (): Mouse => {
 
   const mouseDown = (event: MouseEvent) => {
     checkNotNull(engine);
+    const { x, y } = event;
     const buttons = getMouseButtons(event);
     for (const button of buttons) {
       heldButtons.add(button);
     }
     for (const button of buttons) {
-      engine!.mouseDown({ button });
+      engine!.mouseDown({ button, coordinates: { x, y } });
     }
   };
 
   const mouseUp = (event: MouseEvent) => {
     checkNotNull(engine);
+    const { x, y } = event;
     const buttons = getMouseButtons(event);
     for (const button of buttons) {
       heldButtons.delete(button);
     }
     for (const button of buttons) {
-      engine!.mouseUp({ button });
+      engine!.mouseUp({ button, coordinates: { x, y } });
     }
   };
 
-  const touchStart = () => {
+  const touchStart = (event: TouchEvent) => {
     checkNotNull(engine);
-    engine!.mouseDown({ button: MouseButton.LEFT });
+    const firstTouch = event.touches[0];
+    if (firstTouch) {
+      const coordinates = { x: firstTouch.pageX, y: firstTouch.pageY };
+      engine!.mouseDown({ button: MouseButton.LEFT, coordinates });
+    }
   };
 
-  const touchEnd = () => {
+  const touchEnd = (event: TouchEvent) => {
     checkNotNull(engine);
-    engine!.mouseUp({ button: MouseButton.LEFT });
+
+    const firstTouch = event.touches[0];
+    if (firstTouch) {
+      const coordinates = { x: firstTouch.pageX, y: firstTouch.pageY };
+      engine!.mouseUp({ button: MouseButton.LEFT, coordinates });
+    }
   };
 
   const registerEventHandlers = (window: Window, _engine: Engine) => {
@@ -73,19 +84,20 @@ const createMouseImpl = (): Mouse => {
   };
 };
 
-const getMouseButtons = (event: MouseEvent): MouseButton[] => {
-  const buttons = [];
+/** exported for testing */
+export const getMouseButtons = (event: MouseEvent): Set<MouseButton> => {
+  const buttons = new Set<MouseButton>();
   if ((event.buttons & 1) > 0) {
     // support Apple's bullshit
     if (event.ctrlKey) {
-      buttons.push(MouseButton.RIGHT);
+      buttons.add(MouseButton.RIGHT);
     } else {
-      buttons.push(MouseButton.LEFT);
+      buttons.add(MouseButton.LEFT);
     }
   }
-  if ((event.buttons & 1) > 0 && event.ctrlKey) buttons.push(MouseButton.RIGHT);
-  if ((event.buttons & 2) > 0) buttons.push(MouseButton.RIGHT);
-  if ((event.buttons & 4) > 0) buttons.push(MouseButton.MIDDLE);
+  if ((event.buttons & 1) > 0 && event.ctrlKey) buttons.add(MouseButton.RIGHT);
+  if ((event.buttons & 2) > 0) buttons.add(MouseButton.RIGHT);
+  if ((event.buttons & 4) > 0) buttons.add(MouseButton.MIDDLE);
   return buttons;
 };
 

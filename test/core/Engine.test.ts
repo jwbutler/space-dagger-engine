@@ -1,5 +1,5 @@
 import { EngineImpl } from '../../src/core/EngineImpl';
-import { Camera, Engine, Keyboard, ModifierKey, Scene } from '../../src';
+import { Camera, Engine, Keyboard, ModifierKey, MouseButton, Scene } from '../../src';
 import { Graphics } from '../../src/graphics';
 import { Dimensions, Rect } from '../../src/geometry';
 import { SceneImpl } from '../../src/core/SceneImpl';
@@ -50,6 +50,7 @@ describe('Engine', () => {
 
   test('init', () => {
     expect(engine.getKeyboard()).toBe(keyboard);
+    expect(engine.getMouse()).toBe(mouse);
     expect(engine.getSoundPlayer()).toBe(soundPlayer);
     expect(engine.getCurrentScene()).toBe(scene);
     expect(engine.getViewport()).toBe(viewport);
@@ -219,7 +220,7 @@ describe('Engine', () => {
     vi.clearAllMocks();
   });
 
-  describe('key handlers', () => {
+  describe('key/mouse handlers', () => {
     const scene = {
       getName: () => 'what'
     } as Scene;
@@ -233,32 +234,46 @@ describe('Engine', () => {
     });
 
     const script = {
-      onKeyDown: () => {},
-      onKeyUp: () => {}
+      onKeyDown: vi.fn(() => {}),
+      onKeyUp: vi.fn(() => {}),
+      onMouseDown: vi.fn(() => {}),
+      onMouseUp: vi.fn(() => {})
     } as GlobalScript;
     engine.addGlobalScript(script);
 
     test('keyDown', () => {
-      const onKeyDown_spy = vi.spyOn(script, 'onKeyDown');
       const event = {
         code: 'Enter',
         modifiers: new Set([ModifierKey.CTRL]),
         timestamp: 1234
       };
       engine.keyDown(event);
-      expect(onKeyDown_spy).toHaveBeenCalledWith(event);
-      onKeyDown_spy.mockClear();
+      expect(script.onKeyDown).toHaveBeenCalledWith(event);
     });
 
     test('keyUp', () => {
-      const onKeyUp_spy = vi.spyOn(script, 'onKeyUp');
       const event = {
         code: 'Enter',
         timestamp: 1234
       };
       engine.keyUp(event);
-      expect(onKeyUp_spy).toHaveBeenCalledWith(event);
-      onKeyUp_spy.mockClear();
+      expect(script.onKeyUp).toHaveBeenCalledWith(event);
+    });
+
+    test('mouseDown', () => {
+      const event = {
+        button: MouseButton.LEFT
+      };
+      engine.mouseDown(event);
+      expect(script.onMouseDown).toHaveBeenCalledWith(event);
+    });
+
+    test('mouseUp', () => {
+      const event = {
+        button: MouseButton.LEFT
+      };
+      engine.mouseUp(event);
+      expect(script.onMouseUp).toHaveBeenCalledWith(event);
     });
   });
 
