@@ -4,13 +4,14 @@ import { applyAcceleration } from '../entities/functions/applyAcceleration';
 import { applyFriction } from '../entities/functions/applyFriction';
 
 export const update = (engine: Engine, dt: number): void => {
-  const scene = engine.getCurrentScene();
-
   // Phase 1 - execute global scripts
   // Includes plugins
   for (const script of engine.getGlobalScripts()) {
     script.onTick?.(engine, { dt });
   }
+
+  // Note - `engine.getCurrentScene()` can change during global scripts
+  const scene = engine.getCurrentScene();
 
   // Phase 2 - execute everything's "update" event
 
