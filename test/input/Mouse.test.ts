@@ -25,7 +25,7 @@ describe('Mouse', () => {
     expect(mouse.getHeldButtons()).toEqual([MouseButton.RIGHT]);
     expect(engine.mouseDown).toHaveBeenCalledWith({
       button: MouseButton.RIGHT,
-      coordinates: { x: 123, y: 456 }
+      pixel: { x: 123, y: 456 }
     });
   });
 
@@ -34,7 +34,7 @@ describe('Mouse', () => {
     expect(mouse.getHeldButtons()).toEqual([MouseButton.RIGHT]);
     expect(engine.mouseUp).toHaveBeenCalledWith({
       button: MouseButton.LEFT,
-      coordinates: { x: 234, y: 567 }
+      pixel: { x: 234, y: 567 }
     });
   });
 
@@ -44,11 +44,11 @@ describe('Mouse', () => {
     expect(mouse.getHeldButtons()).toEqual([]);
     expect(engine.mouseUp).toHaveBeenCalledWith({
       button: MouseButton.LEFT,
-      coordinates: { x: 67, y: 89 }
+      pixel: { x: 67, y: 89 }
     });
     expect(engine.mouseUp).toHaveBeenCalledWith({
       button: MouseButton.RIGHT,
-      coordinates: { x: 67, y: 89 }
+      pixel: { x: 67, y: 89 }
     });
   });
 
@@ -58,7 +58,7 @@ describe('Mouse', () => {
     } as unknown as TouchEvent);
     expect(engine.mouseDown).toHaveBeenCalledWith({
       button: MouseButton.LEFT,
-      coordinates: { x: 33, y: 44 }
+      pixel: { x: 33, y: 44 }
     });
   });
 
@@ -68,7 +68,7 @@ describe('Mouse', () => {
     } as unknown as TouchEvent);
     expect(engine.mouseUp).toHaveBeenCalledWith({
       button: MouseButton.LEFT,
-      coordinates: { x: 55, y: 66 }
+      pixel: { x: 55, y: 66 }
     });
   });
 });

@@ -28,7 +28,7 @@ const createMouseImpl = (): Mouse => {
       heldButtons.add(button);
     }
     for (const button of buttons) {
-      engine!.mouseDown({ button, coordinates: { x, y } });
+      engine!.mouseDown({ button, pixel: { x, y } });
     }
   };
 
@@ -40,7 +40,7 @@ const createMouseImpl = (): Mouse => {
       heldButtons.delete(button);
     }
     for (const button of buttons) {
-      engine!.mouseUp({ button, coordinates: { x, y } });
+      engine!.mouseUp({ button, pixel: { x, y } });
     }
   };
 
@@ -48,8 +48,8 @@ const createMouseImpl = (): Mouse => {
     checkNotNull(engine);
     const firstTouch = event.touches[0];
     if (firstTouch) {
-      const coordinates = { x: firstTouch.pageX, y: firstTouch.pageY };
-      engine!.mouseDown({ button: MouseButton.LEFT, coordinates });
+      const pixel = { x: firstTouch.pageX, y: firstTouch.pageY };
+      engine!.mouseDown({ button: MouseButton.LEFT, pixel });
     }
   };
 
@@ -58,8 +58,8 @@ const createMouseImpl = (): Mouse => {
 
     const firstTouch = event.touches[0];
     if (firstTouch) {
-      const coordinates = { x: firstTouch.pageX, y: firstTouch.pageY };
-      engine!.mouseUp({ button: MouseButton.LEFT, coordinates });
+      const pixel = { x: firstTouch.pageX, y: firstTouch.pageY };
+      engine!.mouseUp({ button: MouseButton.LEFT, pixel });
     }
   };
 

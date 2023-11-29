@@ -1,5 +1,9 @@
 import { Vector } from './Vector';
 
+/**
+ * A point relative to an arbitrary coordinate system, with either
+ * integer or floating-point coordinates.
+ */
 export type Coordinates = Readonly<{
   x: number;
   y: number;

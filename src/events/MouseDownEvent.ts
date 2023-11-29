@@ -1,7 +1,7 @@
 import { MouseButton } from '../input/Mouse';
-import { Coordinates } from '../geometry';
+import { Pixel } from '../geometry/Pixel';
 
 export type MouseDownEvent = Readonly<{
   button: MouseButton;
-  coordinates: Coordinates;
+  pixel: Pixel;
 }>;
