@@ -46,14 +46,17 @@ export namespace Rect {
     );
   };
 
-  export const contains = (first: Rect, second: Rect): boolean => {
-    return (
-      second.left >= first.left &&
-      second.left + second.width <= first.left + first.width &&
-      second.top >= first.top &&
-      second.top + second.height <= first.top + first.height
-    );
-  };
+  export const contains = (first: Rect, second: Rect): boolean =>
+    second.left >= first.left &&
+    second.left + second.width <= first.left + first.width &&
+    second.top >= first.top &&
+    second.top + second.height <= first.top + first.height;
+
+  export const containsPoint = (rect: Rect, { x, y }: Coordinates): boolean =>
+    x >= rect.left &&
+    x <= rect.left + rect.width &&
+    y >= rect.top &&
+    y <= rect.top + rect.height;
 
   export const getTopLeft = (rect: Rect): Coordinates => ({
     x: rect.left,

@@ -65,6 +65,17 @@ describe('Rect', () => {
     expect(Rect.contains(first, second)).toBe(true);
   });
 
+  test('containsPoint', () => {
+    const rect = {
+      left: 1,
+      top: 2,
+      width: 3,
+      height: 4
+    };
+    const point = { x: 2, y: 2 };
+    expect(Rect.containsPoint(rect, point)).toBe(true);
+  });
+
   test('getTopLeft', () => {
     const rect = { left: 2, top: 4, width: 6, height: 8 };
     expect(Rect.getTopLeft(rect)).toEqual({ x: 2, y: 4 });
